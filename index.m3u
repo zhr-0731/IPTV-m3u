@@ -21,5 +21,5 @@ http://39.134.243.204:6610/180000001001/00000001000000000008000000047430/main.m3
 http://tvgslb.hn.chinamobile.com:8089/180000001001/32024050609475789931438327485597/index.m3u8
 #EXTINF:-1,UNTV
 https://cdnapi.kaltura.com/p/2503451/sp/250345100/playManifest/entryId/1_gb6tjmle/protocol/https/format/applehttp/a.m3u8
-#EXTINF:-1,金砖国家电视台中文频道
+#EXTINF:-1 tvg-id="tvbrics.com" tvg-name="TV BRICS" tvg-country="ru" tvg-language="Chinese" tvg-logo="https://zuiai.tv/zb_users/upload/2023/10/2023100658644681.jpg" group-title="Documentary",金砖国家电视台中文频道
 https://chibrics.mediacdn.ru/cdn/brics/chinese/playlist.m3u8
