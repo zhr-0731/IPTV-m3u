@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="https://baoer.org.cn/e.xml"
 # 以下为央视分类
-#EXTINF:-1 tvg-id="CCTV13.cn" group-title="央视",CCTV-13
+#EXTINF:-1 tvg-id="CCTV13.cn" group-title="央视",CCTV13
 https://ldncctvwbcdks.v.kcdnvip.com/ldncctvwbcd/cdrmldcctv13_1/index.m3u8?BR=td&region=beijing
 #EXTINF:-1 tvg-id="CGTN.cn" group-title="央视",CGTN
 https://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
