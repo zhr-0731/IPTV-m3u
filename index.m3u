@@ -1,30 +1,30 @@
 #EXTM3U x-tvg-url="https://baoer.org.cn/e.xml"
-# 以下为央视分类
-#EXTINF:-1 tvg-id="CCTV13.cn" group-title="央视",CCTV13
+# 央视分类
+#EXTINF:-1 tvg-id="CCTV13.cn" tvg-logo="https://ts1.tc.mm.bing.net/th/id/R-C.575f1359af699067b7fe7aded28529d0?rik=0M9URAGXQPncZQ&riu=http%3a%2f%2ftv.haoqu99.com%2fd%2ffile%2f2014%2f0111%2f20140111090148166.jpg&ehk=5IEJRAhE91XzaV0NgKvVSmTJHkAjx%2ft5nWQUTS5c5bQ%3d&risl=&pid=ImgRaw&r=0" group-title="央视",CCTV-13
 https://ldncctvwbcdks.v.kcdnvip.com/ldncctvwbcd/cdrmldcctv13_1/index.m3u8?BR=td&region=beijing
-#EXTINF:-1 tvg-id="CGTN.cn" group-title="央视",CGTN
+#EXTINF:-1 tvg-id="CGTN.cn" tvg-logo="https://www.sj51.net/wp-content/uploads/2023/10/2023100816130793-750x500.png" group-title="央视",CGTN
 https://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
-#EXTINF:-1 tvg-id="CGTNDoc.cn" group-title="央视",CGTN Documentary
+#EXTINF:-1 tvg-id="CGTNDoc.cn" tvg-logo="https://www.sj51.net/wp-content/uploads/2023/10/2023100816130793-750x500.png" group-title="央视",CGTN Documentary
 https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
 
-# 以下为卫视分类
-#EXTINF:-1 tvg-id="ZJWS.cn" group-title="卫视",浙江卫视
+# 卫视分类
+#EXTINF:-1 tvg-id="ZJWS.cn" tvg-logo="https://image.16pic.com/00/05/75/16pic_575308_s.jpg?imageView2/0/format/png" group-title="卫视",浙江卫视
 https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8
-#EXTINF:-1 tvg-id="HNWS.cn" group-title="卫视",湖南卫视
+#EXTINF:-1 tvg-id="HNWS.cn" tvg-logo="https://www.3wen.com/userfiles/images/11p.jpg" group-title="卫视",湖南卫视
 http://tvtj.jxwltx.com:8003/hunanws.m3u8
 
-# 以下为地方分类
-#EXTINF:-1 group-title="地方",长沙新闻
+# 地方分类
+#EXTINF:-1 tvg-logo="https://o.bysjy.com.cn/company/login/2022-05-07/1651885238-6299.jpg" group-title="地方",长沙新闻
 http://39.134.13.35:6610/180000001001/00000001000000000008000000047429/index.m3u8?
-#EXTINF:-1 group-title="地方",长沙政法频道
+#EXTINF:-1 tvg-logo="https://o.bysjy.com.cn/company/login/2022-05-07/1651885238-6299.jpg" group-title="地方",长沙政法频道
 http://39.134.243.204:6610/180000001001/00000001000000000008000000047430/main.m3u8?IASHttpSessionId=RR986320251220094729586479&ispcode=20
-#EXTINF:-1 group-title="地方",湖南经视
+#EXTINF:-1 tvg-logo="https://www.3wen.com/userfiles/images/11p.jpg" group-title="地方",湖南经视
 http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-2.m3u8
-#EXTINF:-1 group-title="地方",长沙文旅
+#EXTINF:-1 tvg-logo="https://o.bysjy.com.cn/company/login/2022-05-07/1651885238-6299.jpg" group-title="地方",长沙文旅
 http://tvgslb.hn.chinamobile.com:8089/180000001001/32024050609475789931438327485597/index.m3u8
-#EXTINF:-1 group-title="地方",金鹰卡通
+#EXTINF:-1 tvg-logo="https://www.3wen.com/userfiles/images/11p.jpg" group-title="地方",金鹰卡通
 http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-5.m3u8
 
-# 以下为其他分类
-#EXTINF:-1 group-title="其他",UNTV
+# 其他分类
+#EXTINF:-1 tvg-logo="https://cdn.saofm.com/wp-content/uploads/20250314121138324.jpg" group-title="其他",UNTV
 https://cdnapi.kaltura.com/p/2503451/sp/250345100/playManifest/entryId/1_gb6tjmle/protocol/https/format/applehttp/a.m3u8
