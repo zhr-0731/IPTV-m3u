@@ -7,8 +7,10 @@ https://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
 https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
 #EXTINF:-1,浙江卫视
 https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8
-#EXTINF:-1,湖南卫视
+
+#EXTINF:-1 tvg-id="mgtv.com" tvg-name="湖南卫视" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://cn.bing.com/th?id=OSK.23fe50fdd5a63984009403b2619596c6&w=175&h=120&qlt=120&c=6&rs=1&cdv=1&pid=RS" group-title="卫视",湖南卫视
 http://tvtj.jxwltx.com:8003/hunanws.m3u8
+
 #EXTINF:-1,金鹰卡通
 http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-5.m3u8
 #EXTINF:-1,湖南经视
@@ -19,7 +21,7 @@ http://39.134.13.35:6610/180000001001/00000001000000000008000000047429/index.m3u
 http://39.134.243.204:6610/180000001001/00000001000000000008000000047430/main.m3u8?IASHttpSessionId=RR986320251220094729586479&ispcode=20
 #EXTINF:-1,长沙文旅
 http://tvgslb.hn.chinamobile.com:8089/180000001001/32024050609475789931438327485597/index.m3u8
-#EXTINF:-1 tvg-id="tvbrics.com" tvg-name="TV BRICS" tvg-country="ru" tvg-language="Chinese" tvg-logo="https://zuiai.tv/zb_users/upload/2023/10/2023100658644681.jpg" group-title="Documentary",金砖国家电视台中文频道
+#EXTINF:-1 tvg-id="tvbrics.com" tvg-name="TV BRICS" tvg-country="ru" tvg-language="Chinese" tvg-logo="https://zuiai.tv/zb_users/upload/2023/10/2023100658644681.jpg" group-title="其他",金砖国家电视台中文频道
 https://chibrics.mediacdn.ru/cdn/brics/chinese/playlist.m3u8
-#EXTINF:-1 tvg-id="sao.fm" tvg-name="UN" tvg-country="ru" tvg-language="English" tvg-logo="https://cdn.saofm.com/wp-content/uploads/20250314121138324.jpg" group-title="Documentary",UNTV
+#EXTINF:-1 tvg-id="sao.fm" tvg-name="UN" tvg-country="us" tvg-language="English" tvg-logo="https://cdn.saofm.com/wp-content/uploads/20250314121138324.jpg" group-title="其他",UNTV
 https://cdnapi.kaltura.com/p/2503451/sp/250345100/playManifest/entryId/1_gb6tjmle/protocol/https/format/applehttp/a.m3u8
