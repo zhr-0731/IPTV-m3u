@@ -1,29 +1,30 @@
-#EXTM3U x-tvg-url="" group-title="央视"
-#EXTINF:-1 tvg-id="CCTV13.cn" tvg-name="CCTV-13" tvg-logo="" group-title="央视",CCTV-13
+#EXTM3U x-tvg-url="https://baoer.org.cn/e.xml"
+# 以下为央视分类
+#EXTINF:-1 tvg-id="CCTV13.cn" group-title="央视",CCTV-13
 https://ldncctvwbcdks.v.kcdnvip.com/ldncctvwbcd/cdrmldcctv13_1/index.m3u8?BR=td&region=beijing
-#EXTINF:-1 tvg-id="CGTN.cn" tvg-name="CGTN" tvg-logo="" group-title="央视",CGTN
+#EXTINF:-1 tvg-id="CGTN.cn" group-title="央视",CGTN
 https://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
-#EXTINF:-1 tvg-id="CGTNDoc.cn" tvg-name="CGTN Documentary" tvg-logo="" group-title="央视",CGTN Documentary
+#EXTINF:-1 tvg-id="CGTNDoc.cn" group-title="央视",CGTN Documentary
 https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
 
-#EXTM3U x-tvg-url="" group-title="卫视"
-#EXTINF:-1 tvg-id="ZJWS.cn" tvg-name="浙江卫视" tvg-logo="" group-title="卫视",浙江卫视
+# 以下为卫视分类
+#EXTINF:-1 tvg-id="ZJWS.cn" group-title="卫视",浙江卫视
 https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8
-#EXTINF:-1 tvg-id="HNWS.cn" tvg-name="湖南卫视" tvg-logo="" group-title="卫视",湖南卫视
+#EXTINF:-1 tvg-id="HNWS.cn" group-title="卫视",湖南卫视
 http://tvtj.jxwltx.com:8003/hunanws.m3u8
 
-#EXTM3U x-tvg-url="" group-title="地方"
-#EXTINF:-1 tvg-name="长沙新闻" tvg-logo="" group-title="地方",长沙新闻
+# 以下为地方分类
+#EXTINF:-1 group-title="地方",长沙新闻
 http://39.134.13.35:6610/180000001001/00000001000000000008000000047429/index.m3u8?
-#EXTINF:-1 tvg-name="长沙政法频道" tvg-logo="" group-title="地方",长沙政法频道
+#EXTINF:-1 group-title="地方",长沙政法频道
 http://39.134.243.204:6610/180000001001/00000001000000000008000000047430/main.m3u8?IASHttpSessionId=RR986320251220094729586479&ispcode=20
-#EXTINF:-1 tvg-name="湖南经视" tvg-logo="" group-title="地方",湖南经视
+#EXTINF:-1 group-title="地方",湖南经视
 http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-2.m3u8
-#EXTINF:-1 tvg-name="长沙文旅" tvg-logo="" group-title="地方",长沙文旅
+#EXTINF:-1 group-title="地方",长沙文旅
 http://tvgslb.hn.chinamobile.com:8089/180000001001/32024050609475789931438327485597/index.m3u8
-#EXTINF:-1 tvg-name="金鹰卡通" tvg-logo="" group-title="地方",金鹰卡通
+#EXTINF:-1 group-title="地方",金鹰卡通
 http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-5.m3u8
 
-#EXTM3U x-tvg-url="" group-title="其他"
-#EXTINF:-1 tvg-name="UNTV" tvg-logo="" group-title="其他",UNTV
+# 以下为其他分类
+#EXTINF:-1 group-title="其他",UNTV
 https://cdnapi.kaltura.com/p/2503451/sp/250345100/playManifest/entryId/1_gb6tjmle/protocol/https/format/applehttp/a.m3u8
