@@ -4,8 +4,12 @@
 http://tvlist.top/jd/index.php?id=cctv1&qt=118.212.78.251:8014
 #EXTINF:-1 tvg-id="CCTV10.cn" tvg-logo="https://www.5icctv.com/wp-content/uploads/2022/04/3-1.jpg" group-title="央视",CCTV10
 http://hlszymgsplive.miguvideo.com:8080/migu/kailu/cctv10hd265/54/20200407/index.m3u8?msisdn=faa141c962476b57c31730fcb750523f&mdspid=&spid=699004&netType=0&sid=5500212874&pid=2028597139&timestamp=20251227202413&Channel_ID=0116_2600037000-99000-200300220100002&ProgramID=624878405&ParentNodeID=-99&assertID=5500212874&client_ip=58.22.56.206&SecurityKey=20251227202413&promotionId=&mvid=5100001696&mcid=500020&playurlVersion=WX-A1-8.12.2-RELEASE&userid=1831293380&jmhm=faa141c962476b57c31730fcb750523f&videocodec=h265&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&encrypt=e24aeaf25a1bda69bdf6ed2c5b9c6801&sv=10004&ct=android
+#EXTINF:-1 tvg-id="CCTV12.cn" tvg-logo="https://ts2.tc.mm.bing.net/th/id/OIP-C.hUp4Vl82-JwUq2pfyjkPtAHaDd?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="央视",CCTV12
+https://stream1.freetv.fun/4a3f1137679e24425c26c8de0e832aeb9ba7e71ca4c09b2cd42e409186f53abf.m3u8
 #EXTINF:-1 tvg-id="CCTV13.cn" tvg-logo="https://ts1.tc.mm.bing.net/th/id/R-C.575f1359af699067b7fe7aded28529d0?rik=0M9URAGXQPncZQ&riu=http%3a%2f%2ftv.haoqu99.com%2fd%2ffile%2f2014%2f0111%2f20140111090148166.jpg&ehk=5IEJRAhE91XzaV0NgKvVSmTJHkAjx%2ft5nWQUTS5c5bQ%3d&risl=&pid=ImgRaw&r=0" group-title="央视",CCTV13
 http://nn.7x9d.cn/xzc2.php?ua=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgNi4xOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTA2LjAuMC4wIFNhZmFyaS81MzcuMzY=&hls=aHR0cDovLzIyMi44NS4xOTguOTI6ODAwMC9obHMvMTIvaW5kZXgubTN1OA==
+#EXTINF:-1 tvg-id="CCTV14.cn" tvg-logo="https://ts1.tc.mm.bing.net/th/id/R-C.eeb69a51b354acdefc0dfd4a3153a0ad?rik=t6rf6JpVHOwfLw&riu=http%3a%2f%2fwww.kuaipng.com%2fUploads%2fpic%2fw%2f2020%2f04-06%2f77279%2fwater_77279_260_111.08.png&ehk=YchkQ2pwe8YCK4Sd9Y2EeVTi0vysdOl65Vu6IujfXpQ%3d&risl=&pid=ImgRaw&r=0" group-title="央视",CCTV14
+https://stream1.freetv.fun/cctv14hd-1.m3u8
 #EXTINF:-1 tvg-id="CGTN.cn" tvg-logo="https://www.sj51.net/wp-content/uploads/2023/10/2023100816130793-750x500.png" group-title="央视",CGTN
 https://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
 #EXTINF:-1 tvg-id="CGTNDoc.cn" tvg-logo="https://www.sj51.net/wp-content/uploads/2023/10/2023100816130793-750x500.png" group-title="央视",CGTN Documentary
