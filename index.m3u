@@ -36,3 +36,7 @@ http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-5.m3u8
 # 其他分类
 #EXTINF:-1 tvg-logo="https://cdn.saofm.com/wp-content/uploads/20250314121138324.jpg" group-title="其他",UNTV
 https://cdnapi.kaltura.com/p/2503451/sp/250345100/playManifest/entryId/1_gb6tjmle/protocol/https/format/applehttp/a.m3u8
+#EXTINF:-1 tvg-logo="https://ts1.tc.mm.bing.net/th/id/R-C.bff8d8783345c0af9bad0355f6f764e7?rik=MNqKHkp4T5xY%2fA&riu=http%3a%2f%2fn.sinaimg.cn%2ftranslate%2f20171010%2fY2D--fymrqmq3626927.jpg&ehk=UCNXFwxStg%2bcH%2faJYd651%2bGCx1ZgcZ70%2bKrJl4LFk7E%3d&risl=&pid=ImgRaw&r=0" group-title="其他",《十八洞村》
+https://m3u8ipay1.vodfile.m1905.com/movie/moss/2025/04/01/m20250401NHKV4TOKNVFYUXAD/4672568434CD8D381C6B83899.m3u8?tm=1766966113&sign=db70bf1a110cb8067c35844c1ea10191
+#EXTINF:-1 tvg-logo="https://image11.m1905.cn/uploadfile/2023/0301/20230301101005694863.jpg" group-title="其他",《长沙夜生活》
+https://m3u8i1.vodfile.m1905.com/movie/moss/2025/04/01/m20250401NHKV4TOKNVFYUXAD/F940B64D12CD75A60CFFF03BF.m3u8?tm=1766966607&sign=cc4a397b7d6c35ccb2b8e33d75e5d66d
