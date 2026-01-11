@@ -1,12 +1,12 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="ximalaya.fm"tvg-name="金鹰955" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2014/0606/20140606062037891.jpg" group-title="湖南电台",金鹰955
+#EXTINF:-1 tvg-id="ximalaya.fm" tvg-name="金鹰955" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2014/0606/20140606062037891.jpg" group-title="湖南电台",金鹰955
 https://rscdn.ajmide.com/r_1700/nglive_1700.m3u8
 
-#EXTINF:-1 tvg-id="hunjtgb" tvg-name="湖南交通广播" tvg-country="cn" tvg-language="Chinese" group-title="湖南电台",湖南交通广播
+#EXTINF:-1 tvg-id="hunjtgb" tvg-name="湖南交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2016/0415/20160415120156858.png" group-title="湖南电台",湖南交通广播
 http://satellitepull.cnr.cn/live/wx32hunjtgb/playlist.m3u8
 
-#EXTINF:-1 tvg-id="xxzs" tvg-name="潇湘之声" tvg-country="cn" tvg-language="Chinese" group-title="湖南电台",潇湘之声
+#EXTINF:-1 tvg-id="xxzs" tvg-name="潇湘之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group73/M05/84/0B/wKgO216Byl6x2XQiAACCjBEkvO4721.png!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南电台",潇湘之声
 http://a.live.hnradio.com/zxpd/radio120k_zxpd.m3u8?auth_key=1588751208-0-0-3440555a157a45fdcbdb7840504278c5
 
-#EXTINF:-1 tvg-id="zgzs" tvg-name="中国之声" tvg-country="cn" tvg-language="Chinese" group-title="中央电台",中国之声
+#EXTINF:-1 tvg-id="zgzs" tvg-name="中国之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ts3.tc.mm.bing.net/th/id/OIP-C.ftKZMnFkgsd9UANLaAXzCQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="中央电台",中国之声
 http://ngcdn001.cnr.cn/live/zgzs/index.m3u8
