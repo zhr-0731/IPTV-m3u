@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zhr的IPTV直播</title>
+    <meta name="description" content="动态IPTV直播列表">
+    <link rel="icon" href="https://s41.ax1x.com/2025/12/07/pZnSiid.png" type="image/png">
+    <style>
+        :root {
+            --ghost-accent-color: #59c090;
+            --text-color: #333;
+            --bg-color: #fff;
+            --light-gray: #f5f5f5;
+            --border-color: #eaeaea;
+            --font-serif: 'Noto Serif SC', serif;
+            --font-sans: 'Noto Sans SC', sans-serif;
+            --test-color: #ff6b6b;
+            --nav-color: #4a90e2;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-sans); color: var(--text-color); background-color: var(--bg-color); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
+        a:hover { color: var(--ghost-accent-color); }
+        img { max-width: 100%; height: auto; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        
+        /* 头部 */
+        header {
+            position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border-color);
+        }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; }
+        .logo { display: flex; align-items: center; }
+        .logo img { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; }
+        .logo-text { font-weight: bold; font-size: 1.2rem; }
+        nav ul { display: flex; list-style: none; align-items: center; }
+        nav li { margin-left: 25px; }
+        nav a { font-size: 0.9rem; font-weight: 500; }
+        .back-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--text-color); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s; }
+        .back-btn:hover { background: var(--light-gray); }
+        
+        /* 主要内容区 - 两栏布局 */
+        .main-content { padding: 30px 0; flex: 1; }
+        .tv-layout { display: flex; gap: 30px; }
+        
+        /* 左侧播放器 */
+        .player-section { flex: 3; min-width: 0; }
+        .tv-player-container {
+            position: relative; width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); background-color: #000; margin-bottom: 20px;
+        }
+        #hunanTVPlayer { 
+            width: 100%; 
+            height: 500px; 
+            background-color: #000; 
+            /* 隐藏浏览器原生控制器 */
+            &::-webkit-media-controls { display: none !important; }
+            &::-webkit-media-controls-enclosure { display: none !important; }
+            &::-webkit-media-controls-panel { display: none !important; }
+            &::-webkit-media-controls-play-button { display: none !important; }
+            &::-webkit-media-controls-timeline { display: none !important; }
+            &::-webkit-media-controls-current-time-display { display: none !important; }
+            &::-webkit-media-controls-time-remaining-display { display: none !important; }
+            &::-webkit-media-controls-timeline-container { display: none !important; }
+            &::-webkit-media-controls-volume-slider-container { display: none !important; }
+            &::-webkit-media-controls-volume-slider { display: none !important; }
+            &::-webkit-media-controls-mute-button { display: none !important; }
+            &::-webkit-media-controls-toggle-closed-captions-button { display: none !important; }
+            &::-webkit-media-controls-fullscreen-button { display: none !important; }
+        }
+        
+        /* 自定义控制条 */
+        .custom-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: opacity 0.3s;
+            z-index: 5;
+        }
+        
+        .controls-left, .controls-center, .controls-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .control-btn.nav-btn {
+            background: rgba(74, 144, 226, 0.7);
+        }
+        
+        .control-btn.nav-btn:hover {
+            background: rgba(74, 144, 226, 0.9);
+        }
+        
+        .control-btn.test-btn {
+            background: rgba(255, 107, 107, 0.7);
+        }
+        
+        .control-btn.test-btn:hover {
+            background: rgba(255, 107, 107, 0.9);
+        }
+        
+        .quality-selector {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            min-width: 100px;
+        }
+        
+        .quality-selector option {
+            background: #333;
+            color: white;
+        }
+        
+        .progress-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin: 0 15px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--ghost-accent-color);
+            border-radius: 2px;
+            width: 0%;
+            position: relative;
+        }
+        
+        .progress-time {
+            position: absolute;
+            top: -25px;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: none;
+        }
+        
+        .progress-container:hover .progress-time {
+            display: block;
+        }
+        
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .volume-level {
+            height: 100%;
+            background: white;
+            border-radius: 2px;
+            width: 70%;
+        }
+        
+        /* 控制按钮区域 */
+        .tv-controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .tv-control-btn { background: var(--ghost-accent-color); border: none; color: white; padding: 10px 20px; border-radius: 30px; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.3s; }
+        .tv-control-btn:hover { background: #4aad7a; transform: translateY(-2px); }
+        .test-btn { background: var(--test-color); }
+        .test-btn:hover { background: #ff5252; }
+        .current-channel-info { margin-top: 15px; padding: 15px; background: var(--light-gray); border-radius: 8px; }
+        .current-channel-info h3 { font-family: var(--font-serif); margin-bottom: 5px; color: var(--text-color); }
+        .current-channel-info p { color: #666; font-size: 0.9rem; }
+        .test-indicator { color: var(--test-color); font-weight: bold; }
+        
+        /* 右侧频道列表 */
+        .channels-section { flex: 2; min-width: 0; max-width: 450px; }
+        .channels-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .channels-title { font-size: 1.5rem; font-family: var(--font-serif); color: var(--text-color); display: flex; align-items: center; }
+        .channels-title::before { content: ""; display: inline-block; width: 6px; height: 24px; background: var(--ghost-accent-color); margin-right: 12px; border-radius: 3px; }
+        .category-filter { padding: 8px 15px; border: 1px solid var(--border-color); border-radius: 20px; background: white; font-size: 0.9rem; color: var(--text-color); cursor: pointer; }
+        .channels-list { height: 600px; overflow-y: auto; padding-right: 5px; }
+        
+        /* 频道项目样式 */
+        .channel-item {
+            display: flex; align-items: center; background: var(--bg-color); border-radius: 10px; padding: 12px 15px; margin-bottom: 12px; border: 1px solid var(--border-color); cursor: pointer; transition: all 0.3s;
+        }
+        .channel-item:hover { border-color: var(--ghost-accent-color); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); transform: translateY(-2px); }
+        .channel-item.active { border-color: var(--ghost-accent-color); background-color: rgba(89, 192, 144, 0.05); }
+        .channel-logo { width: 50px; height: 50px; border-radius: 8px; overflow: hidden; flex-shrink: 0; margin-right: 15px; background-color: #f0f0f0; }
+        .channel-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .channel-info { flex: 1; min-width: 0; }
+        .channel-name { font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .channel-group { font-size: 0.85rem; color: #888; display: inline-block; background: var(--light-gray); padding: 2px 10px; border-radius: 12px; }
+        
+        /* 加载和错误状态 */
+        .loading-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; z-index: 10; border-radius: 12px;
+        }
+        .loading-spinner { width: 40px; height: 40px; border: 4px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: var(--ghost-accent-color); animation: spin 1s ease-in-out infinite; margin-bottom: 15px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .hidden { display: none !important; }
+        
+        /* 页脚 */
+        footer { background: var(--light-gray); padding: 40px 0; margin-top: auto; border-top: 1px solid var(--border-color); }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+        .powered-by { color: #888; font-size: 0.9rem; }
+        
+        /* 响应式设计 */
+        @media (max-width: 1100px) {
+            .tv-layout { flex-direction: column; }
+            .channels-section { max-width: 100%; }
+            #hunanTVPlayer { height: 400px; }
+            .channels-list { height: 400px; }
+        }
+        @media (max-width: 768px) {
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            nav ul { margin-top: 15px; flex-wrap: wrap; }
+            nav li { margin: 5px 15px 5px 0; }
+            #hunanTVPlayer { height: 300px; }
+            .channels-list { height: 350px; }
+            .footer-inner { flex-direction: column; text-align: center; }
+            .tv-controls { flex-direction: column; align-items: center; }
+            .tv-control-btn { width: 100%; justify-content: center; }
+            .custom-controls { flex-direction: column; gap: 10px; padding: 10px; }
+            .controls-left, .controls-center, .controls-right { width: 100%; justify-content: center; }
+            .progress-container { margin: 10px 0; }
+            .quality-selector { min-width: 80px; }
+        }
+        @media (max-width: 480px) {
+            #hunanTVPlayer { height: 250px; }
+            .channel-item { padding: 10px; }
+            .channel-logo { width: 40px; height: 40px; margin-right: 10px; }
+            .control-btn { width: 36px; height: 36px; }
+            .quality-selector { padding: 6px 10px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo">
+                    <img src="https://s41.ax1x.com/2025/12/06/pZmaGuR.png" alt="zhr">
+                    <span class="logo-text">zhr的IPTV直播</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">返回博客</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="back-btn" onclick="window.location.href='index.html'">←</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content container">
+        <div class="tv-layout">
+            <!-- 左侧播放器 -->
+            <section class="player-section">
+                <div class="tv-player-container">
+                    <div class="loading-overlay" id="loadingOverlay">
+                        <div class="loading-spinner"></div>
+                        <p>正在加载直播流...</p>
+                    </div>
+                    <video id="hunanTVPlayer" autoplay playsinline>
+                        您的浏览器不支持HTML5视频播放，请使用现代浏览器观看
+                    </video>
+                    
+                    <!-- 自定义控制条 -->
+                    <div class="custom-controls" id="customControls">
+                        <div class="controls-left">
+                            <button class="control-btn" id="customPlayBtn">
+                                <span id="playIcon">❚❚</span>
+                            </button>
+                            <button class="control-btn nav-btn" id="prevBtn">◀</button>
+                            <button class="control-btn nav-btn" id="nextBtn">▶</button>
+                            <div class="volume-container">
+                                <button class="control-btn" id="volumeBtn">🔊</button>
+                                <div class="volume-slider" id="volumeSlider">
+                                    <div class="volume-level" id="volumeLevel"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="controls-center">
+                            <div class="progress-container" id="progressContainer">
+                                <div class="progress-bar" id="progressBar"></div>
+                                <div class="progress-time" id="progressTime">00:00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="controls-right">
+                            <select class="quality-selector" id="qualitySelector">
+                                <option value="auto">自动清晰度</option>
+                            </select>
+                            <button class="control-btn test-btn" id="testBtn1" title="测试视频1">🔧1</button>
+                            <button class="control-btn test-btn" id="testBtn2" title="测试视频2">🔧2</button>
+                            <button class="control-btn" id="fullscreenBtn">⛶</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="current-channel-info">
+                    <h3 id="currentChannelName">湖南卫视</h3>
+                    <p id="currentChannelGroup">卫视 · 当前正在播放</p>
+                </div>
+            </section>
+            
+            <!-- 右侧频道列表 -->
+            <section class="channels-section">
+                <div class="channels-header">
+                    <h2 class="channels-title">直播频道</h2>
+                    <select class="category-filter" id="categoryFilter">
+                        <option value="全部">全部分类</option>
+                    </select>
+                </div>
+                <div class="channels-list" id="channelsList">
+                    <!-- 频道列表将通过JavaScript动态生成 -->
+                    <div class="loading-overlay" style="position: relative; height: 100px; background: transparent; color: var(--text-color);">
+                        <div class="loading-spinner" style="border-top-color: var(--ghost-accent-color);"></div>
+                        <p>正在加载频道列表...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="powered-by">频道列表动态加载自 M3U 文件</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 配置
+        const M3U_URL = 'https://raw.bgithub.xyz/zhr-0731/IPTV-m3u/refs/heads/main/index.m3u';
+        const TEST_VIDEO_URL_1 = 'http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8';
+        const TEST_VIDEO_URL_2 = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8';
+        
+        // 全局变量
+        let allChannels = [];
+        let currentChannelIndex = 7; // 默认选中湖南卫视（根据列表位置）
+        let player = null;
+        let isPlayingTestVideo = false;
+        let lastPlayedChannel = null; // 记录上次播放的频道，方便切换回来
+        let controlsHideTimeout = null;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化播放器和UI
+            player = document.getElementById('hunanTVPlayer');
+            initPlayerControls();
+            loadChannelList();
+            
+            // 初始化默认播放湖南卫视
+            setTimeout(() => {
+                const defaultChannel = allChannels[currentChannelIndex];
+                if (defaultChannel) {
+                    playChannel(defaultChannel);
+                    lastPlayedChannel = defaultChannel;
+                }
+            }, 1000);
+        });
+        
+        // 解析M3U文件内容
+        async function parseM3U(content) {
+            const channels = [];
+            const lines = content.split('\n');
+            let currentChannel = null;
+            let categories = new Set(['全部']);
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                if (line.startsWith('#EXTINF:')) {
+                    currentChannel = {
+                        name: '',
+                        logo: '',
+                        url: '',
+                        group: '其他'
+                    };
+                    
+                    // 解析频道信息
+                    const tvgLogoMatch = line.match(/tvg-logo="([^"]+)"/);
+                    if (tvgLogoMatch) currentChannel.logo = tvgLogoMatch[1];
+                    
+                    const groupMatch = line.match(/group-title="([^"]+)"/);
+                    if (groupMatch) {
+                        currentChannel.group = groupMatch[1];
+                        categories.add(groupMatch[1]);
+                    }
+                    
+                    const nameMatch = line.match(/,(.+)$/);
+                    if (nameMatch) currentChannel.name = nameMatch[1].trim();
+                }
+                else if (line && !line.startsWith('#') && currentChannel) {
+                    currentChannel.url = line.trim();
+                    if (currentChannel.name && currentChannel.url) {
+                        channels.push(currentChannel);
+                    }
+                    currentChannel = null;
+                }
+            }
+            
+            return { channels, categories: Array.from(categories) };
+        }
+        
+        // 加载频道列表
+        async function loadChannelList() {
+            try {
+                const response = await fetch(M3U_URL);
+                const content = await response.text();
+                const { channels, categories } = await parseM3U(content);
+                
+                allChannels = channels;
+                
+                // 更新分类筛选器
+                updateCategoryFilter(categories);
+                
+                // 渲染频道列表
+                renderChannelList('全部');
+                
+                console.log(`成功加载 ${channels.length} 个频道`);
+            } catch (error) {
+                console.error('加载频道列表失败:', error);
+                document.getElementById('channelsList').innerHTML = 
+                    '<div style="padding: 30px; text-align: center; color: #888;">加载频道列表失败，请刷新页面重试</div>';
+            }
+        }
+        
+        // 更新分类筛选器
+        function updateCategoryFilter(categories) {
+            const filter = document.getElementById('categoryFilter');
+            categories.sort();
+            
+            categories.forEach(category => {
+                if (category !== '全部') {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    filter.appendChild(option);
+                }
+            });
+            
+            filter.addEventListener('change', function() {
+                renderChannelList(this.value);
+            });
+        }
+        
+        // 渲染频道列表
+        function renderChannelList(category) {
+            const channelsList = document.getElementById('channelsList');
+            const filteredChannels = category === '全部' 
+                ? allChannels 
+                : allChannels.filter(ch => ch.group === category);
+            
+            if (filteredChannels.length === 0) {
+                channelsList.innerHTML = '<div style="padding: 30px; text-align: center; color: #888;">该分类下暂无频道</div>';
+                return;
+            }
+            
+            let html = '';
+            filteredChannels.forEach((channel, index) => {
+                const originalIndex = allChannels.findIndex(ch => ch.url === channel.url);
+                const isActive = originalIndex === currentChannelIndex && !isPlayingTestVideo;
+                
+                html += `
+                    <div class="channel-item ${isActive ? 'active' : ''}" data-index="${originalIndex}">
+                        <div class="channel-logo">
+                            <img src="${channel.logo || 'https://via.placeholder.com/50x50/cccccc/969696?text=TV'}" alt="${channel.name}" onerror="this.src='https://via.placeholder.com/50x50/cccccc/969696?text=TV'">
+                        </div>
+                        <div class="channel-info">
+                            <div class="channel-name">${channel.name}</div>
+                            <span class="channel-group">${channel.group}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            channelsList.innerHTML = html;
+            
+            // 添加点击事件
+            document.querySelectorAll('.channel-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    const channel = allChannels[index];
+                    if (channel) {
+                        playChannel(channel, index);
+                    }
+                });
+            });
+        }
+        
+        // 播放指定频道
+        function playChannel(channel, index = null) {
+            if (index !== null) {
+                currentChannelIndex = index;
+            }
+            
+            isPlayingTestVideo = false;
+            lastPlayedChannel = channel;
+            
+            // 更新当前频道信息
+            document.getElementById('currentChannelName').textContent = channel.name;
+            document.getElementById('currentChannelGroup').textContent = `${channel.group} · 当前正在播放`;
+            document.getElementById('currentChannelGroup').classList.remove('test-indicator');
+            
+            // 显示加载状态
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.innerHTML = `
+                <div class="loading-spinner"></div>
+                <p>正在切换至 ${channel.name}...</p>
+            `;
+            
+            // 更新播放器源
+            player.src = channel.url;
+            player.load();
+            
+            player.play().then(() => {
+                console.log(`开始播放: ${channel.name}`);
+                loadingOverlay.classList.add('hidden');
+                
+                // 更新列表激活状态
+                document.querySelectorAll('.channel-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                const activeItems = document.querySelectorAll(`.channel-item[data-index="${currentChannelIndex}"]`);
+                activeItems.forEach(item => {
+                    item.classList.add('active');
+                    
+                    // 滚动到可见区域
+                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+                
+                // 更新清晰度选择器
+                updateQualitySelector(channel.name, channel.url);
+                
+            }).catch(error => {
+                console.error('播放失败:', error);
+                loadingOverlay.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
+                        <h3 style="margin-bottom: 10px;">播放失败</h3>
+                        <p style="margin-bottom: 15px;">${channel.name} 直播源可能暂时不可用</p>
+                        <button id="retryBtn" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试</button>
+                    </div>
+                `;
+                
+                document.getElementById('retryBtn').addEventListener('click', function() {
+                    playChannel(channel, index);
+                });
+            });
+        }
+        
+        // 播放上一个频道
+        function playPrevChannel() {
+            if (isPlayingTestVideo && lastPlayedChannel) {
+                // 如果正在播放测试视频，返回上一个频道
+                const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                if (index !== -1) {
+                    playChannel(lastPlayedChannel, index);
+                }
+                return;
+            }
+            
+            if (allChannels.length === 0) return;
+            
+            currentChannelIndex = (currentChannelIndex - 1 + allChannels.length) % allChannels.length;
+            const channel = allChannels[currentChannelIndex];
+            if (channel) {
+                playChannel(channel, currentChannelIndex);
+            }
+        }
+        
+        // 播放下一个频道
+        function playNextChannel() {
+            if (isPlayingTestVideo && lastPlayedChannel) {
+                // 如果正在播放测试视频，返回上一个频道
+                const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                if (index !== -1) {
+                    playChannel(lastPlayedChannel, index);
+                }
+                return;
+            }
+            
+            if (allChannels.length === 0) return;
+            
+            currentChannelIndex = (currentChannelIndex + 1) % allChannels.length;
+            const channel = allChannels[currentChannelIndex];
+            if (channel) {
+                playChannel(channel, currentChannelIndex);
+            }
+        }
+        
+        // 播放测试视频
+        function playTestVideo(testNum) {
+            const testUrl = testNum === 1 ? TEST_VIDEO_URL_1 : TEST_VIDEO_URL_2;
+            const testName = testNum === 1 ? "Apple 测试视频" : "Tears of Steel 测试视频";
+            
+            isPlayingTestVideo = true;
+            
+            // 更新当前频道信息
+            document.getElementById('currentChannelName').textContent = testName;
+            document.getElementById('currentChannelGroup').textContent = `测试视频${testNum} · 播放中`;
+            document.getElementById('currentChannelGroup').classList.add('test-indicator');
+            
+            // 显示加载状态
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.classList.remove('hidden');
+            loadingOverlay.innerHTML = `
+                <div class="loading-spinner"></div>
+                <p>正在加载测试视频${testNum}...</p>
+            `;
+            
+            // 更新播放器源
+            player.src = testUrl;
+            player.load();
+            
+            player.play().then(() => {
+                console.log(`开始播放测试视频${testNum}`);
+                loadingOverlay.classList.add('hidden');
+                
+                // 移除频道列表的激活状态
+                document.querySelectorAll('.channel-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 更新清晰度选择器
+                updateQualitySelector(testName, testUrl);
+                
+            }).catch(error => {
+                console.error('测试视频播放失败:', error);
+                loadingOverlay.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
+                        <h3 style="margin-bottom: 10px;">测试视频${testNum}播放失败</h3>
+                        <p style="margin-bottom: 15px;">测试视频可能暂时不可用</p>
+                        <button id="retryTestBtn" style="background: var(--test-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试测试视频</button>
+                        ${lastPlayedChannel ? `<button id="backToChannelBtn" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-left: 10px;">返回频道</button>` : ''}
+                    </div>
+                `;
+                
+                document.getElementById('retryTestBtn').addEventListener('click', function() {
+                    playTestVideo(testNum);
+                });
+                
+                if (lastPlayedChannel) {
+                    document.getElementById('backToChannelBtn').addEventListener('click', function() {
+                        const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                        if (index !== -1) {
+                            playChannel(lastPlayedChannel, index);
+                        }
+                    });
+                }
+            });
+        }
+        
+        // 更新清晰度选择器
+        function updateQualitySelector(channelName, channelUrl) {
+            const qualitySelector = document.getElementById('qualitySelector');
+            qualitySelector.innerHTML = '<option value="auto">自动清晰度</option>';
+            
+            // 这里可以添加更多清晰度选项
+            // 对于M3U8流，通常有多个质量级别
+            // 这里只是示例，实际应用中需要解析M3U8文件来获取质量级别
+            if (channelName.includes("测试视频")) {
+                qualitySelector.innerHTML += `
+                    <option value="high">高清 (1080p)</option>
+                    <option value="medium">标清 (720p)</option>
+                    <option value="low">流畅 (480p)</option>
+                `;
+            }
+        }
+        
+        // 初始化播放器控制
+        function initPlayerControls() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const customControls = document.getElementById('customControls');
+            const progressBar = document.getElementById('progressBar');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressTime = document.getElementById('progressTime');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeLevel = document.getElementById('volumeLevel');
+            const playIcon = document.getElementById('playIcon');
+            
+            // 自定义播放/暂停按钮
+            document.getElementById('customPlayBtn').addEventListener('click', () => {
+                if (player.paused) {
+                    player.play();
+                } else {
+                    player.pause();
+                }
+            });
+            
+            // 上一个频道按钮
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                playPrevChannel();
+            });
+            
+            // 下一个频道按钮
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                playNextChannel();
+            });
+            
+            // 全屏按钮
+            document.getElementById('fullscreenBtn').addEventListener('click', () => {
+                if (player.requestFullscreen) {
+                    player.requestFullscreen();
+                } else if (player.webkitRequestFullscreen) {
+                    player.webkitRequestFullscreen();
+                } else if (player.mozRequestFullScreen) {
+                    player.mozRequestFullScreen();
+                }
+            });
+            
+            // 音量按钮
+            document.getElementById('volumeBtn').addEventListener('click', () => {
+                player.muted = !player.muted;
+                document.getElementById('volumeBtn').textContent = player.muted ? '🔇' : '🔊';
+            });
+            
+            // 音量滑块
+            volumeSlider.addEventListener('click', (e) => {
+                const rect = volumeSlider.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                player.volume = Math.max(0, Math.min(1, percent));
+                updateVolumeDisplay();
+            });
+            
+            // 测试视频1按钮
+            document.getElementById('testBtn1').addEventListener('click', () => {
+                playTestVideo(1);
+            });
+            
+            // 测试视频2按钮
+            document.getElementById('testBtn2').addEventListener('click', () => {
+                playTestVideo(2);
+            });
+            
+            // 清晰度选择器
+            document.getElementById('qualitySelector').addEventListener('change', function() {
+                // 这里可以添加切换清晰度的逻辑
+                console.log('切换到清晰度:', this.value);
+            });
+            
+            // 播放器事件
+            player.addEventListener('play', () => {
+                playIcon.textContent = '❚❚';
+            });
+            
+            player.addEventListener('pause', () => {
+                playIcon.textContent = '▶';
+            });
+            
+            player.addEventListener('loadeddata', () => {
+                loadingOverlay.classList.add('hidden');
+            });
+            
+            player.addEventListener('waiting', () => {
+                loadingOverlay.classList.remove('hidden');
+                loadingOverlay.innerHTML = `<div class="loading-spinner"></div><p>正在缓冲...</p>`;
+            });
+            
+            player.addEventListener('canplay', () => {
+                loadingOverlay.classList.add('hidden');
+            });
+            
+            player.addEventListener('timeupdate', () => {
+                if (player.duration) {
+                    const percent = (player.currentTime / player.duration) * 100;
+                    progressBar.style.width = percent + '%';
+                }
+            });
+            
+            player.addEventListener('volumechange', () => {
+                updateVolumeDisplay();
+            });
+            
+            // 进度条点击
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                player.currentTime = percent * player.duration;
+            });
+            
+            // 进度条悬停显示时间
+            progressContainer.addEventListener('mousemove', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                const time = percent * (player.duration || 0);
+                
+                const minutes = Math.floor(time / 60);
+                const seconds = Math.floor(time % 60);
+                progressTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                const progressTimeEl = document.getElementById('progressTime');
+                progressTimeEl.style.left = `${percent * 100}%`;
+            });
+            
+            // 控制条显示/隐藏
+            player.addEventListener('mousemove', () => {
+                customControls.style.opacity = '1';
+                if (controlsHideTimeout) clearTimeout(controlsHideTimeout);
+                
+                controlsHideTimeout = setTimeout(() => {
+                    customControls.style.opacity = '0';
+                }, 3000);
+            });
+            
+            customControls.addEventListener('mousemove', () => {
+                customControls.style.opacity = '1';
+                if (controlsHideTimeout) clearTimeout(controlsHideTimeout);
+            });
+            
+            player.addEventListener('mouseleave', () => {
+                controlsHideTimeout = setTimeout(() => {
+                    customControls.style.opacity = '0';
+                }, 1000);
+            });
+            
+            player.addEventListener('error', (e) => {
+                console.error('播放器错误:', e);
+                loadingOverlay.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
+                        <h3 style="margin-bottom: 10px;">播放错误</h3>
+                        <p style="margin-bottom: 15px;">视频流加载失败</p>
+                        ${isPlayingTestVideo ? 
+                            `<button id="retryCurrentBtn" style="background: var(--test-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试测试视频</button>
+                             ${lastPlayedChannel ? `<button id="backToChannelBtn2" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-left: 10px;">返回频道</button>` : ''}` 
+                            : 
+                            `<button id="retryCurrentBtn" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试当前频道</button>`
+                        }
+                    </div>
+                `;
+                
+                document.getElementById('retryCurrentBtn').addEventListener('click', function() {
+                    if (isPlayingTestVideo) {
+                        const testNum = player.src.includes('apple.com') ? 1 : 2;
+                        playTestVideo(testNum);
+                    } else if (allChannels[currentChannelIndex]) {
+                        playChannel(allChannels[currentChannelIndex], currentChannelIndex);
+                    }
+                });
+                
+                if (isPlayingTestVideo && lastPlayedChannel) {
+                    document.getElementById('backToChannelBtn2').addEventListener('click', function() {
+                        const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                        if (index !== -1) {
+                            playChannel(lastPlayedChannel, index);
+                        }
+                    });
+                }
+            });
+            
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && !e.target.matches('input, textarea, select')) {
+                    e.preventDefault();
+                    if (player.paused) player.play();
+                    else player.pause();
+                }
+                
+                if (e.code === 'KeyF' && !e.target.matches('input, textarea, select')) {
+                    e.preventDefault();
+                    if (document.fullscreenElement) document.exitFullscreen();
+                    else if (player.requestFullscreen) player.requestFullscreen();
+                }
+                
+                // 左右箭头切换频道
+                if (e.code === 'ArrowLeft' && !e.target.matches('input, textarea, select')) {
+                    e.preventDefault();
+                    playPrevChannel();
+                }
+                
+                if (e.code === 'ArrowRight' && !e.target.matches('input, textarea, select')) {
+                    e.preventDefault();
+                    playNextChannel();
+                }
+                
+                // T键切换测试视频
+                if (e.code === 'Digit1' && !e.target.matches('input, textarea, select') && e.ctrlKey) {
+                    e.preventDefault();
+                    playTestVideo(1);
+                }
+                
+                if (e.code === 'Digit2' && !e.target.matches('input, textarea, select') && e.ctrlKey) {
+                    e.preventDefault();
+                    playTestVideo(2);
+                }
+                
+                // M键静音
+                if (e.code === 'KeyM' && !e.target.matches('input, textarea, select')) {
+                    e.preventDefault();
+                    player.muted = !player.muted;
+                    document.getElementById('volumeBtn').textContent = player.muted ? '🔇' : '🔊';
+                }
+            });
+            
+            // 初始化音量显示
+            function updateVolumeDisplay() {
+                const volume = player.muted ? 0 : player.volume;
+                volumeLevel.style.width = `${volume * 100}%`;
+                document.getElementById('volumeBtn').textContent = volume === 0 ? '🔇' : '🔊';
+            }
+            
+            updateVolumeDisplay();
+        }
+    </script>
+</body>
+</html>
