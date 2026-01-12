@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线电台播放器 - zhr的博客</title>
+    <style>
+        :root {
+            --primary-color: #59c090;
+            --primary-dark: #4aad7a;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #fff;
+            --bg-light: #f9f9f9;
+            --border-color: #eaeaea;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Noto Sans SC', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+        
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .player-container {
+            background: var(--bg-color);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* 播放器头部 */
+        .player-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .player-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .player-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .live-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff5a5a;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* 播放器主体 */
+        .player-main {
+            padding: 30px;
+        }
+        
+        /* 当前播放电台 */
+        .current-station {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 25px;
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .station-cover {
+            width: 140px;
+            height: 140px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .station-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .station-info {
+            flex: 1;
+        }
+        
+        .station-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .station-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .station-group, .station-country, .station-language {
+            background: rgba(89, 192, 144, 0.1);
+            color: var(--primary-dark);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .station-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+        
+        /* 播放控制区域 */
+        .player-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .play-pause-btn {
+            background: var(--primary-color);
+            border: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(89, 192, 144, 0.3);
+        }
+        
+        .play-pause-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        .play-pause-btn.playing .play-icon {
+            display: none;
+        }
+        
+        .play-pause-btn.playing .pause-icon {
+            display: block;
+        }
+        
+        .play-pause-btn .pause-icon {
+            display: none;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .volume-icon {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+        
+        .volume-slider {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .player-status {
+            text-align: center;
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            height: 22px;
+        }
+        
+        /* 电台列表区域 */
+        .stations-section {
+            margin-top: 20px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: #444;
+        }
+        
+        .stations-count {
+            color: var(--primary-dark);
+            font-weight: 500;
+            background: rgba(89, 192, 144, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* 分组电台列表 */
+        .stations-by-group {
+            margin-bottom: 30px;
+        }
+        
+        .group-title {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .station-card {
+            background: var(--bg-light);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .station-card:hover {
+            background: #e8f5ee;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-color);
+        }
+        
+        .station-card.active {
+            background: #e8f5ee;
+            border-color: var(--primary-color);
+        }
+        
+        .station-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .station-card-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .station-card-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .station-card-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .station-card-info {
+            margin-top: 8px;
+        }
+        
+        .station-card-country, .station-card-language {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 3px;
+        }
+        
+        /* 播放器底部 */
+        .player-footer {
+            background: var(--bg-light);
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .footer-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .current-station {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .station-cover {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .player-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .stations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .player-footer {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .footer-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .player-main {
+                padding: 20px;
+            }
+            
+            .control-buttons {
+                gap: 15px;
+            }
+            
+            .play-pause-btn {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        /* 加载状态 */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(89, 192, 144, 0.3);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            margin: 20px 0;
+            text-align: center;
+            border-left: 4px solid #c62828;
+        }
+        
+        /* 工具类 */
+        .hidden {
+            display: none !important;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📻 在线电台播放器</h1>
+            <p class="subtitle">基于M3U播放列表的动态电台播放器</p>
+        </header>
+        
+        <div class="player-container">
+            <!-- 播放器头部 -->
+            <div class="player-header">
+                <div>
+                    <h2 class="player-title">电台播放器</h2>
+                    <p class="player-subtitle">正在加载播放列表...</p>
+                </div>
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    <span>直播中</span>
+                </div>
+            </div>
+            
+            <!-- 播放器主体 -->
+            <div class="player-main">
+                <!-- 加载状态 -->
+                <div id="loadingContainer" class="loading-container">
+                    <div class="spinner"></div>
+                    <p>正在加载电台列表...</p>
+                </div>
+                
+                <!-- 错误提示 -->
+                <div id="errorContainer" class="error-message hidden">
+                    <p id="errorMessage"></p>
+                </div>
+                
+                <!-- 当前播放电台 -->
+                <div id="currentStationContainer" class="current-station hidden">
+                    <div class="station-cover">
+                        <img id="currentStationLogo" src="" alt="电台Logo">
+                    </div>
+                    <div class="station-info">
+                        <h3 class="station-name" id="currentStationName">电台名称</h3>
+                        <div class="station-meta">
+                            <span class="station-group" id="currentStationGroup">分组</span>
+                            <span class="station-country" id="currentStationCountry">国家</span>
+                            <span class="station-language" id="currentStationLanguage">语言</span>
+                        </div>
+                        <p class="station-description" id="currentStationDescription">电台描述信息</p>
+                    </div>
+                </div>
+                
+                <!-- 播放控制区域 -->
+                <div id="playerControls" class="player-controls hidden">
+                    <div class="control-buttons">
+                        <button class="play-pause-btn" id="playPauseBtn">
+                            <span class="play-icon">▶</span>
+                            <span class="pause-icon">❚❚</span>
+                        </button>
+                    </div>
+                    
+                    <div class="volume-control">
+                        <span class="volume-icon" id="volumeIcon">🔊</span>
+                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+                    </div>
+                    
+                    <div class="player-status" id="playerStatus">准备就绪，请选择一个电台开始播放</div>
+                </div>
+                
+                <!-- 电台列表区域 -->
+                <div id="stationsContainer" class="stations-section hidden">
+                    <div class="section-header">
+                        <h3 class="section-title">电台列表</h3>
+                        <div class="stations-count" id="stationsCount">0个电台</div>
+                    </div>
+                    
+                    <!-- 按分组显示的电台列表 -->
+                    <div id="stationsByGroup"></div>
+                </div>
+            </div>
+            
+            <!-- 播放器底部 -->
+            <div class="player-footer">
+                <div class="footer-info">
+                    <div>播放列表来源: <a href="https://raw.bgithub.xyz/zhr-0731/IPTV-m3u/refs/heads/main/radio.m3u" target="_blank" id="playlistSource">radio.m3u</a></div>
+                    <div>音频格式: <span id="currentAudioFormat">HLS</span></div>
+                </div>
+                <div>最后更新: <span id="updateTime">-</span></div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-20">
+            <p>此播放器动态加载并解析M3U播放列表，自动按分组显示电台。</p>
+            <p class="text-light">基于您的播放列表: https://raw.bgithub.xyz/zhr-0731/IPTV-m3u/refs/heads/main/radio.m3u</p>
+        </div>
+    </div>
+    
+    <!-- 音频元素 -->
+    <audio id="radioPlayer" preload="metadata" crossorigin="anonymous">
+        您的浏览器不支持音频播放
+    </audio>
+
+    <script>
+        // M3U播放列表URL
+        const M3U_PLAYLIST_URL = 'https://raw.bgithub.xyz/zhr-0731/IPTV-m3u/refs/heads/main/radio.m3u';
+        
+        // DOM元素
+        const radioPlayer = document.getElementById('radioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeIcon = document.getElementById('volumeIcon');
+        const playerStatus = document.getElementById('playerStatus');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const errorContainer = document.getElementById('errorContainer');
+        const errorMessage = document.getElementById('errorMessage');
+        const currentStationContainer = document.getElementById('currentStationContainer');
+        const playerControls = document.getElementById('playerControls');
+        const stationsContainer = document.getElementById('stationsContainer');
+        const stationsCount = document.getElementById('stationsCount');
+        const stationsByGroup = document.getElementById('stationsByGroup');
+        const updateTime = document.getElementById('updateTime');
+        const playlistSource = document.getElementById('playlistSource');
+        
+        // 当前播放的电台信息
+        let currentStation = null;
+        let stations = [];
+        let stationGroups = {};
+        
+        // 默认电台Logo（当电台没有提供Logo时使用）
+        const DEFAULT_LOGO = 'https://img.zcool.cn/community/01b4515c34c499a801208f8c1365ee.jpg';
+        
+        // 初始化播放器
+        async function initPlayer() {
+            try {
+                console.log('开始加载M3U播放列表...');
+                playerStatus.textContent = '正在加载播放列表...';
+                
+                // 加载M3U播放列表
+                const response = await fetch(M3U_PLAYLIST_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`无法加载播放列表: ${response.status} ${response.statusText}`);
+                }
+                
+                const m3uContent = await response.text();
+                
+                // 解析M3U内容
+                stations = parseM3U(m3uContent);
+                
+                if (stations.length === 0) {
+                    throw new Error('播放列表为空或格式不正确');
+                }
+                
+                console.log(`成功加载 ${stations.length} 个电台`);
+                
+                // 按分组组织电台
+                organizeStationsByGroup();
+                
+                // 更新UI
+                updateStationsCount();
+                renderStationsByGroup();
+                
+                // 设置第一个电台为当前电台
+                if (stations.length > 0) {
+                    setCurrentStation(stations[0]);
+                }
+                
+                // 隐藏加载状态，显示内容
+                loadingContainer.classList.add('hidden');
+                currentStationContainer.classList.remove('hidden');
+                playerControls.classList.remove('hidden');
+                stationsContainer.classList.remove('hidden');
+                
+                // 初始化播放器控制
+                initPlayerControls();
+                
+                // 更新播放器副标题
+                document.querySelector('.player-subtitle').textContent = `${stations.length}个电台，${Object.keys(stationGroups).length}个分组`;
+                
+                // 更新时间
+                updateTime.textContent = new Date().toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+            } catch (error) {
+                console.error('初始化播放器时出错:', error);
+                showError(`加载播放列表失败: ${error.message}`);
+            }
+        }
+        
+        // 解析M3U内容
+        function parseM3U(m3uContent) {
+            const stations = [];
+            const lines = m3uContent.split('\n');
+            
+            let currentStation = null;
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                if (line.startsWith('#EXTINF:')) {
+                    // 解析EXTINF行
+                    currentStation = parseExtinfLine(line);
+                } else if (line && !line.startsWith('#') && currentStation) {
+                    // 这是URL行，且前面有EXTINF行
+                    currentStation.streamUrl = line;
+                    stations.push(currentStation);
+                    currentStation = null;
+                }
+            }
+            
+            return stations;
+        }
+        
+        // 解析EXTINF行
+        function parseExtinfLine(line) {
+            const station = {
+                id: generateId(),
+                name: '未知电台',
+                streamUrl: '',
+                group: '未分组',
+                country: '未知',
+                language: '未知',
+                logo: DEFAULT_LOGO,
+                tvgId: '',
+                tvgName: ''
+            };
+            
+            // 提取属性
+            const attrMatch = line.match(/#EXTINF:(-?\d+)\s*(.*)/);
+            if (attrMatch) {
+                const attributes = attrMatch[2];
+                
+                // 解析tvg-id
+                const tvgIdMatch = attributes.match(/tvg-id="([^"]*)"/);
+                if (tvgIdMatch) station.tvgId = tvgIdMatch[1];
+                
+                // 解析tvg-name
+                const tvgNameMatch = attributes.match(/tvg-name="([^"]*)"/);
+                if (tvgNameMatch) station.tvgName = tvgNameMatch[1];
+                
+                // 解析tvg-country
+                const tvgCountryMatch = attributes.match(/tvg-country="([^"]*)"/);
+                if (tvgCountryMatch) station.country = tvgCountryMatch[1];
+                
+                // 解析tvg-language
+                const tvgLanguageMatch = attributes.match(/tvg-language="([^"]*)"/);
+                if (tvgLanguageMatch) station.language = tvgLanguageMatch[1];
+                
+                // 解析tvg-logo
+                const tvgLogoMatch = attributes.match(/tvg-logo="([^"]*)"/);
+                if (tvgLogoMatch) station.logo = tvgLogoMatch[1];
+                
+                // 解析group-title
+                const groupTitleMatch = attributes.match(/group-title="([^"]*)"/);
+                if (groupTitleMatch) station.group = groupTitleMatch[1];
+                
+                // 解析电台名称（在属性之后，逗号之后的部分）
+                const nameMatch = attributes.match(/,(.*)$/);
+                if (nameMatch) station.name = nameMatch[1].trim();
+                
+                // 如果tvg-name存在且不为空，优先使用tvg-name作为电台名称
+                if (station.tvgName && station.tvgName.trim() !== '') {
+                    station.name = station.tvgName;
+                }
+            }
+            
+            return station;
+        }
+        
+        // 生成唯一ID
+        function generateId() {
+            return 'station-' + Math.random().toString(36).substr(2, 9);
+        }
+        
+        // 按分组组织电台
+        function organizeStationsByGroup() {
+            stationGroups = {};
+            
+            stations.forEach(station => {
+                const group = station.group || '未分组';
+                
+                if (!stationGroups[group]) {
+                    stationGroups[group] = [];
+                }
+                
+                stationGroups[group].push(station);
+            });
+        }
+        
+        // 渲染按分组的电台列表
+        function renderStationsByGroup() {
+            stationsByGroup.innerHTML = '';
+            
+            // 按分组名称排序
+            const sortedGroups = Object.keys(stationGroups).sort();
+            
+            sortedGroups.forEach(group => {
+                const groupContainer = document.createElement('div');
+                groupContainer.className = 'stations-by-group';
+                
+                const groupTitle = document.createElement('h4');
+                groupTitle.className = 'group-title';
+                groupTitle.textContent = `${group} (${stationGroups[group].length})`;
+                
+                const stationsGrid = document.createElement('div');
+                stationsGrid.className = 'stations-grid';
+                
+                // 为该分组内的电台排序
+                const sortedStations = stationGroups[group].sort((a, b) => 
+                    a.name.localeCompare(b.name, 'zh-CN')
+                );
+                
+                sortedStations.forEach(station => {
+                    const stationCard = createStationCard(station);
+                    stationsGrid.appendChild(stationCard);
+                });
+                
+                groupContainer.appendChild(groupTitle);
+                groupContainer.appendChild(stationsGrid);
+                stationsByGroup.appendChild(groupContainer);
+            });
+        }
+        
+        // 创建电台卡片
+        function createStationCard(station) {
+            const card = document.createElement('div');
+            card.className = 'station-card';
+            card.id = station.id;
+            
+            if (currentStation && currentStation.id === station.id) {
+                card.classList.add('active');
+            }
+            
+            card.innerHTML = `
+                <div class="station-card-header">
+                    <div class="station-card-logo">
+                        <img src="${station.logo}" alt="${station.name}" onerror="this.src='${DEFAULT_LOGO}'">
+                    </div>
+                    <div class="station-card-name">${station.name}</div>
+                </div>
+                <div class="station-card-info">
+                    <div class="station-card-country">${station.country}</div>
+                    <div class="station-card-language">${station.language}</div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                setCurrentStation(station);
+                // 更新所有卡片的激活状态
+                document.querySelectorAll('.station-card').forEach(c => {
+                    c.classList.remove('active');
+                });
+                card.classList.add('active');
+            });
+            
+            return card;
+        }
+        
+        // 设置当前电台
+        function setCurrentStation(station) {
+            currentStation = station;
+            
+            // 更新当前电台显示
+            document.getElementById('currentStationName').textContent = station.name;
+            document.getElementById('currentStationGroup').textContent = station.group;
+            document.getElementById('currentStationCountry').textContent = station.country;
+            document.getElementById('currentStationLanguage').textContent = station.language;
+            
+            const logoImg = document.getElementById('currentStationLogo');
+            logoImg.src = station.logo;
+            logoImg.alt = station.name;
+            logoImg.onerror = function() {
+                this.src = DEFAULT_LOGO;
+            };
+            
+            // 设置电台描述
+            const description = station.tvgId ? 
+                `${station.name} - ${station.group}电台` : 
+                `${station.name}电台，语言: ${station.language}`;
+            document.getElementById('currentStationDescription').textContent = description;
+            
+            // 设置音频源
+            radioPlayer.src = station.streamUrl;
+            
+            // 更新播放状态
+            playerStatus.textContent = `已选择: ${station.name}`;
+            
+            // 更新音频格式显示
+            const isHLS = station.streamUrl.includes('.m3u8');
+            document.getElementById('currentAudioFormat').textContent = isHLS ? 'HLS' : 'MP3/其他';
+            
+            // 如果之前正在播放，切换到新电台并继续播放
+            if (!radioPlayer.paused) {
+                const playPromise = radioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playerStatus.textContent = `正在播放: ${station.name}`;
+                    }).catch(error => {
+                        console.error('播放失败:', error);
+                        playerStatus.textContent = `播放失败: ${station.name}`;
+                    });
+                }
+            }
+        }
+        
+        // 初始化播放器控制
+        function initPlayerControls() {
+            // 设置初始音量
+            radioPlayer.volume = volumeSlider.value;
+            updateVolumeIcon(volumeSlider.value);
+            
+            // 播放/暂停按钮事件
+            playPauseBtn.addEventListener('click', togglePlayback);
+            
+            // 音量控制事件
+            volumeSlider.addEventListener('input', function() {
+                radioPlayer.volume = this.value;
+                updateVolumeIcon(this.value);
+            });
+            
+            // 音频事件监听
+            radioPlayer.addEventListener('play', function() {
+                playPauseBtn.classList.add('playing');
+                playerStatus.textContent = `正在播放: ${currentStation.name}`;
+            });
+            
+            radioPlayer.addEventListener('pause', function() {
+                playPauseBtn.classList.remove('playing');
+                playerStatus.textContent = `已暂停: ${currentStation.name}`;
+            });
+            
+            radioPlayer.addEventListener('ended', function() {
+                playPauseBtn.classList.remove('playing');
+                playerStatus.textContent = `播放结束: ${currentStation.name}`;
+            });
+            
+            radioPlayer.addEventListener('error', function() {
+                console.error('音频加载失败:', radioPlayer.error);
+                playerStatus.textContent = `加载失败: ${currentStation.name}，请检查网络或切换电台`;
+                playPauseBtn.disabled = true;
+                setTimeout(() => {
+                    playPauseBtn.disabled = false;
+                }, 3000);
+            });
+            
+            radioPlayer.addEventListener('loadstart', function() {
+                playerStatus.textContent = `正在加载: ${currentStation.name}...`;
+            });
+            
+            radioPlayer.addEventListener('canplay', function() {
+                if (radioPlayer.paused) {
+                    playerStatus.textContent = `准备就绪: ${currentStation.name}`;
+                }
+            });
+        }
+        
+        // 切换播放/暂停
+        function togglePlayback() {
+            if (!currentStation) {
+                playerStatus.textContent = '请先选择一个电台';
+                return;
+            }
+            
+            if (radioPlayer.paused) {
+                const playPromise = radioPlayer.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playerStatus.textContent = `正在播放: ${currentStation.name}`;
+                    }).catch(error => {
+                        console.error('播放失败:', error);
+                        playerStatus.textContent = `播放失败: ${currentStation.name}，请点击重试`;
+                        alert('无法播放音频流，可能是浏览器限制或网络问题。请确保浏览器允许自动播放。');
+                    });
+                }
+            } else {
+                radioPlayer.pause();
+                playerStatus.textContent = `已暂停: ${currentStation.name}`;
+            }
+        }
+        
+        // 更新音量图标
+        function updateVolumeIcon(volume) {
+            if (volume == 0) {
+                volumeIcon.textContent = '🔇';
+            } else if (volume < 0.5) {
+                volumeIcon.textContent = '🔉';
+            } else {
+                volumeIcon.textContent = '🔊';
+            }
+        }
+        
+        // 更新电台数量显示
+        function updateStationsCount() {
+            stationsCount.textContent = `${stations.length}个电台`;
+        }
+        
+        // 显示错误信息
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorContainer.classList.remove('hidden');
+            loadingContainer.classList.add('hidden');
+            
+            // 添加重试按钮
+            const retryButton = document.createElement('button');
+            retryButton.textContent = '重试';
+            retryButton.style.cssText = `
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                margin-top: 10px;
+                cursor: pointer;
+            `;
+            retryButton.addEventListener('click', () => {
+                errorContainer.classList.add('hidden');
+                loadingContainer.classList.remove('hidden');
+                initPlayer();
+            });
+            
+            errorMessage.appendChild(document.createElement('br'));
+            errorMessage.appendChild(retryButton);
+        }
+        
+        // 页面加载完成后初始化播放器
+        document.addEventListener('DOMContentLoaded', initPlayer);
+    </script>
+</body>
+</html>
