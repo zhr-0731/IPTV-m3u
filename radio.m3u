@@ -14,5 +14,11 @@ http://a.live.hnradio.com/jjpd/radio120k_jjpd.m3u8?auth_key=1588751229-0-0-7c55d
 #EXTINF:-1 tvg-id="zgjtgbhn" tvg-name="中国交通广播(湖南)" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://www.dt968.com/201912/07/rSR0JvU1LxhmWPMZ63NV.jpg" group-title="湖南电台",中国交通广播(湖南)
 https://ytcastmp3.radio.cn/72/stream_10752.mp3?type=1&key=591b965968b3993a495f8590b30d2d29&time=6964ed91
 
+#EXTINF:-1 tvg-id="csxwgb" tvg-name="长沙新闻广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/sso/48/1744072514714_to76co5We.jpeg" group-title="湖南电台",长沙新闻广播
+https://lhttp.qingting.fm/live/4877/64k.mp3
+
+#EXTINF:-1 tvg-id="cscszs" tvg-name="长沙城市之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ytmedia.radio.cn/CCYT%2F202412%2F06%2F17%2F0arC5mL8ADiVs2024120617187.png" group-title="湖南电台",长沙城市之声
+https://ytcastmp3.radio.cn/82/stream_11052.mp3?type=1&key=c660b3dcec8bdb8d9be40a253b34cfd8&time=6966424b
+
 #EXTINF:-1 tvg-id="zgzs" tvg-name="中国之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ts3.tc.mm.bing.net/th/id/OIP-C.ftKZMnFkgsd9UANLaAXzCQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="中央电台",中国之声
 https://ytcast2.radio.cn/110/radios/40639/index_40639.m3u8?type=1&key=5173e2529b06584bd49a0ccd0d551a42&time=69663a0d
