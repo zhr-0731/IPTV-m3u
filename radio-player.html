@@ -69,19 +69,19 @@
         .player-header {
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             color: white;
-            padding: 25px 30px;
+            padding: 20px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
         .player-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 600;
         }
         
         .player-subtitle {
-            font-size: 1rem;
+            font-size: 0.95rem;
             opacity: 0.9;
             margin-top: 5px;
         }
@@ -111,26 +111,27 @@
             100% { opacity: 1; }
         }
         
-        /* 播放器主体 */
+        /* 播放器主体 - 新布局 */
         .player-main {
             padding: 30px;
         }
         
-        /* 当前播放电台 */
+        /* 当前播放电台 - 新布局 */
         .current-station {
             display: flex;
-            align-items: center;
-            gap: 25px;
+            align-items: stretch;
+            gap: 30px;
             padding: 25px;
             background: var(--bg-light);
             border-radius: var(--radius-sm);
             margin-bottom: 30px;
             border: 1px solid var(--border-color);
+            min-height: 220px;
         }
         
         .station-cover {
-            width: 140px;
-            height: 140px;
+            width: 200px;
+            height: 200px;
             border-radius: var(--radius-sm);
             overflow: hidden;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -145,29 +146,48 @@
         
         .station-info {
             flex: 1;
+            display: flex;
+            flex-direction: column;
         }
         
         .station-name {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             font-weight: 600;
             margin-bottom: 8px;
             color: var(--text-color);
+            line-height: 1.3;
         }
         
         .station-meta {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 15px;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
         }
         
         .station-group, .station-country, .station-language {
-            background: rgba(89, 192, 144, 0.1);
-            color: var(--primary-dark);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            color: var(--text-light);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .station-group:before {
+            content: "📻";
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .station-country:before {
+            content: "📍";
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .station-language:before {
+            content: "🗣️";
+            margin-right: 8px;
+            font-size: 0.9rem;
         }
         
         .station-description {
@@ -175,30 +195,29 @@
             font-size: 0.95rem;
             line-height: 1.5;
             margin-top: 10px;
+            flex: 1;
         }
         
-        /* 播放控制区域 */
+        /* 播放控制区域 - 新布局 */
         .player-controls {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
+            justify-content: flex-end;
+            height: 100%;
         }
         
         .control-buttons {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 25px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
         
-        .play-pause-btn {
+        .control-btn {
             background: var(--primary-color);
             border: none;
-            width: 70px;
-            height: 70px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             color: white;
             cursor: pointer;
@@ -206,13 +225,19 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             box-shadow: 0 4px 10px rgba(89, 192, 144, 0.3);
         }
         
-        .play-pause-btn:hover {
+        .control-btn:hover {
             background: var(--primary-dark);
             transform: scale(1.05);
+        }
+        
+        .play-pause-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
         }
         
         .play-pause-btn.playing .play-icon {
@@ -227,7 +252,7 @@
             display: none;
         }
         
-        .volume-control {
+        .control-volume {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -236,7 +261,7 @@
         
         .volume-icon {
             color: var(--text-light);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             width: 24px;
         }
         
@@ -261,11 +286,12 @@
         }
         
         .player-status {
-            text-align: center;
+            text-align: left;
             font-style: italic;
             color: var(--text-light);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             height: 22px;
+            margin-top: 10px;
         }
         
         /* 电台列表区域 */
@@ -398,19 +424,25 @@
         @media (max-width: 768px) {
             .current-station {
                 flex-direction: column;
-                text-align: center;
                 gap: 20px;
+                min-height: auto;
             }
             
             .station-cover {
                 width: 180px;
                 height: 180px;
+                align-self: center;
             }
             
             .player-header {
                 flex-direction: column;
                 gap: 15px;
                 text-align: center;
+            }
+            
+            .player-controls {
+                justify-content: flex-start;
+                height: auto;
             }
             
             .stations-grid {
@@ -439,12 +471,21 @@
             }
             
             .control-buttons {
-                gap: 15px;
+                gap: 10px;
+            }
+            
+            .control-btn {
+                width: 45px;
+                height: 45px;
             }
             
             .play-pause-btn {
-                width: 60px;
-                height: 60px;
+                width: 55px;
+                height: 55px;
+            }
+            
+            .current-station {
+                padding: 20px;
             }
         }
         
@@ -534,7 +575,7 @@
                     <p id="errorMessage"></p>
                 </div>
                 
-                <!-- 当前播放电台 -->
+                <!-- 当前播放电台 - 新布局 -->
                 <div id="currentStationContainer" class="current-station hidden">
                     <div class="station-cover">
                         <img id="currentStationLogo" src="" alt="电台Logo">
@@ -542,29 +583,31 @@
                     <div class="station-info">
                         <h3 class="station-name" id="currentStationName">电台名称</h3>
                         <div class="station-meta">
-                            <span class="station-group" id="currentStationGroup">分组</span>
-                            <span class="station-country" id="currentStationCountry">国家</span>
-                            <span class="station-language" id="currentStationLanguage">语言</span>
+                            <div class="station-group" id="currentStationGroup">电台分类</div>
+                            <div class="station-language" id="currentStationLanguage">语言</div>
+                            <div class="station-country" id="currentStationCountry">国家</div>
                         </div>
                         <p class="station-description" id="currentStationDescription">电台描述信息</p>
+                        
+                        <!-- 播放控制区域 - 新布局 -->
+                        <div class="player-controls">
+                            <div class="control-buttons">
+                                <button class="control-btn" id="prevBtn" title="上一个电台">⏮</button>
+                                <button class="control-btn play-pause-btn" id="playPauseBtn" title="播放/暂停">
+                                    <span class="play-icon">▶</span>
+                                    <span class="pause-icon">❚❚</span>
+                                </button>
+                                <button class="control-btn" id="nextBtn" title="下一个电台">⏭</button>
+                            </div>
+                            
+                            <div class="control-volume">
+                                <span class="volume-icon" id="volumeIcon">🔊</span>
+                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+                            </div>
+                            
+                            <div class="player-status" id="playerStatus">准备就绪，请选择一个电台开始播放</div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- 播放控制区域 -->
-                <div id="playerControls" class="player-controls hidden">
-                    <div class="control-buttons">
-                        <button class="play-pause-btn" id="playPauseBtn">
-                            <span class="play-icon">▶</span>
-                            <span class="pause-icon">❚❚</span>
-                        </button>
-                    </div>
-                    
-                    <div class="volume-control">
-                        <span class="volume-icon" id="volumeIcon">🔊</span>
-                        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
-                    </div>
-                    
-                    <div class="player-status" id="playerStatus">准备就绪，请选择一个电台开始播放</div>
                 </div>
                 
                 <!-- 电台列表区域 -->
@@ -607,6 +650,8 @@
         // DOM元素
         const radioPlayer = document.getElementById('radioPlayer');
         const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
         const volumeSlider = document.getElementById('volumeSlider');
         const volumeIcon = document.getElementById('volumeIcon');
         const playerStatus = document.getElementById('playerStatus');
@@ -614,7 +659,6 @@
         const errorContainer = document.getElementById('errorContainer');
         const errorMessage = document.getElementById('errorMessage');
         const currentStationContainer = document.getElementById('currentStationContainer');
-        const playerControls = document.getElementById('playerControls');
         const stationsContainer = document.getElementById('stationsContainer');
         const stationsCount = document.getElementById('stationsCount');
         const stationsByGroup = document.getElementById('stationsByGroup');
@@ -625,6 +669,7 @@
         let currentStation = null;
         let stations = [];
         let stationGroups = {};
+        let currentStationIndex = 0;
         
         // 默认电台Logo（当电台没有提供Logo时使用）
         const DEFAULT_LOGO = 'https://img.zcool.cn/community/01b4515c34c499a801208f8c1365ee.jpg';
@@ -662,13 +707,13 @@
                 
                 // 设置第一个电台为当前电台
                 if (stations.length > 0) {
+                    currentStationIndex = 0;
                     setCurrentStation(stations[0]);
                 }
                 
                 // 隐藏加载状态，显示内容
                 loadingContainer.classList.add('hidden');
                 currentStationContainer.classList.remove('hidden');
-                playerControls.classList.remove('hidden');
                 stationsContainer.classList.remove('hidden');
                 
                 // 初始化播放器控制
@@ -850,6 +895,11 @@
             `;
             
             card.addEventListener('click', () => {
+                // 找到当前电台的索引
+                const index = stations.findIndex(s => s.id === station.id);
+                if (index !== -1) {
+                    currentStationIndex = index;
+                }
                 setCurrentStation(station);
                 // 更新所有卡片的激活状态
                 document.querySelectorAll('.station-card').forEach(c => {
@@ -917,6 +967,12 @@
             // 播放/暂停按钮事件
             playPauseBtn.addEventListener('click', togglePlayback);
             
+            // 上一个电台按钮事件
+            prevBtn.addEventListener('click', playPrevStation);
+            
+            // 下一个电台按钮事件
+            nextBtn.addEventListener('click', playNextStation);
+            
             // 音量控制事件
             volumeSlider.addEventListener('input', function() {
                 radioPlayer.volume = this.value;
@@ -957,6 +1013,52 @@
                     playerStatus.textContent = `准备就绪: ${currentStation.name}`;
                 }
             });
+        }
+        
+        // 播放上一个电台
+        function playPrevStation() {
+            if (stations.length === 0) return;
+            
+            currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
+            const prevStation = stations[currentStationIndex];
+            setCurrentStation(prevStation);
+            
+            // 更新卡片激活状态
+            document.querySelectorAll('.station-card').forEach(c => {
+                c.classList.remove('active');
+                if (c.id === prevStation.id) {
+                    c.classList.add('active');
+                }
+            });
+            
+            // 滚动到当前电台卡片
+            const activeCard = document.getElementById(prevStation.id);
+            if (activeCard) {
+                activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+        
+        // 播放下一个电台
+        function playNextStation() {
+            if (stations.length === 0) return;
+            
+            currentStationIndex = (currentStationIndex + 1) % stations.length;
+            const nextStation = stations[currentStationIndex];
+            setCurrentStation(nextStation);
+            
+            // 更新卡片激活状态
+            document.querySelectorAll('.station-card').forEach(c => {
+                c.classList.remove('active');
+                if (c.id === nextStation.id) {
+                    c.classList.add('active');
+                }
+            });
+            
+            // 滚动到当前电台卡片
+            const activeCard = document.getElementById(nextStation.id);
+            if (activeCard) {
+                activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
         
         // 切换播放/暂停
