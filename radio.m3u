@@ -6,10 +6,10 @@ https://rscdn.ajmide.com/r_1700/nglive_1700.m3u8
 http://satellitepull.cnr.cn/live/wx32hunjtgb/playlist.m3u8
 
 #EXTINF:-1 tvg-id="xxzs" tvg-name="潇湘之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group73/M05/84/0B/wKgO216Byl6x2XQiAACCjBEkvO4721.png!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南电台",潇湘之声
-http://a.live.hnradio.com/zxpd/radio120k_zxpd.m3u8?auth_key=1588751208-0-0-3440555a157a45fdcbdb7840504278c5
+http://a.live.hnradio.com/zxpd/radio120k_zxpd.m3u8?auth_key=1588751208-0-0-3440555a157a45fdcbdb7840504278c5https://ytcastmp3.radio.cn/63/stream_10526.mp3?type=1&key=e4a12812c85879ee2257d938f2fa5e51&time=696653b9
 
 #EXTINF:-1 tvg-id="hnjjgb" tvg-name="湖南经济广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://radio5.cn/file/2023/04/2023051311035557.jpg" group-title="湖南电台",湖南经济广播
-http://a.live.hnradio.com/jjpd/radio120k_jjpd.m3u8?auth_key=1588751229-0-0-7c55dcf57fcd18b3e892c53cad357be4
+https://ytcastmp3.radio.cn/79/stream_11056.mp3?type=1&key=d60ede5f1bd01f7ee40a370bdaf2d0ac&time=696653b9
 
 #EXTINF:-1 tvg-id="zgjtgbhn" tvg-name="中国交通广播(湖南)" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://www.dt968.com/201912/07/rSR0JvU1LxhmWPMZ63NV.jpg" group-title="湖南电台",中国交通广播(湖南)
 https://ytcastmp3.radio.cn/72/stream_10752.mp3?type=1&key=1f1527bb463227041edebf4c9fd72a6e&time=69665132
