@@ -40,3 +40,6 @@ https://lhttp.qingting.fm/live/3967/64k.mp3
 
 #EXTINF:-1 tvg-id="csyygb" tvg-name="长沙音乐广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2023/0324/20230324082154.jpeg" group-title="长沙广播电视台",长沙音乐广播
 https://lhttp-hw.qtfm.cn/live/20847/64k.mp3?app_id=web&ts=696b082f&sign=34a6e9dfd572d6f455bad01291736822
+
+#EXTINF:-1 tvg-id="hnjjgb" tvg-name="摩登音乐台" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://radio5.cn/file/2023/04/2023051310332656.jpg" group-title="湖南人民广播电台",摩登音乐台
+https://ytcastmp3.radio.cn/79/stream_11057.mp3?type=1&key=d1f54f45e58eb44084fe3e139a51ca1a&time=696b024d
