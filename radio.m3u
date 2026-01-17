@@ -52,3 +52,6 @@ https://lhttp-hw.qtfm.cn/live/5022076/64k.mp3?app_id=web&ts=696b11db&sign=c2e22a
 
 #EXTINF:-1 tvg-id="csjtgb" tvg-name="湘潭交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2020/0405/20200405120158.jpeg" group-title="湘潭广播电视台",湘潭交通广播
 https://lhttp-hw.qtfm.cn/live/21269/64k.mp3?app_id=web&ts=696b13ff&sign=1b76bc907c3a22b052633b995c2cbeef
+
+#EXTINF:-1 tvg-id="zgzs" tvg-name="经济之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ts3.tc.mm.bing.net/th/id/OIP-C.kH9Owcs71CJofVj5n9lt7wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="中央人民广播电台",经济之声
+https://ytcast2.radio.cn/110/radios/40640/index_40640.m3u8?type=1&key=c65b3aea9f70559e5c5ee7ea588602c5&time=696b0e53
