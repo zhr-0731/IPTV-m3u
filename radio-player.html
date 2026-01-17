@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>在线电台播放器</title>
+    <title>在线电台播放器 - zhr的博客</title>
     <style>
         :root {
             --primary-color: #59c090;
@@ -34,7 +34,7 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             margin: 0 auto;
         }
@@ -111,91 +111,116 @@
             100% { opacity: 1; }
         }
         
-        /* 播放器主体 - 新布局 */
+        /* 播放器主体 */
         .player-main {
             padding: 30px;
         }
         
-        /* 当前播放电台 - 新布局 */
+        /* 当前播放电台 */
         .current-station {
             display: flex;
-            align-items: stretch;
-            gap: 30px;
-            padding: 25px;
+            align-items: flex-start; /* 改为顶部对齐 */
+            gap: 40px;
+            padding: 30px;
             background: var(--bg-light);
             border-radius: var(--radius-sm);
             margin-bottom: 30px;
             border: 1px solid var(--border-color);
-            min-height: 220px;
+            min-height: 280px;
         }
         
         .station-cover {
-            width: 200px;
-            height: 200px;
+            width: 280px;
+            height: 280px;
             border-radius: var(--radius-sm);
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
         
         .station-cover img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .station-cover img:hover {
+            transform: scale(1.03);
         }
         
         .station-info {
             flex: 1;
             display: flex;
             flex-direction: column;
+            padding: 0; /* 移除内边距 */
+            min-height: 280px; /* 设置最小高度 */
         }
         
         .station-name {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
             color: var(--text-color);
-            line-height: 1.3;
+            line-height: 1.2;
+            overflow-wrap: break-word; /* 允许长单词换行 */
+            word-break: break-word; /* 允许单词内断行 */
+            max-width: 100%; /* 确保不超过容器宽度 */
+            overflow: visible; /* 确保内容可见 */
+            white-space: normal; /* 允许换行 */
+            display: block; /* 改为块级元素 */
+            min-height: auto; /* 自动高度 */
         }
         
         .station-meta {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-shrink: 0; /* 防止被挤压 */
         }
         
         .station-group, .station-country, .station-language {
             color: var(--text-light);
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
+            font-weight: 500;
         }
         
         .station-group:before {
             content: "📻";
-            margin-right: 8px;
-            font-size: 0.9rem;
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
         
         .station-country:before {
             content: "📍";
-            margin-right: 8px;
-            font-size: 0.9rem;
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
         
         .station-language:before {
             content: "🗣️";
-            margin-right: 8px;
-            font-size: 0.9rem;
+            margin-right: 10px;
+            font-size: 1.1rem;
         }
         
         .station-description {
             color: var(--text-light);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
             margin-top: 10px;
-            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 限制最多显示2行 */
+            -webkit-box-orient: vertical;
+            flex-shrink: 0; /* 防止被挤压 */
         }
         
         /* 播放控制区域 - 新布局 */
@@ -203,21 +228,33 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            height: 100%;
+            height: auto; /* 改为自动高度 */
+            margin-top: auto; /* 推到容器底部 */
+        }
+        
+        /* 控制按钮和音频条容器 */
+        .controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            background: rgba(89, 192, 144, 0.05);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(89, 192, 144, 0.1);
         }
         
         .control-buttons {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
         }
         
         .control-btn {
             background: var(--primary-color);
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             color: white;
             cursor: pointer;
@@ -225,19 +262,20 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             box-shadow: 0 4px 10px rgba(89, 192, 144, 0.3);
         }
         
         .control-btn:hover {
             background: var(--primary-dark);
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: 0 6px 15px rgba(89, 192, 144, 0.4);
         }
         
         .play-pause-btn {
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
+            width: 70px;
+            height: 70px;
+            font-size: 1.8rem;
         }
         
         .play-pause-btn.playing .play-icon {
@@ -252,46 +290,56 @@
             display: none;
         }
         
+        /* 音频条区域 - 新布局 */
         .control-volume {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-top: 10px;
+            gap: 12px;
+            padding-left: 25px;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
         }
         
         .volume-icon {
             color: var(--text-light);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             width: 24px;
+            flex-shrink: 0;
         }
         
         .volume-slider {
-            flex: 1;
-            height: 6px;
-            background: #e0e0e0;
+            width: 120px;
+            height: 5px;
+            background: #ddd;
             border-radius: 3px;
             outline: none;
             -webkit-appearance: none;
+            transition: background 0.3s;
+        }
+        
+        .volume-slider:hover {
+            background: #ccc;
         }
         
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: var(--primary-color);
             cursor: pointer;
             border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .player-status {
             text-align: left;
             font-style: italic;
             color: var(--text-light);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             height: 22px;
-            margin-top: 10px;
+            margin-top: 15px;
+            padding-left: 5px;
+            border-left: 3px solid var(--primary-color);
         }
         
         /* 电台列表区域 */
@@ -337,7 +385,7 @@
         
         .stations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 15px;
             margin-bottom: 25px;
         }
@@ -373,11 +421,12 @@
         }
         
         .station-card-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
             overflow: hidden;
             flex-shrink: 0;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
         }
         
         .station-card-logo img {
@@ -390,6 +439,9 @@
             font-weight: 600;
             font-size: 1rem;
             color: var(--text-color);
+            overflow-wrap: break-word;
+            word-break: break-word;
+            max-width: 100%;
         }
         
         .station-card-info {
@@ -421,16 +473,32 @@
         }
         
         /* 响应式设计 */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .current-station {
-                flex-direction: column;
-                gap: 20px;
-                min-height: auto;
+                gap: 30px;
             }
             
             .station-cover {
-                width: 180px;
-                height: 180px;
+                width: 240px;
+                height: 240px;
+            }
+            
+            .station-name {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .current-station {
+                flex-direction: column;
+                gap: 25px;
+                min-height: auto;
+                padding: 25px;
+            }
+            
+            .station-cover {
+                width: 260px;
+                height: 260px;
                 align-self: center;
             }
             
@@ -443,6 +511,41 @@
             .player-controls {
                 justify-content: flex-start;
                 height: auto;
+                margin-top: 20px;
+            }
+            
+            .station-info {
+                min-height: auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .station-cover {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .station-name {
+                font-size: 1.8rem;
+            }
+            
+            .controls-row {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            
+            .control-volume {
+                border-left: none;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                padding-left: 0;
+                padding-top: 20px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .volume-slider {
+                width: 180px;
             }
             
             .stations-grid {
@@ -461,6 +564,33 @@
             }
         }
         
+        @media (max-width: 600px) {
+            .station-cover {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .station-name {
+                font-size: 1.6rem;
+            }
+            
+            .control-buttons {
+                gap: 10px;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+            
+            .play-pause-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+        }
+        
         @media (max-width: 480px) {
             .stations-grid {
                 grid-template-columns: 1fr;
@@ -470,22 +600,33 @@
                 padding: 20px;
             }
             
-            .control-buttons {
-                gap: 10px;
-            }
-            
-            .control-btn {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .play-pause-btn {
-                width: 55px;
-                height: 55px;
-            }
-            
             .current-station {
                 padding: 20px;
+            }
+            
+            .station-cover {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .station-name {
+                font-size: 1.5rem;
+            }
+            
+            .station-group, .station-country, .station-language {
+                font-size: 1rem;
+            }
+            
+            .controls-row {
+                padding: 15px;
+            }
+            
+            .control-volume {
+                flex-wrap: wrap;
+            }
+            
+            .volume-slider {
+                width: 150px;
             }
         }
         
@@ -558,7 +699,7 @@
                 </div>
                 <div class="live-badge">
                     <span class="live-dot"></span>
-                    <span>Live</span>
+                    <span>直播中</span>
                 </div>
             </div>
             
@@ -575,7 +716,7 @@
                     <p id="errorMessage"></p>
                 </div>
                 
-                <!-- 当前播放电台 - 新布局 -->
+                <!-- 当前播放电台 -->
                 <div id="currentStationContainer" class="current-station hidden">
                     <div class="station-cover">
                         <img id="currentStationLogo" src="" alt="电台Logo">
@@ -591,18 +732,21 @@
                         
                         <!-- 播放控制区域 - 新布局 -->
                         <div class="player-controls">
-                            <div class="control-buttons">
-                                <button class="control-btn" id="prevBtn" title="上一个电台">⏮</button>
-                                <button class="control-btn play-pause-btn" id="playPauseBtn" title="播放/暂停">
-                                    <span class="play-icon">▶</span>
-                                    <span class="pause-icon">❚❚</span>
-                                </button>
-                                <button class="control-btn" id="nextBtn" title="下一个电台">⏭</button>
-                            </div>
-                            
-                            <div class="control-volume">
-                                <span class="volume-icon" id="volumeIcon">🔊</span>
-                                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+                            <div class="controls-row">
+                                <div class="control-buttons">
+                                    <button class="control-btn" id="prevBtn" title="上一个电台">⏮</button>
+                                    <button class="control-btn play-pause-btn" id="playPauseBtn" title="播放/暂停">
+                                        <span class="play-icon">▶</span>
+                                        <span class="pause-icon">❚❚</span>
+                                    </button>
+                                    <button class="control-btn" id="nextBtn" title="下一个电台">⏭</button>
+                                </div>
+                                
+                                <!-- 音频条区域 - 新布局 -->
+                                <div class="control-volume">
+                                    <span class="volume-icon" id="volumeIcon">🔊</span>
+                                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
+                                </div>
                             </div>
                             
                             <div class="player-status" id="playerStatus">准备就绪，请选择一个电台开始播放</div>
@@ -670,9 +814,10 @@
         let stations = [];
         let stationGroups = {};
         let currentStationIndex = 0;
+        let stationOrder = []; // 用于跟踪播放顺序的数组
         
         // 默认电台Logo（当电台没有提供Logo时使用）
-        const DEFAULT_LOGO = 'https://img.tukuppt.com/ad_preview/00/10/76/Wb6U2hMrzm.jpg!/fw/260';
+        const DEFAULT_LOGO = 'https://img.zcool.cn/community/01b4515c34c499a801208f8c1365ee.jpg';
         
         // 初始化播放器
         async function initPlayer() {
@@ -698,7 +843,10 @@
                 
                 console.log(`成功加载 ${stations.length} 个电台`);
                 
-                // 按分组组织电台
+                // 创建按播放顺序排列的数组（按分组和名称排序）
+                createStationOrder();
+                
+                // 按分组组织电台（用于显示）
                 organizeStationsByGroup();
                 
                 // 更新UI
@@ -706,9 +854,9 @@
                 renderStationsByGroup();
                 
                 // 设置第一个电台为当前电台
-                if (stations.length > 0) {
+                if (stationOrder.length > 0) {
                     currentStationIndex = 0;
-                    setCurrentStation(stations[0]);
+                    setCurrentStation(stationOrder[0]);
                 }
                 
                 // 隐藏加载状态，显示内容
@@ -735,6 +883,35 @@
                 console.error('初始化播放器时出错:', error);
                 showError(`加载播放列表失败: ${error.message}`);
             }
+        }
+        
+        // 创建按播放顺序排列的电台数组
+        function createStationOrder() {
+            // 按分组排序，然后按名称排序
+            const groups = {};
+            
+            // 按分组组织
+            stations.forEach(station => {
+                const group = station.group || '未分组';
+                if (!groups[group]) {
+                    groups[group] = [];
+                }
+                groups[group].push(station);
+            });
+            
+            // 按分组名称排序
+            const sortedGroupNames = Object.keys(groups).sort();
+            
+            // 创建排序后的电台数组
+            stationOrder = [];
+            
+            sortedGroupNames.forEach(groupName => {
+                // 每组内按电台名称排序
+                const groupStations = groups[groupName].sort((a, b) => 
+                    a.name.localeCompare(b.name, 'zh-CN')
+                );
+                stationOrder.push(...groupStations);
+            });
         }
         
         // 解析M3U内容
@@ -822,7 +999,7 @@
             return 'station-' + Math.random().toString(36).substr(2, 9);
         }
         
-        // 按分组组织电台
+        // 按分组组织电台（用于显示）
         function organizeStationsByGroup() {
             stationGroups = {};
             
@@ -834,6 +1011,13 @@
                 }
                 
                 stationGroups[group].push(station);
+            });
+            
+            // 每组内按名称排序
+            Object.keys(stationGroups).forEach(group => {
+                stationGroups[group].sort((a, b) => 
+                    a.name.localeCompare(b.name, 'zh-CN')
+                );
             });
         }
         
@@ -855,12 +1039,8 @@
                 const stationsGrid = document.createElement('div');
                 stationsGrid.className = 'stations-grid';
                 
-                // 为该分组内的电台排序
-                const sortedStations = stationGroups[group].sort((a, b) => 
-                    a.name.localeCompare(b.name, 'zh-CN')
-                );
-                
-                sortedStations.forEach(station => {
+                // 为该分组内的电台排序（已经排过序）
+                stationGroups[group].forEach(station => {
                     const stationCard = createStationCard(station);
                     stationsGrid.appendChild(stationCard);
                 });
@@ -895,8 +1075,8 @@
             `;
             
             card.addEventListener('click', () => {
-                // 找到当前电台的索引
-                const index = stations.findIndex(s => s.id === station.id);
+                // 找到当前电台在播放顺序中的索引
+                const index = stationOrder.findIndex(s => s.id === station.id);
                 if (index !== -1) {
                     currentStationIndex = index;
                 }
@@ -1015,12 +1195,13 @@
             });
         }
         
-        // 播放上一个电台
+        // 播放上一个电台 - 修复：按顺序播放且不滚动页面
         function playPrevStation() {
-            if (stations.length === 0) return;
+            if (stationOrder.length === 0) return;
             
-            currentStationIndex = (currentStationIndex - 1 + stations.length) % stations.length;
-            const prevStation = stations[currentStationIndex];
+            // 计算上一个电台的索引
+            currentStationIndex = (currentStationIndex - 1 + stationOrder.length) % stationOrder.length;
+            const prevStation = stationOrder[currentStationIndex];
             setCurrentStation(prevStation);
             
             // 更新卡片激活状态
@@ -1031,19 +1212,17 @@
                 }
             });
             
-            // 滚动到当前电台卡片
-            const activeCard = document.getElementById(prevStation.id);
-            if (activeCard) {
-                activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            // 不再滚动页面
+            // 注意：移除了 scrollIntoView 调用
         }
         
-        // 播放下一个电台
+        // 播放下一个电台 - 修复：按顺序播放且不滚动页面
         function playNextStation() {
-            if (stations.length === 0) return;
+            if (stationOrder.length === 0) return;
             
-            currentStationIndex = (currentStationIndex + 1) % stations.length;
-            const nextStation = stations[currentStationIndex];
+            // 计算下一个电台的索引
+            currentStationIndex = (currentStationIndex + 1) % stationOrder.length;
+            const nextStation = stationOrder[currentStationIndex];
             setCurrentStation(nextStation);
             
             // 更新卡片激活状态
@@ -1054,11 +1233,8 @@
                 }
             });
             
-            // 滚动到当前电台卡片
-            const activeCard = document.getElementById(nextStation.id);
-            if (activeCard) {
-                activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
+            // 不再滚动页面
+            // 注意：移除了 scrollIntoView 调用
         }
         
         // 切换播放/暂停
