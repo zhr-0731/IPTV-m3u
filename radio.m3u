@@ -1,39 +1,42 @@
 #EXTM3U
-#EXTINF:-1 tvg-id="ximalaya.fm" tvg-name="金鹰955" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2014/0606/20140606062037891.jpg" group-title="湖南电台",金鹰955
+#EXTINF:-1 tvg-id="ximalaya.fm" tvg-name="金鹰955" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2014/0606/20140606062037891.jpg" group-title="湖南人民广播电台",金鹰955
 https://rscdn.ajmide.com/r_1700/nglive_1700.m3u8
 
-#EXTINF:-1 tvg-id="hunjtgb" tvg-name="湖南交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2016/0415/20160415120156858.png" group-title="湖南电台",湖南交通广播
+#EXTINF:-1 tvg-id="hunjtgb" tvg-name="湖南交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2016/0415/20160415120156858.png" group-title="湖南人民广播电台",湖南交通广播
 http://satellitepull.cnr.cn/live/wx32hunjtgb/playlist.m3u8
 
-#EXTINF:-1 tvg-id="xxzs" tvg-name="潇湘之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group73/M05/84/0B/wKgO216Byl6x2XQiAACCjBEkvO4721.png!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南电台",潇湘之声
+#EXTINF:-1 tvg-id="xxzs" tvg-name="潇湘之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group73/M05/84/0B/wKgO216Byl6x2XQiAACCjBEkvO4721.png!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南人民广播电台",潇湘之声
 https://ytcastmp3.radio.cn/63/stream_10526.mp3?type=1&key=56de79611a6f4e9f5e4e5ddadc8eaa62&time=69665b8d
 
-#EXTINF:-1 tvg-id="hnjjgb" tvg-name="湖南经济之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://radio5.cn/file/2023/04/2023051311035557.jpg" group-title="湖南电台",湖南经济之声
+#EXTINF:-1 tvg-id="hnjjgb" tvg-name="湖南经济之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://radio5.cn/file/2023/04/2023051311035557.jpg" group-title="湖南人民广播电台",湖南经济之声
 https://ytcastmp3.radio.cn/79/stream_11056.mp3?type=1&key=39bd786ebeb384d74b39ee12926bd192&time=69665b8d
 
-#EXTINF:-1 tvg-id="zgjtgbhn" tvg-name="中国交通广播(湖南)" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://www.dt968.com/201912/07/rSR0JvU1LxhmWPMZ63NV.jpg" group-title="中央电台",中国交通广播(湖南)
+#EXTINF:-1 tvg-id="zgjtgbhn" tvg-name="中国交通广播(湖南)" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://www.dt968.com/201912/07/rSR0JvU1LxhmWPMZ63NV.jpg" group-title="中央人民广播电台",中国交通广播(湖南)
 https://ytcastmp3.radio.cn/72/stream_10752.mp3?type=1&key=376f97d779bb21cb5d435c07f6168261&time=696af8ca
 
-#EXTINF:-1 tvg-id="csxwgb" tvg-name="长沙新闻广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/sso/48/1744072514714_to76co5We.jpeg" group-title="湖南电台",长沙新闻广播
+#EXTINF:-1 tvg-id="csxwgb" tvg-name="长沙新闻广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/sso/48/1744072514714_to76co5We.jpeg" group-title="长沙广播电视台",长沙新闻广播
 https://lhttp.qingting.fm/live/4877/64k.mp3
 
-#EXTINF:-1 tvg-id="cscszs" tvg-name="长沙城市之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ytmedia.radio.cn/CCYT%2F202412%2F06%2F17%2F0arC5mL8ADiVs2024120617187.png" group-title="湖南电台",长沙城市之声
+#EXTINF:-1 tvg-id="cscszs" tvg-name="长沙城市之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ytmedia.radio.cn/CCYT%2F202412%2F06%2F17%2F0arC5mL8ADiVs2024120617187.png" group-title="长沙广播电视台",长沙城市之声
 https://lhttp.qingting.fm/live/4237/64k.mp3
 
-#EXTINF:-1 tvg-id="csbigradio" tvg-name="长沙Big Radio快乐886" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group29/M05/2D/70/wKgJXVkxSQzSjdxxAACZFoGR_hs177.jpg!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南电台",长沙Big Radio快乐886
+#EXTINF:-1 tvg-id="csbigradio" tvg-name="长沙Big Radio快乐886" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group29/M05/2D/70/wKgJXVkxSQzSjdxxAACZFoGR_hs177.jpg!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南人民广播电台",长沙Big Radio快乐886
 https://stream3.xiancity.cn/2/sd/live.m3u8?audio
 
-#EXTINF:-1 tvg-id="zgzs" tvg-name="中国之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ts3.tc.mm.bing.net/th/id/OIP-C.ftKZMnFkgsd9UANLaAXzCQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="中央电台",中国之声
+#EXTINF:-1 tvg-id="zgzs" tvg-name="中国之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ts3.tc.mm.bing.net/th/id/OIP-C.ftKZMnFkgsd9UANLaAXzCQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="中央人民广播电台",中国之声
 https://rscdn-bk.ajmide.com/r_67/nglive_67.m3u8?sign=0e74e4283d57164f87748bcc6864b76c&t=696c4001
 
-#EXTINF:-1 tvg-id="cgtnradio" tvg-name="CGTN Radio" tvg-country="cn" tvg-language="English" tvg-logo="https://ytmedia.radio.cn/CCYT%2F202302%2F10%2F14%2FpDZEJjU92023021014157.png" group-title="中央电台",CGTN Radio
+#EXTINF:-1 tvg-id="cgtnradio" tvg-name="CGTN Radio" tvg-country="cn" tvg-language="English" tvg-logo="https://ytmedia.radio.cn/CCYT%2F202302%2F10%2F14%2FpDZEJjU92023021014157.png" group-title="中央人民广播电台",CGTN Radio
 https://ytcast2.radio.cn/110/radios/60734/index_60734.m3u8?type=1&key=d3bf1a574e04712265fd1614d32c773a&time=696a2b70
 
-#EXTINF:-1 tvg-id="cgtnenglish" tvg-name="CGTN English" tvg-country="cn" tvg-language="English" tvg-logo="https://radio-res.cgtn.com/image/2210/1665880846449.jpg" group-title="中央电台",CGTN English
+#EXTINF:-1 tvg-id="cgtnenglish" tvg-name="CGTN English" tvg-country="cn" tvg-language="English" tvg-logo="https://radio-res.cgtn.com/image/2210/1665880846449.jpg" group-title="中央人民广播电台",CGTN English
 https://english-livetx.cgtn.com/hls/yypdyyctzb_sd.m3u8
 
-#EXTINF:-1 tvg-id="cgtndocumentary" tvg-name="CGTN Documentary" tvg-country="cn" tvg-language="English" tvg-logo="https://radio-res.cgtn.com/image/2201/1643162478720.png" group-title="中央电台",CGTN Documentary
+#EXTINF:-1 tvg-id="cgtndocumentary" tvg-name="CGTN Documentary" tvg-country="cn" tvg-language="English" tvg-logo="https://radio-res.cgtn.com/image/2201/1643162478720.png" group-title="中央人民广播电台",CGTN Documentary
 https://english-livetx.cgtn.com/hls/yypdjlctzb_sd.m3u8
 
-#EXTINF:-1 tvg-id="csjtgb" tvg-name="长沙交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2021/0322/20210322092941.jpeg" group-title="湖南电台",长沙交通广播
+#EXTINF:-1 tvg-id="csjtgb" tvg-name="长沙交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2021/0322/20210322092941.jpeg" group-title=长沙广播电视台",长沙交通广播
 https://lhttp.qingting.fm/live/3967/64k.mp3
+
+#EXTINF:-1 tvg-id="csyygb" tvg-name="长沙音乐广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2023/0324/20230324082154.jpeg" group-title="长沙广播电视台",长沙音乐广播
+https://lhttp-hw.qtfm.cn/live/20847/64k.mp3?app_id=web&ts=696b082f&sign=34a6e9dfd572d6f455bad01291736822
