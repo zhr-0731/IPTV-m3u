@@ -35,7 +35,7 @@ https://english-livetx.cgtn.com/hls/yypdyyctzb_sd.m3u8
 #EXTINF:-1 tvg-id="cgtndocumentary" tvg-name="CGTN Documentary" tvg-country="cn" tvg-language="English" tvg-logo="https://radio-res.cgtn.com/image/2201/1643162478720.png" group-title="中央人民广播电台",CGTN Documentary
 https://english-livetx.cgtn.com/hls/yypdjlctzb_sd.m3u8
 
-#EXTINF:-1 tvg-id="csjtgb" tvg-name="长沙交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2021/0322/20210322092941.jpeg" group-title=长沙广播电视台",长沙交通广播
+#EXTINF:-1 tvg-id="csjtgb" tvg-name="长沙交通广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2021/0322/20210322092941.jpeg" group-title="长沙广播电视台",长沙交通广播
 https://lhttp.qingting.fm/live/3967/64k.mp3
 
 #EXTINF:-1 tvg-id="csyygb" tvg-name="长沙音乐广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/2023/0324/20230324082154.jpeg" group-title="长沙广播电视台",长沙音乐广播
