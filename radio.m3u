@@ -11,7 +11,7 @@ https://ytcastmp3.radio.cn/63/stream_10526.mp3?type=1&key=56de79611a6f4e9f5e4e5d
 #EXTINF:-1 tvg-id="hnjjgb" tvg-name="湖南经济之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://radio5.cn/file/2023/04/2023051311035557.jpg" group-title="湖南电台",湖南经济之声
 https://ytcastmp3.radio.cn/79/stream_11056.mp3?type=1&key=39bd786ebeb384d74b39ee12926bd192&time=69665b8d
 
-#EXTINF:-1 tvg-id="zgjtgbhn" tvg-name="中国交通广播(湖南)" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://www.dt968.com/201912/07/rSR0JvU1LxhmWPMZ63NV.jpg" group-title="湖南电台",中国交通广播(湖南)
+#EXTINF:-1 tvg-id="zgjtgbhn" tvg-name="中国交通广播(湖南)" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://www.dt968.com/201912/07/rSR0JvU1LxhmWPMZ63NV.jpg" group-title="中央电台",中国交通广播(湖南)
 https://ytcastmp3.radio.cn/72/stream_10752.mp3?type=1&key=591b965968b3993a495f8590b30d2d29&time=6964ed91
 
 #EXTINF:-1 tvg-id="csxwgb" tvg-name="长沙新闻广播" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://pic.qtfm.cn/sso/48/1744072514714_to76co5We.jpeg" group-title="湖南电台",长沙新闻广播
@@ -20,7 +20,7 @@ https://lhttp.qingting.fm/live/4877/64k.mp3
 #EXTINF:-1 tvg-id="cscszs" tvg-name="长沙城市之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ytmedia.radio.cn/CCYT%2F202412%2F06%2F17%2F0arC5mL8ADiVs2024120617187.png" group-title="湖南电台",长沙城市之声
 https://lhttp.qingting.fm/live/4237/64k.mp3
 
-#EXTINF:-1 tvg-id="csbigradio" tvg-name="长沙Big Radio快乐886" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://cdn.saofm.com/wp-content/uploads/20180521122745.jpeg" group-title="湖南电台",长沙Big Radio快乐886
+#EXTINF:-1 tvg-id="csbigradio" tvg-name="长沙Big Radio快乐886" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://imagev2.xmcdn.com/group29/M05/2D/70/wKgJXVkxSQzSjdxxAACZFoGR_hs177.jpg!strip=1&quality=7&magick=webp&op_type=5&upload_type=cover&name=web_large&device_type=ios" group-title="湖南电台",长沙Big Radio快乐886
 https://stream3.xiancity.cn/2/sd/live.m3u8?audio
 
 #EXTINF:-1 tvg-id="zgzs" tvg-name="中国之声" tvg-country="cn" tvg-language="Chinese" tvg-logo="https://ts3.tc.mm.bing.net/th/id/OIP-C.ftKZMnFkgsd9UANLaAXzCQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" group-title="中央电台",中国之声
