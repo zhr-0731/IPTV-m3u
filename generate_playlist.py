@@ -1,12 +1,13 @@
 import requests
 import xml.etree.ElementTree as ET
 import random
+import time
 from email.utils import parsedate_to_datetime
 from datetime import datetime
 import os
 from typing import List, Dict, Optional, Tuple
 
-# 源URL
+# 源URL（保持你原来的getpodcast.xyz链接）
 URLS = [
     "http://zhr-0731.github.io/IPTV-m3u/music.m3u",
     "https://data.getpodcast.xyz/data/ximalaya/31903470.xml",
@@ -18,22 +19,49 @@ OUTPUT_FILE = "playlist.m3u"
 TIMEOUT = 30
 
 def fetch_text(url: str) -> Optional[str]:
-    """获取URL文本内容，失败返回None"""
+    """获取URL文本内容，失败返回None（包含重试和完整请求头）"""
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'User-Agent': random.choice([
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+        ]),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'none',
+        'Cache-Control': 'max-age=0',
     }
-    try:
-        resp = requests.get(url, timeout=TIMEOUT, headers=headers)
-        resp.raise_for_status()
-        if 'charset' in resp.headers.get('content-type', ''):
-            return resp.text
+    
+    # 如果需要代理，可在这里设置（例如 proxies = {'http': 'http://your-proxy:port'}）
+    proxies = None
+
+    for attempt in range(3):  # 最多重试3次
         try:
-            return resp.content.decode('utf-8')
-        except UnicodeDecodeError:
-            return resp.content.decode('latin1')
-    except Exception as e:
-        print(f"Error fetching {url}: {e}")
-        return None
+            resp = requests.get(
+                url,
+                timeout=TIMEOUT,
+                headers=headers,
+                proxies=proxies,
+                allow_redirects=True
+            )
+            resp.raise_for_status()
+            # 尝试解码
+            if 'charset' in resp.headers.get('content-type', ''):
+                return resp.text
+            try:
+                return resp.content.decode('utf-8')
+            except UnicodeDecodeError:
+                return resp.content.decode('latin1')
+        except Exception as e:
+            print(f"Attempt {attempt+1} failed for {url}: {e}")
+            if attempt < 2:
+                time.sleep(2)  # 等待2秒后重试
+    return None
 
 def parse_m3u(content: str) -> List[str]:
     lines = content.splitlines()
