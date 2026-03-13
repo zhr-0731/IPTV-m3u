@@ -2,9 +2,12 @@ name: Update Daily Playlist
 
 on:
   schedule:
-    # 每天北京时间00:00 = UTC 16:00
     - cron: '0 16 * * *'
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
+
+# 添加权限配置
+permissions:
+  contents: write  # 允许写入仓库内容
 
 jobs:
   build:
