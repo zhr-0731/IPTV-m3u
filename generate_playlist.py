@@ -10,9 +10,9 @@ from typing import List, Dict, Optional, Tuple
 # 源URL（保持你原来的getpodcast.xyz链接）
 URLS = [
     "http://zhr-0731.github.io/IPTV-m3u/music.m3u",
-    "https://zhr-0731.github.io/IPTV-m3u/podcast/31903470.xml",
+    "https://zhr-0731.github.io/IPTV-m3u/podcast/89148451.xml",
     "https://zhr-0731.github.io/IPTV-m3u/podcast/101474678.xml",
-    "https://zhr-0731.github.io/IPTV-m3u/podcast/89148451.xml"
+    "https://zhr-0731.github.io/IPTV-m3u/podcast/31903470.xml"
 ]
 
 OUTPUT_FILE = "playlist.m3u"
