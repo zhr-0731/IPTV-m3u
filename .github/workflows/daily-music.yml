@@ -1,0 +1,36 @@
+name: Daily Random Music
+
+on:
+  schedule:
+    - cron: '0 12 * * *'   # 每天 UTC 12:00 (北京时间 20:00)
+  workflow_dispatch:
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script to fetch music
+        run: python scripts/get_music.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # 添加两个文件，但只有有改动的才会被提交
+          git add daily-music.m3u music-history.m3u
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update daily music and history"
+          git push
