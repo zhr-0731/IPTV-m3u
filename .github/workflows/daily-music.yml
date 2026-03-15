@@ -2,7 +2,7 @@ name: Daily Random Music
 
 on:
   schedule:
-    - cron: '0 12 * * *'   # 每天 UTC 12:00 (北京时间 20:00)
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 jobs:
@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 拉取全部历史，以便 rebase 时能正确处理
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,7 +32,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # 添加两个文件，但只有有改动的才会被提交
           git add daily-music.m3u music-history.m3u
           git diff --quiet && git diff --staged --quiet || git commit -m "Update daily music and history"
+          git pull --rebase origin main
           git push
