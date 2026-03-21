@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面未找到 - 404</title>
+    <style>
+        /* 基础全屏样式 */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+          font-family: 'Roboto', sans-serif;
+          background: #0D0C1E;
+          overflow: hidden;
+        }
+        ::selection {
+          background: #CDD4DE;
+        }
+
+        /* 主容器：Flexbox全屏布局 */
+        .page {
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* 顶部标题区域 */
+        header {
+          padding: 25px 30px;
+          color: #CDD4DE;
+          font-weight: 300;
+          font-size: 14px;
+          opacity: 0.7;
+          flex-shrink: 0;
+        }
+
+        /* 核心内容区：居中偏上 */
+        .content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          padding-top: 18vh; /* 控制整体垂直位置 */
+          text-align: center;
+          color: #CDD4DE;
+          position: relative;
+          z-index: 2;
+        }
+        
+        .content h1 {
+          font-weight: 900;
+          font-size: 18vw; /* 响应式超大字体 */
+          line-height: 0.85;
+          margin: 0 0 10px 0;
+          opacity: 0.6;
+        }
+        
+        .content h2 {
+          font-weight: 700;
+          font-size: 2.5rem;
+          margin-bottom: 8px;
+          opacity: 0.9;
+        }
+        
+        /* 新闻轮播容器 - 修复只显示一条的问题 */
+        .news-container {
+          position: relative;
+          height: 24px; /* 单行高度 */
+          overflow: hidden;
+          margin-bottom: 40px;
+          width: 100%;
+          max-width: 500px;
+        }
+        
+        .news-slider {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+        
+        .news-item {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          line-height: 24px;
+          text-align: center;
+          font-weight: 300;
+          font-size: 1rem;
+          opacity: 0;
+          color: #CDD4DE;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          padding: 0 20px;
+          box-sizing: border-box;
+          transition: opacity 0.5s ease, transform 0.5s ease;
+          transform: translateY(20px);
+          cursor: pointer;
+        }
+        
+        .news-item.active {
+          opacity: 0.7;
+          transform: translateY(0);
+          z-index: 2;
+        }
+        
+        .news-item.next {
+          opacity: 0;
+          transform: translateY(20px);
+          z-index: 1;
+        }
+        
+        .content a {
+          display: inline-block;
+          font-weight: 400;
+          font-size: 0.9rem;
+          text-transform: uppercase;
+          text-decoration: none;
+          color: #CDD4DE;
+          border: 1px solid #CDD4DE;
+          padding: 12px 28px;
+          border-radius: 4px;
+          opacity: 0.7;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          letter-spacing: 1px;
+          z-index: 3;
+          position: relative;
+        }
+        
+        .content a:hover {
+          opacity: 1;
+          background-color: rgba(205, 212, 222, 0.15);
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 背景图片：放大并防止溢出 */
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 120%; /* 关键：放大图片提供缓冲边缘 */
+          height: 120%; /* 关键：放大图片提供缓冲边缘 */
+          object-fit: cover; /* 保持比例覆盖区域 */
+          z-index: 1;
+          pointer-events: none;
+          /* 初始位置调整：将放大的图片中心对齐屏幕中心 */
+          transform: translate(-10%, -10%);
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+          .content {
+            padding-top: 15vh;
+          }
+          
+          .content h1 {
+            font-size: 22vw;
+          }
+          
+          .content h2 {
+            font-size: 2rem;
+          }
+          
+          .news-container {
+            margin-bottom: 35px;
+          }
+          
+          .news-item {
+            font-size: 0.9rem;
+          }
+          
+          header {
+            padding: 20px;
+            text-align: center;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .content {
+            padding-top: 12vh;
+          }
+          
+          .content h1 {
+            font-size: 25vw;
+          }
+          
+          .content h2 {
+            font-size: 1.8rem;
+          }
+          
+          .news-container {
+            height: 20px;
+            margin-bottom: 30px;
+          }
+          
+          .news-item {
+            height: 20px;
+            line-height: 20px;
+            font-size: 0.85rem;
+          }
+          
+          .content a {
+            padding: 10px 22px;
+            font-size: 0.8rem;
+          }
+        }
+    </style>
+    <!-- 引入Roboto字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page">
+        <header>
+            zhr-0731.github.io
+        </header>
+        
+        <div class="content">
+            <h1>404</h1>
+            <h2>页面未找到</h2>
+            <div class="news-container">
+                <div class="news-slider" id="news-slider">
+                    <!-- 新闻项将通过JavaScript动态插入 -->
+                </div>
+            </div>
+            <a href="https://zhr-0731.github.io" id="home-button">返回首页</a>
+        </div>
+        
+        <!-- 背景图片 - 使用您提供的URL -->
+        <img src="https://bing.img.run/uhd.php" alt="404背景图" id="bg-image" />
+    </div>
+
+    <script>
+        // 解决图片黑边问题的鼠标跟随动画
+        let lFollowX = 0, lFollowY = 0;
+        let x = 0, y = 0;
+        const friction = 1 / 28;
+        const img = document.getElementById('bg-image');
+        
+        // 计算图片可安全移动的边界（基于放大后的尺寸）
+        function calculateMovementBounds() {
+            const imgWidth = img.offsetWidth;      // 图片实际宽度（屏幕宽度的120%）
+            const imgHeight = img.offsetHeight;    // 图片实际高度（屏幕高度的120%）
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            
+            // 可移动范围 = (图片尺寸 - 屏幕尺寸) / 2
+            return {
+                maxX: (imgWidth - screenWidth) / 2,
+                maxY: (imgHeight - screenHeight) / 2
+            };
+        }
+        
+        function animate() {
+            x += (lFollowX - x) * friction;
+            y += (lFollowY - y) * friction;
+            
+            // 获取当前窗口下的移动边界
+            const bounds = calculateMovementBounds();
+            
+            // 将移动坐标限制在计算出的边界内，防止溢出
+            x = Math.max(-bounds.maxX, Math.min(bounds.maxX, x));
+            y = Math.max(-bounds.maxY, Math.min(bounds.maxY, y));
+            
+            // 应用变换：初始偏移(-10%, -10%) + 鼠标移动偏移
+            img.style.transform = `translate(calc(-10% + ${x}px), calc(-10% + ${y}px))`;
+            
+            window.requestAnimationFrame(animate);
+        }
+        
+        window.addEventListener('mousemove', function(e) {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            
+            // 计算鼠标相对于屏幕中心的位置（-1 到 1 之间）
+            const mouseX = (screenWidth / 2 - e.clientX) / (screenWidth / 2);
+            const mouseY = (screenHeight / 2 - e.clientY) / (screenHeight / 2);
+            
+            // 根据边界动态计算最大跟随距离
+            const bounds = calculateMovementBounds();
+            lFollowX = mouseX * bounds.maxX * 0.5; // 系数0.5控制跟随灵敏度
+            lFollowY = mouseY * bounds.maxY * 0.3;
+        });
+        
+        // 窗口大小改变时，重新计算边界
+        window.addEventListener('resize', function() {
+            const bounds = calculateMovementBounds();
+            // 如果当前位置超出新边界，则拉回边界内
+            x = Math.max(-bounds.maxX, Math.min(bounds.maxX, x));
+            y = Math.max(-bounds.maxY, Math.min(bounds.maxY, y));
+        });
+        
+        // 启动动画
+        window.requestAnimationFrame(animate);
+        
+        // 页面加载后轻微随机初始化，使页面更有生气
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                lFollowX = (Math.random() - 0.5) * 20;
+                lFollowY = (Math.random() - 0.5) * 15;
+            }, 500);
+        });
+        
+        // 新闻轮播功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const newsSlider = document.getElementById('news-slider');
+            const apiUrl = 'https://apiserver.alcex.cn/daily-hot/thepaper';
+            let newsItems = [];
+            let currentIndex = 0;
+            let newsInterval;
+            
+            // 从API获取新闻数据
+            async function fetchNews() {
+                try {
+                    const response = await fetch(apiUrl);
+                    const data = await response.json();
+                    
+                    if (data.code === 200 && data.data && data.data.length > 0) {
+                        // 保存标题和链接
+                        newsItems = data.data.map(item => ({
+                            title: item.title,
+                            url: item.url
+                        }));
+                    } else {
+                        // 如果API请求失败，使用默认新闻
+                        newsItems = [
+                            {title: "欢迎访问我的GitHub主页", url: "https://zhr-0731.github.io"},
+                            {title: "页面未找到，请检查URL是否正确", url: "https://zhr-0731.github.io"},
+                            {title: "您可以点击下方按钮返回首页", url: "https://zhr-0731.github.io"}
+                        ];
+                    }
+                } catch (error) {
+                    console.error('获取新闻失败:', error);
+                    newsItems = [
+                        {title: "无法获取实时新闻", url: "https://zhr-0731.github.io"},
+                        {title: "请检查网络连接", url: "https://zhr-0731.github.io"},
+                        {title: "点击返回首页按钮继续浏览", url: "https://zhr-0731.github.io"}
+                    ];
+                }
+                
+                // 初始化新闻轮播
+                initNewsSlider();
+            }
+            
+            // 初始化新闻轮播
+            function initNewsSlider() {
+                if (newsItems.length === 0) return;
+                
+                // 清空现有内容
+                newsSlider.innerHTML = '';
+                
+                // 创建新闻项
+                newsItems.forEach((news, index) => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'news-item';
+                    newsItem.textContent = news.title;
+                    newsItem.setAttribute('data-url', news.url);
+                    newsItem.setAttribute('data-index', index);
+                    
+                    // 添加点击事件
+                    newsItem.addEventListener('click', function() {
+                        const url = this.getAttribute('data-url');
+                        if (url) {
+                            window.open(url, '_blank');
+                        }
+                    });
+                    
+                    // 添加悬停效果
+                    newsItem.addEventListener('mouseenter', function() {
+                        this.style.opacity = '1';
+                        this.style.cursor = 'pointer';
+                    });
+                    
+                    newsItem.addEventListener('mouseleave', function() {
+                        if (!this.classList.contains('active')) {
+                            this.style.opacity = '0';
+                        } else {
+                            this.style.opacity = '0.7';
+                        }
+                    });
+                    
+                    newsSlider.appendChild(newsItem);
+                });
+                
+                // 设置初始活动项
+                setActiveNews(0);
+                
+                // 开始轮播
+                startNewsRotation();
+            }
+            
+            // 设置活动新闻
+            function setActiveNews(index) {
+                // 移除所有活动类
+                const allItems = document.querySelectorAll('.news-item');
+                allItems.forEach(item => {
+                    item.classList.remove('active', 'next');
+                });
+                
+                // 设置当前活动项
+                if (allItems[index]) {
+                    allItems[index].classList.add('active');
+                }
+                
+                // 设置下一项（用于过渡效果）
+                const nextIndex = (index + 1) % newsItems.length;
+                if (allItems[nextIndex]) {
+                    allItems[nextIndex].classList.add('next');
+                }
+            }
+            
+            // 切换到下一个新闻
+            function nextNews() {
+                // 移除当前活动项
+                const currentItem = document.querySelector('.news-item.active');
+                if (currentItem) {
+                    currentItem.classList.remove('active');
+                    currentItem.classList.add('next');
+                    currentItem.style.opacity = '0';
+                    currentItem.style.transform = 'translateY(-20px)';
+                }
+                
+                // 更新索引
+                currentIndex = (currentIndex + 1) % newsItems.length;
+                
+                // 设置新的活动项
+                const nextItem = document.querySelectorAll('.news-item')[currentIndex];
+                if (nextItem) {
+                    nextItem.classList.remove('next');
+                    nextItem.classList.add('active');
+                    nextItem.style.opacity = '0.7';
+                    nextItem.style.transform = 'translateY(0)';
+                }
+                
+                // 设置下一项（用于下次过渡）
+                const nextNextIndex = (currentIndex + 1) % newsItems.length;
+                const nextNextItem = document.querySelectorAll('.news-item')[nextNextIndex];
+                if (nextNextItem) {
+                    nextNextItem.classList.add('next');
+                    nextNextItem.style.opacity = '0';
+                    nextNextItem.style.transform = 'translateY(20px)';
+                }
+            }
+            
+            // 开始轮播
+            function startNewsRotation() {
+                if (newsItems.length <= 1) return;
+                
+                // 清除现有定时器
+                if (newsInterval) {
+                    clearInterval(newsInterval);
+                }
+                
+                // 设置新的定时器
+                newsInterval = setInterval(nextNews, 5000); // 5秒切换一次
+            }
+            
+            // 停止轮播（当用户与新闻交互时）
+            function pauseNewsRotation() {
+                if (newsInterval) {
+                    clearInterval(newsInterval);
+                }
+            }
+            
+            // 恢复轮播
+            function resumeNewsRotation() {
+                if (newsInterval) {
+                    clearInterval(newsInterval);
+                }
+                newsInterval = setInterval(nextNews, 5000);
+            }
+            
+            // 当用户鼠标进入新闻区域时暂停轮播
+            newsSlider.addEventListener('mouseenter', pauseNewsRotation);
+            newsSlider.addEventListener('mouseleave', resumeNewsRotation);
+            
+            // 开始获取新闻
+            fetchNews();
+            
+            // 定期刷新新闻数据（每10分钟）
+            setInterval(fetchNews, 10 * 60 * 1000);
+        });
+    </script>
+</body>
+</html>
