@@ -1,4 +1,4 @@
-#EXTM3U x-tvg-url="https://live.zbds.top/tv/iptv4.m3u"
+#EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e.xml"
 # 央视分类
 #EXTINF:-1 tvg-id="CCTV1.cn" tvg-logo="https://pic.baike.soso.com/ugc/baikepic2/4334/20220420231935-523951344_png_480_480_88031.jpg/300" group-title="央视",CCTV1
 http://tvlist.top/jd/index.php?id=cctv1&qt=118.212.78.251:8014
