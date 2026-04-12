@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zhr的IPTV直播</title>
-    <meta name="description" content="动态IPTV直播列表">
+    <meta name="description" content="动态IPTV直播列表 · 台标 · 延时/状态">
     <link rel="icon" href="https://s41.ax1x.com/2025/12/07/pZnSiid.png" type="image/png">
     <style>
         :root {
@@ -205,10 +205,25 @@
         .tv-control-btn:hover { background: #4aad7a; transform: translateY(-2px); }
         .test-btn { background: var(--test-color); }
         .test-btn:hover { background: #ff5252; }
-        .current-channel-info { margin-top: 15px; padding: 15px; background: var(--light-gray); border-radius: 8px; }
-        .current-channel-info h3 { font-family: var(--font-serif); margin-bottom: 5px; color: var(--text-color); }
-        .current-channel-info p { color: #666; font-size: 0.9rem; }
+        
+        /* 频道信息栏 (台标+名称+状态) */
+        .current-channel-info { 
+            margin-top: 15px; padding: 15px 18px; background: var(--light-gray); border-radius: 12px; 
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        }
+        .channel-info-left { display: flex; align-items: center; gap: 14px; }
+        .channel-logo-current { 
+            width: 48px; height: 48px; border-radius: 10px; object-fit: cover; background: #ddd; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .channel-text h3 { font-family: var(--font-serif); margin-bottom: 4px; color: var(--text-color); font-size: 1.3rem; }
+        .channel-text p { color: #666; font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+        .channel-status-right { 
+            font-size: 1rem; font-weight: 500; background: rgba(0,0,0,0.03); padding: 8px 16px; border-radius: 30px; 
+            color: #2c3e50; display: flex; align-items: center; gap: 6px; 
+        }
         .test-indicator { color: var(--test-color); font-weight: bold; }
+        .status-badge { font-family: monospace; }
         
         /* 右侧频道列表 */
         .channels-section { flex: 2; min-width: 0; max-width: 450px; }
@@ -262,14 +277,14 @@
             .custom-controls { flex-direction: column; gap: 10px; padding: 10px; }
             .controls-left, .controls-center, .controls-right { width: 100%; justify-content: center; }
             .progress-container { margin: 10px 0; }
-            .quality-selector { min-width: 80px; }
+            .current-channel-info { flex-direction: column; align-items: flex-start; }
+            .channel-status-right { align-self: flex-end; }
         }
         @media (max-width: 480px) {
             #hunanTVPlayer { height: 250px; }
             .channel-item { padding: 10px; }
             .channel-logo { width: 40px; height: 40px; margin-right: 10px; }
             .control-btn { width: 36px; height: 36px; }
-            .quality-selector { padding: 6px 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -340,9 +355,18 @@
                     </div>
                 </div>
                 
+                <!-- 频道信息栏：台标 + 名称/分组 + 右侧延时/状态 -->
                 <div class="current-channel-info">
-                    <h3 id="currentChannelName">湖南卫视</h3>
-                    <p id="currentChannelGroup">卫视 · 当前正在播放</p>
+                    <div class="channel-info-left">
+                        <img id="currentChannelLogo" class="channel-logo-current" src="https://s41.ax1x.com/2025/12/07/pZnSiid.png" alt="台标">
+                        <div class="channel-text">
+                            <h3 id="currentChannelName">湖南卫视</h3>
+                            <p id="currentChannelGroup">卫视 · 当前正在播放</p>
+                        </div>
+                    </div>
+                    <div class="channel-status-right" id="channelStatus">
+                        <span>📡</span><span id="statusText">延时: -</span>
+                    </div>
                 </div>
             </section>
             
@@ -355,7 +379,6 @@
                     </select>
                 </div>
                 <div class="channels-list" id="channelsList">
-                    <!-- 频道列表将通过JavaScript动态生成 -->
                     <div class="loading-overlay" style="position: relative; height: 100px; background: transparent; color: var(--text-color);">
                         <div class="loading-spinner" style="border-top-color: var(--ghost-accent-color);"></div>
                         <p>正在加载频道列表...</p>
@@ -368,39 +391,33 @@
     <footer>
         <div class="container">
             <div class="footer-inner">
-                <div class="powered-by">频道列表动态加载自 M3U 文件</div>
+                <div class="powered-by">频道列表动态加载自 M3U 文件 · 台标 & 状态监测</div>
             </div>
         </div>
     </footer>
 
     <script>
-        // 配置
-        const M3U_URL = 'https://raw.bgithub.xyz/zhr-0731/IPTV-m3u/refs/heads/main/index.m3u';
+        // 配置 —— 已更新为新的M3U地址
+        const M3U_URL = 'https://zhr-0731.github.io/IPTV-m3u/index.m3u';
         const TEST_VIDEO_URL_1 = 'http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear2/prog_index.m3u8';
         const TEST_VIDEO_URL_2 = 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8';
         
         // 全局变量
         let allChannels = [];
-        let currentChannelIndex = 7; // 默认选中湖南卫视（根据列表位置）
+        let currentChannelIndex = 7; // 默认选中湖南卫视（根据列表位置，可能会变，但保留）
         let player = null;
         let isPlayingTestVideo = false;
-        let lastPlayedChannel = null; // 记录上次播放的频道，方便切换回来
+        let lastPlayedChannel = null;
         let controlsHideTimeout = null;
+        let statusCheckTimer = null;
         
         document.addEventListener('DOMContentLoaded', function() {
-            // 初始化播放器和UI
             player = document.getElementById('hunanTVPlayer');
             initPlayerControls();
             loadChannelList();
             
-            // 初始化默认播放湖南卫视
-            setTimeout(() => {
-                const defaultChannel = allChannels[currentChannelIndex];
-                if (defaultChannel) {
-                    playChannel(defaultChannel);
-                    lastPlayedChannel = defaultChannel;
-                }
-            }, 1000);
+            // 初始状态设为默认
+            updateStatusDisplay('延时: -', false);
         });
         
         // 解析M3U文件内容
@@ -421,7 +438,6 @@
                         group: '其他'
                     };
                     
-                    // 解析频道信息
                     const tvgLogoMatch = line.match(/tvg-logo="([^"]+)"/);
                     if (tvgLogoMatch) currentChannel.logo = tvgLogoMatch[1];
                     
@@ -454,27 +470,36 @@
                 const { channels, categories } = await parseM3U(content);
                 
                 allChannels = channels;
-                
-                // 更新分类筛选器
                 updateCategoryFilter(categories);
-                
-                // 渲染频道列表
                 renderChannelList('全部');
                 
                 console.log(`成功加载 ${channels.length} 个频道`);
+                
+                // 尝试播放默认频道（湖南卫视）
+                setTimeout(() => {
+                    if (allChannels.length > 0) {
+                        let defaultIdx = allChannels.findIndex(ch => ch.name.includes('湖南卫视') || ch.name.includes('湖南'));
+                        if (defaultIdx === -1) defaultIdx = Math.min(currentChannelIndex, allChannels.length-1);
+                        const defaultChannel = allChannels[defaultIdx];
+                        if (defaultChannel) {
+                            currentChannelIndex = defaultIdx;
+                            playChannel(defaultChannel, defaultIdx);
+                            lastPlayedChannel = defaultChannel;
+                        }
+                    }
+                }, 300);
             } catch (error) {
                 console.error('加载频道列表失败:', error);
                 document.getElementById('channelsList').innerHTML = 
                     '<div style="padding: 30px; text-align: center; color: #888;">加载频道列表失败，请刷新页面重试</div>';
+                updateStatusDisplay('列表加载失败', true);
             }
         }
         
-        // 更新分类筛选器
         function updateCategoryFilter(categories) {
             const filter = document.getElementById('categoryFilter');
-            categories.sort();
-            
-            categories.forEach(category => {
+            filter.innerHTML = '<option value="全部">全部分类</option>';
+            categories.sort().forEach(category => {
                 if (category !== '全部') {
                     const option = document.createElement('option');
                     option.value = category;
@@ -482,18 +507,14 @@
                     filter.appendChild(option);
                 }
             });
-            
             filter.addEventListener('change', function() {
                 renderChannelList(this.value);
             });
         }
         
-        // 渲染频道列表
         function renderChannelList(category) {
             const channelsList = document.getElementById('channelsList');
-            const filteredChannels = category === '全部' 
-                ? allChannels 
-                : allChannels.filter(ch => ch.group === category);
+            const filteredChannels = category === '全部' ? allChannels : allChannels.filter(ch => ch.group === category);
             
             if (filteredChannels.length === 0) {
                 channelsList.innerHTML = '<div style="padding: 30px; text-align: center; color: #888;">该分类下暂无频道</div>';
@@ -501,14 +522,14 @@
             }
             
             let html = '';
-            filteredChannels.forEach((channel, index) => {
+            filteredChannels.forEach((channel) => {
                 const originalIndex = allChannels.findIndex(ch => ch.url === channel.url);
                 const isActive = originalIndex === currentChannelIndex && !isPlayingTestVideo;
                 
                 html += `
                     <div class="channel-item ${isActive ? 'active' : ''}" data-index="${originalIndex}">
                         <div class="channel-logo">
-                            <img src="${channel.logo || 'https://via.placeholder.com/50x50/cccccc/969696?text=TV'}" alt="${channel.name}" onerror="this.src='https://via.placeholder.com/50x50/cccccc/969696?text=TV'">
+                            <img src="${channel.logo || 'https://via.placeholder.com/50x50/cccccc/969696?text=TV'}" alt="${channel.name}" onerror="this.src='https://s41.ax1x.com/2025/12/07/pZnSiid.png'">
                         </div>
                         <div class="channel-info">
                             <div class="channel-name">${channel.name}</div>
@@ -519,203 +540,191 @@
             });
             
             channelsList.innerHTML = html;
-            
-            // 添加点击事件
             document.querySelectorAll('.channel-item').forEach(item => {
                 item.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
                     const channel = allChannels[index];
-                    if (channel) {
-                        playChannel(channel, index);
-                    }
+                    if (channel) playChannel(channel, index);
                 });
             });
         }
         
-        // 播放指定频道
-        function playChannel(channel, index = null) {
-            if (index !== null) {
-                currentChannelIndex = index;
-            }
+        // 更新信息栏 (台标、名称、分组、状态)
+        function updateChannelInfoDisplay(channel, isTest = false, testNum = null) {
+            const logoImg = document.getElementById('currentChannelLogo');
+            const nameEl = document.getElementById('currentChannelName');
+            const groupEl = document.getElementById('currentChannelGroup');
             
+            if (isTest) {
+                nameEl.textContent = testNum === 1 ? 'Apple 测试视频' : 'Tears of Steel 测试视频';
+                groupEl.innerHTML = `<span class="test-indicator">🧪 测试视频${testNum}</span> · 播放中`;
+                logoImg.src = 'https://s41.ax1x.com/2025/12/07/pZnSiid.png';  // 默认测试图标
+            } else if (channel) {
+                nameEl.textContent = channel.name;
+                groupEl.innerHTML = `${channel.group} · 当前正在播放`;
+                groupEl.classList.remove('test-indicator');
+                logoImg.src = channel.logo || 'https://s41.ax1x.com/2025/12/07/pZnSiid.png';
+                logoImg.onerror = () => { logoImg.src = 'https://s41.ax1x.com/2025/12/07/pZnSiid.png'; };
+            }
+        }
+        
+        function updateStatusDisplay(text, isError = false) {
+            const statusEl = document.getElementById('statusText');
+            const container = document.getElementById('channelStatus');
+            if (isError) {
+                container.style.background = '#ffeeee';
+                statusEl.innerHTML = `⚠️ ${text}`;
+            } else {
+                container.style.background = 'rgba(0,0,0,0.03)';
+                statusEl.innerHTML = `📡 ${text}`;
+            }
+        }
+        
+        // 尝试获取URL的HTTP状态码 (用于错误显示)
+        async function fetchStatusCode(url) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 4000);
+                const response = await fetch(url, { 
+                    method: 'HEAD', 
+                    mode: 'cors',
+                    signal: controller.signal 
+                });
+                clearTimeout(timeoutId);
+                return response.status;
+            } catch (e) {
+                if (e.name === 'AbortError') return '超时';
+                return e.message.includes('CORS') ? 'CORS限制' : '网络错误';
+            }
+        }
+        
+        // 处理播放错误，显示错误码
+        async function handlePlayError(errorUrl, fallbackName) {
+            const code = await fetchStatusCode(errorUrl);
+            let errorText = '';
+            if (typeof code === 'number') errorText = `${code}`;
+            else errorText = code;
+            updateStatusDisplay(`错误 ${errorText}`, true);
+            console.warn(`[状态] ${fallbackName} 返回: ${errorText}`);
+        }
+        
+        // 播放频道
+        function playChannel(channel, index = null) {
+            if (index !== null) currentChannelIndex = index;
             isPlayingTestVideo = false;
             lastPlayedChannel = channel;
             
-            // 更新当前频道信息
-            document.getElementById('currentChannelName').textContent = channel.name;
-            document.getElementById('currentChannelGroup').textContent = `${channel.group} · 当前正在播放`;
-            document.getElementById('currentChannelGroup').classList.remove('test-indicator');
+            updateChannelInfoDisplay(channel, false);
+            updateStatusDisplay('连接中...', false);
             
-            // 显示加载状态
             const loadingOverlay = document.getElementById('loadingOverlay');
             loadingOverlay.classList.remove('hidden');
-            loadingOverlay.innerHTML = `
-                <div class="loading-spinner"></div>
-                <p>正在切换至 ${channel.name}...</p>
-            `;
+            loadingOverlay.innerHTML = `<div class="loading-spinner"></div><p>正在切换至 ${channel.name}...</p>`;
             
-            // 更新播放器源
             player.src = channel.url;
             player.load();
             
             player.play().then(() => {
                 console.log(`开始播放: ${channel.name}`);
                 loadingOverlay.classList.add('hidden');
+                updateStatusDisplay('延时: 实时', false);
                 
-                // 更新列表激活状态
-                document.querySelectorAll('.channel-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                const activeItems = document.querySelectorAll(`.channel-item[data-index="${currentChannelIndex}"]`);
-                activeItems.forEach(item => {
+                document.querySelectorAll('.channel-item').forEach(item => item.classList.remove('active'));
+                document.querySelectorAll(`.channel-item[data-index="${currentChannelIndex}"]`).forEach(item => {
                     item.classList.add('active');
-                    
-                    // 滚动到可见区域
                     item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 });
                 
-                // 更新清晰度选择器
                 updateQualitySelector(channel.name, channel.url);
-                
-            }).catch(error => {
+            }).catch(async error => {
                 console.error('播放失败:', error);
+                loadingOverlay.classList.add('hidden');
+                await handlePlayError(channel.url, channel.name);
+                // 显示重试界面
+                loadingOverlay.classList.remove('hidden');
                 loadingOverlay.innerHTML = `
                     <div style="text-align: center;">
                         <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
                         <h3 style="margin-bottom: 10px;">播放失败</h3>
-                        <p style="margin-bottom: 15px;">${channel.name} 直播源可能暂时不可用</p>
+                        <p style="margin-bottom: 15px;">${channel.name} 直播源不可用</p>
                         <button id="retryBtn" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试</button>
                     </div>
                 `;
-                
-                document.getElementById('retryBtn').addEventListener('click', function() {
-                    playChannel(channel, index);
-                });
+                document.getElementById('retryBtn').addEventListener('click', () => playChannel(channel, index));
             });
         }
         
-        // 播放上一个频道
         function playPrevChannel() {
             if (isPlayingTestVideo && lastPlayedChannel) {
-                // 如果正在播放测试视频，返回上一个频道
-                const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
-                if (index !== -1) {
-                    playChannel(lastPlayedChannel, index);
-                }
+                const idx = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                if (idx !== -1) playChannel(lastPlayedChannel, idx);
                 return;
             }
-            
             if (allChannels.length === 0) return;
-            
             currentChannelIndex = (currentChannelIndex - 1 + allChannels.length) % allChannels.length;
-            const channel = allChannels[currentChannelIndex];
-            if (channel) {
-                playChannel(channel, currentChannelIndex);
-            }
+            playChannel(allChannels[currentChannelIndex], currentChannelIndex);
         }
         
-        // 播放下一个频道
         function playNextChannel() {
             if (isPlayingTestVideo && lastPlayedChannel) {
-                // 如果正在播放测试视频，返回上一个频道
-                const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
-                if (index !== -1) {
-                    playChannel(lastPlayedChannel, index);
-                }
+                const idx = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                if (idx !== -1) playChannel(lastPlayedChannel, idx);
                 return;
             }
-            
             if (allChannels.length === 0) return;
-            
             currentChannelIndex = (currentChannelIndex + 1) % allChannels.length;
-            const channel = allChannels[currentChannelIndex];
-            if (channel) {
-                playChannel(channel, currentChannelIndex);
-            }
+            playChannel(allChannels[currentChannelIndex], currentChannelIndex);
         }
         
-        // 播放测试视频
         function playTestVideo(testNum) {
             const testUrl = testNum === 1 ? TEST_VIDEO_URL_1 : TEST_VIDEO_URL_2;
-            const testName = testNum === 1 ? "Apple 测试视频" : "Tears of Steel 测试视频";
-            
             isPlayingTestVideo = true;
             
-            // 更新当前频道信息
-            document.getElementById('currentChannelName').textContent = testName;
-            document.getElementById('currentChannelGroup').textContent = `测试视频${testNum} · 播放中`;
-            document.getElementById('currentChannelGroup').classList.add('test-indicator');
+            updateChannelInfoDisplay(null, true, testNum);
+            updateStatusDisplay('测试连接中...', false);
             
-            // 显示加载状态
             const loadingOverlay = document.getElementById('loadingOverlay');
             loadingOverlay.classList.remove('hidden');
-            loadingOverlay.innerHTML = `
-                <div class="loading-spinner"></div>
-                <p>正在加载测试视频${testNum}...</p>
-            `;
+            loadingOverlay.innerHTML = `<div class="loading-spinner"></div><p>加载测试视频${testNum}...</p>`;
             
-            // 更新播放器源
             player.src = testUrl;
             player.load();
             
             player.play().then(() => {
-                console.log(`开始播放测试视频${testNum}`);
                 loadingOverlay.classList.add('hidden');
-                
-                // 移除频道列表的激活状态
-                document.querySelectorAll('.channel-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                
-                // 更新清晰度选择器
-                updateQualitySelector(testName, testUrl);
-                
-            }).catch(error => {
-                console.error('测试视频播放失败:', error);
+                updateStatusDisplay('延时: 测试流', false);
+                document.querySelectorAll('.channel-item').forEach(item => item.classList.remove('active'));
+                updateQualitySelector(`测试视频${testNum}`, testUrl);
+            }).catch(async error => {
+                loadingOverlay.classList.add('hidden');
+                await handlePlayError(testUrl, `测试视频${testNum}`);
+                loadingOverlay.classList.remove('hidden');
                 loadingOverlay.innerHTML = `
                     <div style="text-align: center;">
                         <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
-                        <h3 style="margin-bottom: 10px;">测试视频${testNum}播放失败</h3>
-                        <p style="margin-bottom: 15px;">测试视频可能暂时不可用</p>
-                        <button id="retryTestBtn" style="background: var(--test-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试测试视频</button>
+                        <h3>测试视频${testNum}失败</h3>
+                        <button id="retryTestBtn" style="background: var(--test-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试</button>
                         ${lastPlayedChannel ? `<button id="backToChannelBtn" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-left: 10px;">返回频道</button>` : ''}
                     </div>
                 `;
-                
-                document.getElementById('retryTestBtn').addEventListener('click', function() {
-                    playTestVideo(testNum);
-                });
-                
+                document.getElementById('retryTestBtn').addEventListener('click', () => playTestVideo(testNum));
                 if (lastPlayedChannel) {
-                    document.getElementById('backToChannelBtn').addEventListener('click', function() {
-                        const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
-                        if (index !== -1) {
-                            playChannel(lastPlayedChannel, index);
-                        }
+                    document.getElementById('backToChannelBtn').addEventListener('click', () => {
+                        const idx = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
+                        if (idx !== -1) playChannel(lastPlayedChannel, idx);
                     });
                 }
             });
         }
         
-        // 更新清晰度选择器
         function updateQualitySelector(channelName, channelUrl) {
-            const qualitySelector = document.getElementById('qualitySelector');
-            qualitySelector.innerHTML = '<option value="auto">自动清晰度</option>';
-            
-            // 这里可以添加更多清晰度选项
-            // 对于M3U8流，通常有多个质量级别
-            // 这里只是示例，实际应用中需要解析M3U8文件来获取质量级别
-            if (channelName.includes("测试视频")) {
-                qualitySelector.innerHTML += `
-                    <option value="high">高清 (1080p)</option>
-                    <option value="medium">标清 (720p)</option>
-                    <option value="low">流畅 (480p)</option>
-                `;
+            const sel = document.getElementById('qualitySelector');
+            sel.innerHTML = '<option value="auto">自动清晰度</option>';
+            if (channelName.includes("测试")) {
+                sel.innerHTML += `<option value="high">高清 (1080p)</option><option value="medium">标清 (720p)</option><option value="low">流畅 (480p)</option>`;
             }
         }
         
-        // 初始化播放器控制
         function initPlayerControls() {
             const loadingOverlay = document.getElementById('loadingOverlay');
             const customControls = document.getElementById('customControls');
@@ -726,43 +735,18 @@
             const volumeLevel = document.getElementById('volumeLevel');
             const playIcon = document.getElementById('playIcon');
             
-            // 自定义播放/暂停按钮
-            document.getElementById('customPlayBtn').addEventListener('click', () => {
-                if (player.paused) {
-                    player.play();
-                } else {
-                    player.pause();
-                }
-            });
-            
-            // 上一个频道按钮
-            document.getElementById('prevBtn').addEventListener('click', () => {
-                playPrevChannel();
-            });
-            
-            // 下一个频道按钮
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                playNextChannel();
-            });
-            
-            // 全屏按钮
+            document.getElementById('customPlayBtn').addEventListener('click', () => player.paused ? player.play() : player.pause());
+            document.getElementById('prevBtn').addEventListener('click', playPrevChannel);
+            document.getElementById('nextBtn').addEventListener('click', playNextChannel);
             document.getElementById('fullscreenBtn').addEventListener('click', () => {
-                if (player.requestFullscreen) {
-                    player.requestFullscreen();
-                } else if (player.webkitRequestFullscreen) {
-                    player.webkitRequestFullscreen();
-                } else if (player.mozRequestFullScreen) {
-                    player.mozRequestFullScreen();
-                }
+                if (player.requestFullscreen) player.requestFullscreen();
+                else if (player.webkitRequestFullscreen) player.webkitRequestFullscreen();
             });
-            
-            // 音量按钮
             document.getElementById('volumeBtn').addEventListener('click', () => {
                 player.muted = !player.muted;
                 document.getElementById('volumeBtn').textContent = player.muted ? '🔇' : '🔊';
+                updateVolumeDisplay();
             });
-            
-            // 音量滑块
             volumeSlider.addEventListener('click', (e) => {
                 const rect = volumeSlider.getBoundingClientRect();
                 const percent = (e.clientX - rect.left) / rect.width;
@@ -770,183 +754,74 @@
                 updateVolumeDisplay();
             });
             
-            // 测试视频1按钮
-            document.getElementById('testBtn1').addEventListener('click', () => {
-                playTestVideo(1);
-            });
-            
-            // 测试视频2按钮
-            document.getElementById('testBtn2').addEventListener('click', () => {
-                playTestVideo(2);
-            });
-            
-            // 清晰度选择器
+            document.getElementById('testBtn1').addEventListener('click', () => playTestVideo(1));
+            document.getElementById('testBtn2').addEventListener('click', () => playTestVideo(2));
             document.getElementById('qualitySelector').addEventListener('change', function() {
-                // 这里可以添加切换清晰度的逻辑
-                console.log('切换到清晰度:', this.value);
+                console.log('清晰度切换:', this.value);
             });
             
-            // 播放器事件
-            player.addEventListener('play', () => {
-                playIcon.textContent = '❚❚';
-            });
-            
-            player.addEventListener('pause', () => {
-                playIcon.textContent = '▶';
-            });
-            
-            player.addEventListener('loadeddata', () => {
-                loadingOverlay.classList.add('hidden');
-            });
-            
+            player.addEventListener('play', () => playIcon.textContent = '❚❚');
+            player.addEventListener('pause', () => playIcon.textContent = '▶');
+            player.addEventListener('loadeddata', () => loadingOverlay.classList.add('hidden'));
             player.addEventListener('waiting', () => {
                 loadingOverlay.classList.remove('hidden');
-                loadingOverlay.innerHTML = `<div class="loading-spinner"></div><p>正在缓冲...</p>`;
+                loadingOverlay.innerHTML = `<div class="loading-spinner"></div><p>缓冲中...</p>`;
             });
-            
-            player.addEventListener('canplay', () => {
-                loadingOverlay.classList.add('hidden');
-            });
-            
+            player.addEventListener('canplay', () => loadingOverlay.classList.add('hidden'));
             player.addEventListener('timeupdate', () => {
-                if (player.duration) {
-                    const percent = (player.currentTime / player.duration) * 100;
-                    progressBar.style.width = percent + '%';
+                if (player.duration) progressBar.style.width = (player.currentTime / player.duration * 100) + '%';
+            });
+            player.addEventListener('volumechange', updateVolumeDisplay);
+            
+            player.addEventListener('error', async (e) => {
+                console.warn('播放器错误');
+                const currentSrc = player.src;
+                if (currentSrc && !isPlayingTestVideo && allChannels[currentChannelIndex]) {
+                    await handlePlayError(currentSrc, allChannels[currentChannelIndex].name);
+                } else if (isPlayingTestVideo) {
+                    await handlePlayError(currentSrc, '测试视频');
                 }
             });
             
-            player.addEventListener('volumechange', () => {
-                updateVolumeDisplay();
-            });
-            
-            // 进度条点击
             progressContainer.addEventListener('click', (e) => {
                 const rect = progressContainer.getBoundingClientRect();
                 const percent = (e.clientX - rect.left) / rect.width;
                 player.currentTime = percent * player.duration;
             });
-            
-            // 进度条悬停显示时间
             progressContainer.addEventListener('mousemove', (e) => {
                 const rect = progressContainer.getBoundingClientRect();
                 const percent = (e.clientX - rect.left) / rect.width;
                 const time = percent * (player.duration || 0);
-                
-                const minutes = Math.floor(time / 60);
-                const seconds = Math.floor(time % 60);
-                progressTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-                
-                const progressTimeEl = document.getElementById('progressTime');
-                progressTimeEl.style.left = `${percent * 100}%`;
+                const mins = Math.floor(time / 60), secs = Math.floor(time % 60);
+                progressTime.textContent = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+                progressTime.style.left = percent * 100 + '%';
             });
             
-            // 控制条显示/隐藏
             player.addEventListener('mousemove', () => {
                 customControls.style.opacity = '1';
-                if (controlsHideTimeout) clearTimeout(controlsHideTimeout);
-                
-                controlsHideTimeout = setTimeout(() => {
-                    customControls.style.opacity = '0';
-                }, 3000);
+                clearTimeout(controlsHideTimeout);
+                controlsHideTimeout = setTimeout(() => customControls.style.opacity = '0', 3000);
             });
-            
             customControls.addEventListener('mousemove', () => {
                 customControls.style.opacity = '1';
-                if (controlsHideTimeout) clearTimeout(controlsHideTimeout);
+                clearTimeout(controlsHideTimeout);
             });
             
-            player.addEventListener('mouseleave', () => {
-                controlsHideTimeout = setTimeout(() => {
-                    customControls.style.opacity = '0';
-                }, 1000);
-            });
-            
-            player.addEventListener('error', (e) => {
-                console.error('播放器错误:', e);
-                loadingOverlay.innerHTML = `
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">⚠️</div>
-                        <h3 style="margin-bottom: 10px;">播放错误</h3>
-                        <p style="margin-bottom: 15px;">视频流加载失败</p>
-                        ${isPlayingTestVideo ? 
-                            `<button id="retryCurrentBtn" style="background: var(--test-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试测试视频</button>
-                             ${lastPlayedChannel ? `<button id="backToChannelBtn2" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer; margin-left: 10px;">返回频道</button>` : ''}` 
-                            : 
-                            `<button id="retryCurrentBtn" style="background: var(--ghost-accent-color); border: none; color: white; padding: 8px 16px; border-radius: 5px; cursor: pointer;">重试当前频道</button>`
-                        }
-                    </div>
-                `;
-                
-                document.getElementById('retryCurrentBtn').addEventListener('click', function() {
-                    if (isPlayingTestVideo) {
-                        const testNum = player.src.includes('apple.com') ? 1 : 2;
-                        playTestVideo(testNum);
-                    } else if (allChannels[currentChannelIndex]) {
-                        playChannel(allChannels[currentChannelIndex], currentChannelIndex);
-                    }
-                });
-                
-                if (isPlayingTestVideo && lastPlayedChannel) {
-                    document.getElementById('backToChannelBtn2').addEventListener('click', function() {
-                        const index = allChannels.findIndex(ch => ch.url === lastPlayedChannel.url);
-                        if (index !== -1) {
-                            playChannel(lastPlayedChannel, index);
-                        }
-                    });
-                }
-            });
-            
-            // 键盘快捷键
             document.addEventListener('keydown', (e) => {
-                if (e.code === 'Space' && !e.target.matches('input, textarea, select')) {
-                    e.preventDefault();
-                    if (player.paused) player.play();
-                    else player.pause();
-                }
-                
-                if (e.code === 'KeyF' && !e.target.matches('input, textarea, select')) {
-                    e.preventDefault();
-                    if (document.fullscreenElement) document.exitFullscreen();
-                    else if (player.requestFullscreen) player.requestFullscreen();
-                }
-                
-                // 左右箭头切换频道
-                if (e.code === 'ArrowLeft' && !e.target.matches('input, textarea, select')) {
-                    e.preventDefault();
-                    playPrevChannel();
-                }
-                
-                if (e.code === 'ArrowRight' && !e.target.matches('input, textarea, select')) {
-                    e.preventDefault();
-                    playNextChannel();
-                }
-                
-                // T键切换测试视频
-                if (e.code === 'Digit1' && !e.target.matches('input, textarea, select') && e.ctrlKey) {
-                    e.preventDefault();
-                    playTestVideo(1);
-                }
-                
-                if (e.code === 'Digit2' && !e.target.matches('input, textarea, select') && e.ctrlKey) {
-                    e.preventDefault();
-                    playTestVideo(2);
-                }
-                
-                // M键静音
-                if (e.code === 'KeyM' && !e.target.matches('input, textarea, select')) {
-                    e.preventDefault();
-                    player.muted = !player.muted;
-                    document.getElementById('volumeBtn').textContent = player.muted ? '🔇' : '🔊';
-                }
+                if (e.code === 'Space' && !e.target.matches('input, textarea, select')) { e.preventDefault(); player.paused ? player.play() : player.pause(); }
+                if (e.code === 'KeyF') { e.preventDefault(); if (document.fullscreenElement) document.exitFullscreen(); else if (player.requestFullscreen) player.requestFullscreen(); }
+                if (e.code === 'ArrowLeft') { e.preventDefault(); playPrevChannel(); }
+                if (e.code === 'ArrowRight') { e.preventDefault(); playNextChannel(); }
+                if (e.code === 'Digit1' && e.ctrlKey) { e.preventDefault(); playTestVideo(1); }
+                if (e.code === 'Digit2' && e.ctrlKey) { e.preventDefault(); playTestVideo(2); }
+                if (e.code === 'KeyM') { e.preventDefault(); player.muted = !player.muted; document.getElementById('volumeBtn').textContent = player.muted ? '🔇' : '🔊'; updateVolumeDisplay(); }
             });
             
-            // 初始化音量显示
             function updateVolumeDisplay() {
-                const volume = player.muted ? 0 : player.volume;
-                volumeLevel.style.width = `${volume * 100}%`;
-                document.getElementById('volumeBtn').textContent = volume === 0 ? '🔇' : '🔊';
+                const vol = player.muted ? 0 : player.volume;
+                volumeLevel.style.width = vol * 100 + '%';
+                document.getElementById('volumeBtn').textContent = vol === 0 ? '🔇' : '🔊';
             }
-            
             updateVolumeDisplay();
         }
     </script>
