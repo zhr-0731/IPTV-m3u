@@ -6,7 +6,6 @@ import requests
 import concurrent.futures
 import os
 import sys
-import time
 
 # ================== 配置 ==================
 M3U_URL = "https://live.zbds.top/tv/iptv4.m3u"
@@ -15,10 +14,8 @@ TIMEOUT = 5                # 单个流检测超时（秒）
 MAX_WORKERS = 20           # 并发检测线程数
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 
-# 分类关键词（根据实际频道名称调整）
-CCTV_KEYWORDS = ["CCTV", "CGTN", "央视", "中国教育", "CETV"]
-SATELLITE_KEYWORDS = ["卫视", "TVB", "凤凰卫视", "星空卫视", "CHC"]
-LOCAL_KEYWORDS = ["地方", "本地", "城市", "电视台", "新闻综合", "公共频道", "经济生活"]
+# 仅保留这三个 group-title 值（精确匹配，忽略首尾空格）
+TARGET_GROUPS = {"央视频道", "卫视频道", "地方频道"}
 
 # ================== 工具函数 ==================
 def fetch_m3u_content(url):
@@ -36,10 +33,10 @@ def parse_m3u(content):
     """
     解析 M3U 内容，返回条目列表，每个条目为字典：
     {
-        "extinf": "#EXTINF:-1 tvg-name=\"CCTV1\" ...",
-        "name": "CCTV1",
-        "url": "http://...",
-        "group": "央视频道"（可能没有）
+        "extinf": 原始 EXTINF 行（完整保留，含 group-title）,
+        "name": 频道名称（用于去重）,
+        "url": 流地址,
+        "group": 解析出的 group-title 值（已 strip）
     }
     """
     entries = []
@@ -49,10 +46,13 @@ def parse_m3u(content):
         line = lines[i].strip()
         if line.startswith("#EXTINF:"):
             extinf = line
-            # 提取频道名称（从 tvg-name 或逗号后部分）
+            # 提取 group-title
+            group_match = re.search(r'group-title="([^"]*)"', extinf)
+            group = group_match.group(1).strip() if group_match else ""
+            
+            # 提取频道名称（用于去重）
             name_match = re.search(r'tvg-name="([^"]+)"', extinf)
             if not name_match:
-                # 没有 tvg-name，尝试逗号分隔
                 parts = extinf.split(',', 1)
                 name = parts[1].strip() if len(parts) > 1 else "未知频道"
             else:
@@ -65,35 +65,20 @@ def parse_m3u(content):
                     entries.append({
                         "extinf": extinf,
                         "name": name,
-                        "url": url
+                        "url": url,
+                        "group": group
                     })
             i += 2
         else:
             i += 1
     return entries
 
-def classify_channel(name):
-    """根据频道名称返回分类标签"""
-    name_upper = name.upper()
-    for kw in CCTV_KEYWORDS:
-        if kw.upper() in name_upper:
-            return "央视频道"
-    for kw in SATELLITE_KEYWORDS:
-        if kw.upper() in name_upper:
-            return "卫视频道"
-    for kw in LOCAL_KEYWORDS:
-        if kw in name:
-            return "地方频道"
-    return None
-
 def check_stream(url):
     """检测单个流是否可用（返回 True/False）"""
     try:
-        # 先用 HEAD 请求
         resp = requests.head(url, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT, allow_redirects=True)
         if resp.status_code < 400:
             return True
-        # HEAD 失败尝试 GET 少量数据
         resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT, stream=True)
         if resp.status_code < 400:
             for _ in resp.iter_content(1024):
@@ -141,14 +126,13 @@ def main():
     all_entries = parse_m3u(content)
     print(f"[解析] 共 {len(all_entries)} 个频道")
     
-    # 筛选出需要处理的频道
-    target_entries = []
-    for entry in all_entries:
-        category = classify_channel(entry["name"])
-        if category:
-            entry["category"] = category
-            target_entries.append(entry)
-    print(f"[分类] 符合筛选条件的频道: {len(target_entries)} 个")
+    # 仅保留 group-title 属于目标三类的频道
+    target_entries = [e for e in all_entries if e["group"] in TARGET_GROUPS]
+    print(f"[筛选] 符合 group-title 要求的频道: {len(target_entries)} 个")
+    
+    if not target_entries:
+        print("[结束] 没有符合条件的频道，退出。")
+        return
     
     # 并发检测流可用性
     print("[检测] 正在并发测试流可用性...")
@@ -160,7 +144,7 @@ def main():
             try:
                 if future.result():
                     valid_entries.append(entry)
-                    print(f"  ✓ {entry['name']} [{entry['category']}]")
+                    print(f"  ✓ {entry['name']} [{entry['group']}]")
                 else:
                     print(f"  ✗ {entry['name']} (不可用)")
             except Exception as e:
@@ -172,13 +156,12 @@ def main():
         print("[结束] 没有可用的新频道，退出。")
         return
     
-    # 去重
+    # 去重（基于频道名称）
     existing_names = load_existing_names(INDEX_FILE)
     new_entries = [e for e in valid_entries if e["name"] not in existing_names]
     print(f"[去重] 需要新增的频道: {len(new_entries)} 个")
     
     if new_entries:
-        # 若 index.m3u 不存在，先写入头部
         if not os.path.exists(INDEX_FILE):
             with open(INDEX_FILE, 'w', encoding='utf-8') as f:
                 f.write("#EXTM3U\n")
