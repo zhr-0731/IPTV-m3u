@@ -2,15 +2,15 @@ name: Daily Update IPTV M3U
 
 on:
   schedule:
-    # 每天 UTC 时间 18:00 运行（对应北京时间次日凌晨 2:00）
+    # UTC 18:00 = 北京时间次日 02:00
     - cron: '0 18 * * *'
-  workflow_dispatch:   # 允许手动触发
+  workflow_dispatch:   # 支持手动触发
 
 jobs:
   update-m3u:
     runs-on: ubuntu-latest
     permissions:
-      contents: write   # 允许推送代码变更
+      contents: write
 
     steps:
       - name: Checkout repository
