@@ -1,0 +1,42 @@
+name: Daily Update IPTV M3U
+
+on:
+  schedule:
+    # 每天 UTC 时间 18:00 运行（对应北京时间次日凌晨 2:00）
+    - cron: '0 18 * * *'
+  workflow_dispatch:   # 允许手动触发
+
+jobs:
+  update-m3u:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # 允许推送代码变更
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run update script
+        run: python scripts/update_iptv.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.m3u
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto update index.m3u [skip ci]"
+            git push
+          fi
