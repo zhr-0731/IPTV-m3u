@@ -26,7 +26,7 @@ jobs:
         run: pip install requests
 
       - name: Run update for iptv4.m3u (classified)
-        run: python scripts/update_iptv4.py
+        run: python scripts/update_iptv.py
 
       - name: Run update for iptv-org (all channels)
         run: python scripts/update_iptv_org.py
