@@ -10,12 +10,14 @@ def read_stats_iptv4():
         return None
     with open(stats_file, "r", encoding="utf-8") as f:
         lines = f.read().strip().split("\n")
-    if len(lines) >= 4:
+    if len(lines) >= 6:
         return {
-            "total": int(lines[0]),
-            "target": int(lines[1]),
-            "valid": int(lines[2]),
-            "new": int(lines[3])
+            "remote_total": int(lines[0]),
+            "remote_target": int(lines[1]),
+            "active_before": int(lines[2]),
+            "active_after": int(lines[3]),
+            "dead_after": int(lines[4]),
+            "new_added": int(lines[5])
         }
     return None
 
@@ -25,23 +27,15 @@ def read_stats_iptv_org():
         return None
     with open(stats_file, "r", encoding="utf-8") as f:
         lines = f.read().strip().split("\n")
-    if len(lines) >= 3:
+    if len(lines) >= 5:
         return {
-            "total": int(lines[0]),
-            "valid": int(lines[1]),
-            "new": int(lines[2])
+            "remote_total": int(lines[0]),
+            "active_before": int(lines[1]),
+            "active_after": int(lines[2]),
+            "dead_after": int(lines[3]),
+            "new_added": int(lines[4])
         }
     return None
-
-def count_channels_in_m3u(filepath):
-    if not os.path.exists(filepath):
-        return 0
-    count = 0
-    with open(filepath, "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip().startswith("#EXTINF:"):
-                count += 1
-    return count
 
 def generate_report():
     tz = timezone(timedelta(hours=8))
@@ -51,40 +45,41 @@ def generate_report():
     stats1 = read_stats_iptv4()
     stats2 = read_stats_iptv_org()
     
-    count1 = count_channels_in_m3u("index.m3u")
-    count2 = count_channels_in_m3u("iptv-org.m3u")
-    
     report = f"""# IPTV M3U 播放列表
 
-自动更新 IPTV 频道列表，每日检测可用性并去重汇总。
+自动更新 IPTV 频道列表，每日检测可用性并去重汇总。  
+**频道按字母顺序排列，失效频道自动移入 `*_dead.m3u`，恢复后自动回归。**
 
 ## 📊 本次更新报告
 
 **更新时间**: {update_time} (UTC+8)
 
-### 源 1: iptv4.m3u（央视频道/卫视频道/地方频道）→ `index.m3u`
+### 源 1: iptv4.m3u（央视频道/卫视频道/地方频道）
 
 | 项目 | 数量 |
 |------|------|
-| 总频道数 | {stats1['total'] if stats1 else 'N/A'} |
-| 符合分类条件的频道 | {stats1['target'] if stats1 else 'N/A'} |
-| 可用频道 | {stats1['valid'] if stats1 else 'N/A'} |
-| 本次新增 | {stats1['new'] if stats1 else 'N/A'} |
-| **当前累计频道数** | **{count1}** |
+| 远程总频道数 | {stats1['remote_total'] if stats1 else 'N/A'} |
+| 符合分类条件的频道 | {stats1['remote_target'] if stats1 else 'N/A'} |
+| 更新前活跃频道 | {stats1['active_before'] if stats1 else 'N/A'} |
+| **更新后活跃频道** | **{stats1['active_after'] if stats1 else 'N/A'}** |
+| 失效频道数 | {stats1['dead_after'] if stats1 else 'N/A'} |
+| 本次净增 | {stats1['new_added'] if stats1 else 'N/A'} |
 
-### 源 2: iptv-org（全量频道）→ `iptv-org.m3u`
+- 活跃列表：[`index.m3u`](./index.m3u)  
+- 失效列表：[`index_dead.m3u`](./index_dead.m3u)
+
+### 源 2: iptv-org（国际频道）
 
 | 项目 | 数量 |
 |------|------|
-| 总频道数 | {stats2['total'] if stats2 else 'N/A'} |
-| 可用频道 | {stats2['valid'] if stats2 else 'N/A'} |
-| 本次新增 | {stats2['new'] if stats2 else 'N/A'} |
-| **当前累计频道数** | **{count2}** |
+| 远程总频道数 | {stats2['remote_total'] if stats2 else 'N/A'} |
+| 更新前活跃频道 | {stats2['active_before'] if stats2 else 'N/A'} |
+| **更新后活跃频道** | **{stats2['active_after'] if stats2 else 'N/A'}** |
+| 失效频道数 | {stats2['dead_after'] if stats2 else 'N/A'} |
+| 本次净增 | {stats2['new_added'] if stats2 else 'N/A'} |
 
-## 🔗 播放列表链接
-
-- **央视频道/卫视频道/地方频道**: [`index.m3u`](./index.m3u)
-- **全量频道（无分类）**: [`iptv-org.m3u`](./iptv-org.m3u)
+- 活跃列表：[`iptv-org.m3u`](./iptv-org.m3u)  
+- 失效列表：[`iptv-org_dead.m3u`](./iptv-org_dead.m3u)
 
 ## 🕐 更新频率
 
