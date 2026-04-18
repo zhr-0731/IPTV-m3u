@@ -1,12 +1,12 @@
-name: Daily Update IPTV M3U
+name: Daily Update IPTV M3U and EPG
 
 on:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '0 18 * * *'   # UTC 18:00 = 北京时间次日 02:00
   workflow_dispatch:
 
 jobs:
-  update-m3u:
+  update-m3u-and-epg:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -28,20 +28,26 @@ jobs:
       - name: Run update for iptv4.m3u (classified)
         run: python scripts/update_iptv.py
 
-      - name: Run update for iptv-org (all channels)
+      - name: Run update for iptv-org (international)
         run: python scripts/update_iptv_org.py
 
       - name: Generate report and update README
         run: python scripts/generate_report.py
 
+      - name: Download EPG XML file
+        run: |
+          mkdir -p epg
+          curl -L --retry 3 --retry-delay 5 --connect-timeout 10 --max-time 60 \
+            -o epg/epg.xml https://epg.zsdc.eu.org/t.xml
+
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md
+          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md epg/epg.xml
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto update playlists and report [skip ci]"
+            git commit -m "Auto update playlists, report and EPG [skip ci]"
             git push
           fi
