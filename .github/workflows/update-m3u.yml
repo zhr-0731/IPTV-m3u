@@ -2,7 +2,7 @@ name: Daily Update IPTV M3U and EPG
 
 on:
   schedule:
-    - cron: '0 18 * * *'   # UTC 18:00 = 北京时间次日 02:00
+    - cron: '0 18 * * *'
   workflow_dispatch:
 
 jobs:
@@ -44,10 +44,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md epg/epg.xml
+          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md epg/epg.xml logs/
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto update playlists, report and EPG [skip ci]"
+            git commit -m "Auto update playlists, report, EPG and logs [skip ci]"
             git push
           fi
