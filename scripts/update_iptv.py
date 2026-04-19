@@ -6,13 +6,53 @@ import requests
 import concurrent.futures
 import os
 import sys
+import time
+import hashlib
+import logging
+from datetime import datetime
 
+# ---------- 自然排序键函数 ----------
+def natural_key(text):
+    """将字符串中的数字转换为整数，实现自然排序"""
+    return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', text)]
+
+# ---------- 日志设置 ----------
+def setup_logging():
+    """创建日志目录并返回日志文件路径和 logger"""
+    log_dir = "logs"
+    os.makedirs(log_dir, exist_ok=True)
+    
+    start_time = datetime.now()
+    start_timestamp = int(start_time.timestamp())
+    operator = os.environ.get("GITHUB_ACTOR", "github-actions")
+    time_str = start_time.strftime("%y%m%d-%H%M%S")
+    
+    # 计算哈希
+    hash_input = f"{start_timestamp}-{operator}-{start_timestamp}"
+    hash_value = hashlib.sha256(hash_input.encode()).hexdigest()[:8]
+    
+    # 运行时将动态计算运行时长，此处先用占位符
+    log_filename = f"{time_str}-{operator}-{start_timestamp}-{hash_value}.log"
+    log_path = os.path.join(log_dir, log_filename)
+    
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(message)s',
+        handlers=[
+            logging.FileHandler(log_path, encoding='utf-8'),
+            logging.StreamHandler(sys.stdout)
+        ]
+    )
+    logger = logging.getLogger()
+    logger.info(f"日志文件: {log_path}")
+    return logger, start_time, log_path
+
+# ---------- 引入 tqdm ----------
 try:
     from tqdm import tqdm
     TQDM_AVAILABLE = True
 except ImportError:
     TQDM_AVAILABLE = False
-    print("[提示] tqdm 未安装，将使用简单计数器显示进度。")
 
 M3U_URL = "https://live.zbds.top/tv/iptv4.m3u"
 INDEX_FILE = "index.m3u"
@@ -33,19 +73,21 @@ stats = {
 }
 
 def fetch_m3u_content(url):
+    logger = logging.getLogger()
     try:
-        print(f"[源1] 正在下载 M3U 文件...")
+        logger.info("正在下载 M3U 文件...")
         resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=15)
         resp.raise_for_status()
         resp.encoding = 'utf-8'
-        print(f"[源1] 下载完成，大小: {len(resp.text)} 字符")
+        logger.info(f"下载完成，大小: {len(resp.text)} 字符")
         return resp.text
     except Exception as e:
-        print(f"[错误] 无法获取 M3U 文件: {e}")
+        logger.error(f"无法获取 M3U 文件: {e}")
         return None
 
 def parse_m3u(content):
-    print("[源1] 正在解析 M3U...")
+    logger = logging.getLogger()
+    logger.info("正在解析 M3U...")
     entries = []
     lines = content.splitlines()
     i = 0
@@ -75,10 +117,11 @@ def parse_m3u(content):
             i += 2
         else:
             i += 1
-    print(f"[源1] 解析完成，获得 {len(entries)} 个条目")
+    logger.info(f"解析完成，获得 {len(entries)} 个条目")
     return entries
 
 def load_local_entries(filepath):
+    logger = logging.getLogger()
     if not os.path.exists(filepath):
         return []
     try:
@@ -86,7 +129,7 @@ def load_local_entries(filepath):
             content = f.read()
         return parse_m3u(content)
     except Exception as e:
-        print(f"[警告] 读取 {filepath} 失败: {e}")
+        logger.warning(f"读取 {filepath} 失败: {e}")
         return []
 
 def check_stream(url):
@@ -104,18 +147,20 @@ def check_stream(url):
     return False
 
 def write_m3u_sorted(filepath, entries):
-    sorted_entries = sorted(entries, key=lambda e: e["name"].lower())
+    logger = logging.getLogger()
+    # 使用自然排序
+    sorted_entries = sorted(entries, key=lambda e: natural_key(e["name"]))
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write('#EXTM3U url-tvg="https://zhr-0731.github.io/IPTV-m3u/epg/epg.xml"\n')
         for e in sorted_entries:
             f.write(e["extinf"] + "\n")
             f.write(e["url"] + "\n")
-    print(f"[源1] 已写入 {len(sorted_entries)} 个频道到 {filepath}")
+    logger.info(f"已写入 {len(sorted_entries)} 个频道到 {filepath}")
 
 def main():
-    global stats
-    print("=" * 50)
-    print("[源1] 开始处理 iptv4.m3u (分类筛选)")
+    logger, start_time, log_path = setup_logging()
+    logger.info("=" * 50)
+    logger.info("开始处理 iptv4.m3u (分类筛选)")
     
     # 1. 读取本地已有频道
     active_entries = load_local_entries(INDEX_FILE)
@@ -123,7 +168,7 @@ def main():
     all_local = active_entries + dead_entries
     local_names = {e["name"] for e in all_local}
     stats["active_before"] = len(active_entries)
-    print(f"[源1] 本地原有活跃频道: {stats['active_before']} 个，失效频道: {len(dead_entries)} 个")
+    logger.info(f"本地原有活跃频道: {stats['active_before']} 个，失效频道: {len(dead_entries)} 个")
     
     # 2. 获取远程新频道
     content = fetch_m3u_content(M3U_URL)
@@ -136,23 +181,23 @@ def main():
         for e in remote_target:
             if e["name"] not in local_names:
                 remote_entries.append(e)
-        print(f"[源1] 远程总频道 {stats['remote_total']}，符合分类 {stats['remote_target']}，本地新频道 {len(remote_entries)}")
+        logger.info(f"远程总频道 {stats['remote_total']}，符合分类 {stats['remote_target']}，本地新频道 {len(remote_entries)}")
     else:
-        print("[源1] 获取远程列表失败，仅检测本地频道")
+        logger.warning("获取远程列表失败，仅检测本地频道")
     
     all_to_check = all_local + remote_entries
     total_check = len(all_to_check)
-    print(f"[源1] 待检测频道总数: {total_check}")
+    logger.info(f"待检测频道总数: {total_check}")
     
     if total_check == 0:
-        print("[源1] 没有频道需要检测，退出。")
+        logger.info("没有频道需要检测，退出。")
         with open(".stats_iptv4.txt", "w", encoding="utf-8") as f:
             f.write(f"{stats['remote_total']}\n{stats['remote_target']}\n")
             f.write(f"{stats['active_before']}\n0\n0\n0")
         return
     
     # 4. 并发检测，带进度显示
-    print("[源1] 正在并发检测流可用性...")
+    logger.info("正在并发检测流可用性...")
     active_checked = []
     dead_checked = []
     
@@ -185,7 +230,7 @@ def main():
                     dead_checked.append(entry)
                 completed += 1
                 if completed % 10 == 0 or completed == total_check:
-                    print(f"  进度: {completed}/{total_check} (活跃: {len(active_checked)}, 失效: {len(dead_checked)})")
+                    logger.info(f"进度: {completed}/{total_check} (活跃: {len(active_checked)}, 失效: {len(dead_checked)})")
     
     # 5. 写入排序文件
     write_m3u_sorted(INDEX_FILE, active_checked)
@@ -195,14 +240,20 @@ def main():
     stats["dead_after"] = len(dead_checked)
     stats["new_added"] = max(0, stats["active_after"] - stats["active_before"])
     
-    print(f"[源1] 结果: 活跃 {stats['active_after']}，失效 {stats['dead_after']}，净增 {stats['new_added']}")
+    logger.info(f"结果: 活跃 {stats['active_after']}，失效 {stats['dead_after']}，净增 {stats['new_added']}")
     
     with open(".stats_iptv4.txt", "w", encoding="utf-8") as f:
         f.write(f"{stats['remote_total']}\n{stats['remote_target']}\n")
         f.write(f"{stats['active_before']}\n{stats['active_after']}\n{stats['dead_after']}\n{stats['new_added']}")
     
-    print("[源1] 处理完成。")
-    print("=" * 50)
+    # 计算运行时长并重命名日志文件
+    end_time = datetime.now()
+    elapsed = (end_time - start_time).total_seconds()
+    elapsed_str = f"{elapsed:.2f}s"
+    new_log_filename = log_path.replace(".log", f"-{elapsed_str}.log")
+    os.rename(log_path, new_log_filename)
+    logger.info(f"处理完成，运行时长: {elapsed_str}")
+    logger.info("=" * 50)
 
 if __name__ == "__main__":
     main()
