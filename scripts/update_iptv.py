@@ -106,7 +106,7 @@ def check_stream(url):
 def write_m3u_sorted(filepath, entries):
     sorted_entries = sorted(entries, key=lambda e: e["name"].lower())
     with open(filepath, 'w', encoding='utf-8') as f:
-        f.write("#EXTM3U\n")
+        f.write('#EXTM3U url-tvg="https://zhr-0731.github.io/IPTV-m3u/epg/epg.xml"\n')
         for e in sorted_entries:
             f.write(e["extinf"] + "\n")
             f.write(e["url"] + "\n")
