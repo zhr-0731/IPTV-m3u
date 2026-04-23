@@ -1,0 +1,155 @@
+2026-04-23 19:02:49,858 [INFO] ============================================================
+2026-04-23 19:02:49,858 [INFO] 运行开始时间: 2026-04-23 19:02:49
+2026-04-23 19:02:49,858 [INFO] 操作者: zhr-0731
+2026-04-23 19:02:49,859 [INFO] 操作系统: Linux 6.17.0-1010-azure
+2026-04-23 19:02:49,859 [INFO] Python 版本: 3.11.15
+2026-04-23 19:02:49,859 [INFO] GitHub Run ID: 24853461544
+2026-04-23 19:02:49,859 [INFO] Git Commit SHA: 65e55054ef33c29767a7dd69af41b15849d2b116
+2026-04-23 19:02:49,859 [INFO] 日志文件哈希: ac0f6bac
+2026-04-23 19:02:49,859 [INFO] ============================================================
+2026-04-23 19:02:49,859 [INFO] 开始处理 iptv4.m3u (分类筛选)
+2026-04-23 19:02:49,859 [INFO] 来源: iptv4
+2026-04-23 19:02:49,860 [INFO] 正在解析 M3U...
+2026-04-23 19:02:49,861 [INFO] 解析完成，获得 360 个条目
+2026-04-23 19:02:49,861 [INFO] 正在解析 M3U...
+2026-04-23 19:02:49,862 [INFO] 解析完成，获得 94 个条目
+2026-04-23 19:02:49,862 [INFO] 本地原有活跃频道: 360 个，失效频道: 94 个
+2026-04-23 19:02:49,862 [INFO] 正在下载 M3U 文件...
+2026-04-23 19:02:49,961 [INFO] 下载完成，大小: 115049 字符
+2026-04-23 19:02:49,962 [INFO] 正在解析 M3U...
+2026-04-23 19:02:49,964 [INFO] 解析完成，获得 635 个条目
+2026-04-23 19:02:49,964 [INFO] 远程总频道 635，符合分类 426，本地新频道 0
+2026-04-23 19:02:49,964 [INFO] 待检测频道总数: 454
+2026-04-23 19:02:49,964 [INFO] 正在并发检测流可用性...
+2026-04-23 19:03:15,686 [INFO] --- 失效频道详情 ---
+2026-04-23 19:03:15,686 [INFO] 频道: CGTN俄语 | 错误: HTTP 403 | URL: https://0472.org/hls/cgtne.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: CGTN法语 | 错误: HTTP 403 | URL: https://0472.org/hls/cgtnf.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: CGTN西语 | 错误: HTTP 403 | URL: https://0472.org/hls/cgtnx.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: CGTN纪录 | 错误: HTTP 403 | URL: https://0472.org/hls/cgtnd.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: CGTN阿语 | 错误: HTTP 403 | URL: https://0472.org/hls/cgtna.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: CCTV1 | 错误: HTTP 405 | URL: http://play.kankanlive.com/live/1661761962676984.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: 上海新闻综合 | 错误: HTTP 404 | URL: https://mgtv.ottiptv.cc/migu/651632657.m3u8?migutoken=348c9164063c2b1df215dd2fa7cd92cb119d8a335ae0edfb5d615a6c714e71b669eee2f5ff1730afa92af7ca41d0aa96e3a280d7e5f2069eb8a3b852f3ebc270147489d7c8bfb08a7c4b9c4d80
+2026-04-23 19:03:15,686 [INFO] 频道: 临夏州综合 | 错误: HTTP 405 | URL: http://play.kankanlive.com/live/1714096320293954.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: 南宁都市生活 | 错误: HTTP 405 | URL: http://615bbf179ba53515dccad7b1da5d1ad9.livehwc3.cn/hls.nntv.cn/nnlive/WLSH_24.m3u8?sub_m3u8=true&edge_slice=true&user_session_id=2598844eaee8a4265e706fc14b3fc11d
+2026-04-23 19:03:15,686 [INFO] 频道: 南京十八 | 错误: HTTP 502 | URL: https://mgtv.ottiptv.cc/migu/838151753.m3u8?migutoken=e1c3c9e2e67541d90ea94c4c917f96ecf43c6c0ae7c616929d8676e7c14bc5587ba870ce22575333640bfff61b05d4d468f6564c6251023f1ad20957cfe3b2c12e71b4662f83dce5d920a86c29
+2026-04-23 19:03:15,686 [INFO] 频道: 南宁公共 | 错误: HTTP 405 | URL: http://hls.nntv.cn/nnlive/GGPD_24.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: 嘉峪关综合 | 错误: HTTP 405 | URL: http://play.kankanlive.com/live/1720583434627241.m3u8
+2026-04-23 19:03:15,686 [INFO] 频道: 天祝综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1656487214793905.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 安顺新闻 | 错误: HTTP 405 | URL: http://hplayer1.juyun.tv/camera/154379194.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 宾阳综合 | 错误: HTTP 405 | URL: http://pulls.myun.tv/live/0dkp33j5.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 成县综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1702454377323961.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 南通新闻综合 | 错误: Timeout | URL: https://mgtv.ottiptv.cc/migu/955227985.m3u8?migutoken=03e9c85f19b5ac291f5863436507873a8f47ec3c677c7857c89bda5778edc8e38fc38b4270aa374c49eee39b39ffaf80a20b750130c27760df766c0cf7b5d437be8dc60c1ced9117d98f6c9b3e
+2026-04-23 19:03:15,687 [INFO] 频道: 景泰综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1624439143745981.m3u8?zgand
+2026-04-23 19:03:15,687 [INFO] 频道: 武威新闻 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1693539781636986.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 永昌综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1652755738635915.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 沐川综合 | 错误: HTTP 404 | URL: http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd
+2026-04-23 19:03:15,687 [INFO] 频道: 南国都市 | 错误: Timeout | URL: http://tencentplay.gztv.com/live/nanguodushi.m3u8?txSecret=140110ae3d6c936a77f94c4f4d85b0d3&txTime=18d57929bd4
+2026-04-23 19:03:15,687 [INFO] 频道: 淮安新闻综合 | 错误: HTTP 404 | URL: https://mgtv.ottiptv.cc/migu/639731826.m3u8?migutoken=383a4690d772fe16ccec98f2da2e7e0c3b362ae2d9a0fa219e9a7bb76bb96d4ca6392f861efb0a61154552c563897f4660867745735f85e310ec9fb52d7fc55cd30da8d55169f8c415c5a69a15
+2026-04-23 19:03:15,687 [INFO] 频道: 渭源新闻 | 错误: HTTP 405 | URL: http://play.kankanlive.com/live/1720408280309109.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 白银综合 | 错误: HTTP 405 | URL: http://play.kankanlive.com/live/1720408089419110.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 营山电视台 | 错误: HTTP 404 | URL: http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8?zsicd#http://file.ysxtv.cn/cms/videos/nmip-media/channellive/channel4/playlist.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 秦安综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1659926941626981.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 西峰综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1683944827526991.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 西和综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1659926941626981.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 通渭综合 | 错误: HTTP 405 | URL: https://play.kankanlive.com/live/1725005047185027.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 长白朝语 | 错误: HTTP 405 | URL: http://hplayer1.juyun.tv:80/camera/11344136.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 陕西新闻资讯 | 错误: HTTP 404 | URL: https://mgtv.ottiptv.cc/migu/956909289.m3u8?migutoken=d4f3f5a8bf93821548ae70c6bd12860956574c27b3b1ef52c88c8e3d72259b1727a6dbf5d6a5de850afac4c7ffe2f2124bb3b558a89906cd32ccc8913f0f22dd74b7a84514b6015bff75903d9c
+2026-04-23 19:03:15,687 [INFO] 频道: 陕西体育休闲 | 错误: HTTP 404 | URL: https://mgtv.ottiptv.cc/migu/956909356.m3u8?migutoken=2cd1b3120e6a6d3cec136ca61cb23c24512860d4956d391b8c7d8a1fce58c3fa549930217eede8887c05f73eb24ac9692be10bdd06557f58130ff6717e37e1b6ba38adfacf8e74298fe1d4f48c
+2026-04-23 19:03:15,687 [INFO] 频道: CCTV4 | 错误: HTTP 403 | URL: http://74.91.26.218:82/live/cctv4hd.m3u8
+2026-04-23 19:03:15,687 [INFO] 频道: 临颍综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11122-1.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]
+2026-04-23 19:03:15,687 [INFO] 频道: 义马新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11281-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 偃师新闻 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10381-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 内乡综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11325-1.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]
+2026-04-23 19:03:15,688 [INFO] 频道: 内黄综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10527-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 叶县 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10422-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 靖远综合 | 错误: HTTP 405 | URL: http://play.kankanlive.com/live/1692005762394912.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 唐河一套 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11328-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: CCTV10 | 错误: HTTP 403 | URL: http://hlszymgsplive.miguvideo.com:8080/migu/kailu/cctv10hd265/54/20200407/index.m3u8?msisdn=faa141c962476b57c31730fcb750523f&mdspid=&spid=699004&netType=0&sid=5500212874&pid=2028597139&timestamp=20251227202413&Channel_ID=0116_2600037000-99000-200300220100002&ProgramID=624878405&ParentNodeID=-99&assertID=5500212874&client_ip=58.22.56.206&SecurityKey=20251227202413&promotionId=&mvid=5100001696&mcid=500020&playurlVersion=WX-A1-8.12.2-RELEASE&userid=1831293380&jmhm=faa141c962476b57c31730fcb750523f&videocodec=h265&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&encrypt=e24aeaf25a1bda69bdf6ed2c5b9c6801&sv=10004&ct=android
+2026-04-23 19:03:15,688 [INFO] 频道: 固始综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11525-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 兵团卫视 | 错误: HTTP 404 | URL: http://183.11.239.36:808/hls/7/index.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: CCTV5 | 错误: HTTP 404 | URL: http://gmxw.7766.org:808/hls/93/index.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: CCTV8 | 错误: HTTP 404 | URL: http://gmxw.7766.org:808/hls/96/index.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 宜阳综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10327-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 宝丰综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10421-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 嵩县综合新闻 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10325-1.m3u8?zhendhttp://wshls.live.migucloud.com/live/MZCYG799_C0/playlist.m3u8?zhend
+2026-04-23 19:03:15,688 [INFO] 频道: 巩义新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10181-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 厦门卫视 | 错误: HTTP 404 | URL: http://183.11.239.36:808/hls/17/index.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 四川科教 | 错误: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote | URL: http://182.150.115.21:8030/pcgacg/pcgacg_0.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: CCTV1 | 错误: HTTP 404 | URL: http://tvlist.top/jd/index.php?id=cctv1&qt=118.212.78.251:8014
+2026-04-23 19:03:15,688 [INFO] 频道: 广东新闻 | 错误: ConnectionError: HTTPConnectionPool(host='119.32.12.17', port=2901) | URL: http://119.32.12.17:2901/udp/224.1.100.5:11111
+2026-04-23 19:03:15,688 [INFO] 频道: 广东经济科教 | 错误: ConnectionError: HTTPConnectionPool(host='119.32.12.17', port=2901) | URL: http://119.32.12.17:2901/udp/224.1.100.6:11111
+2026-04-23 19:03:15,688 [INFO] 频道: 扶沟综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11621-1.m3u8
+2026-04-23 19:03:15,688 [INFO] 频道: 新乡县电视台 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10721-1.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]
+2026-04-23 19:03:15,688 [INFO] 频道: 新县综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11523-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 新安新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10323-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 广东民生 | 错误: HTTP 404 | URL: http://183.11.239.36:808/hls/18/index.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 新蔡综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11729-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 新野综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11329-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 方城一套 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11322-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 安徽国际 | 错误: HTTP 403 | URL: https://www.ahtv.cn/folder9000/folder20193?channelIndex=6
+2026-04-23 19:03:15,689 [INFO] 频道: 无锡新闻综合 | 错误: HTTP 403 | URL: http://stream.thmz.com/wxtv1/playlist.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 无锡娱乐 | 错误: HTTP 403 | URL: https://stream.thmz.com/wxtv2/playlist.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 永城综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11481-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 无锡生活 | 错误: HTTP 403 | URL: https://stream.thmz.com/wxtv4/playlist.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 怀仁综合 | 错误: HTTP 404 | URL: https://1yp7hc5p.live.sxmty.com/live/hls/bff8529922344209985b6e49baa9555a/efa2543628fc4a7ea93d3d6c975f77dc-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 沁阳新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10882-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 江苏城市 | 错误: HTTP 660 | URL: http://gslbmgsplive.miguvideo.com/wd_r2/jstv/jschengshi/600/index.m3u8?msisdn=202509030900312c5ad926e30449e5b9405f27a3fde9a6&mdspid=&spid=699067&netType=0&sid=5500260508&pid=2028597139&timestamp=20250903090031&Channel_ID=0116_2600037000-99000-200300220100002&ProgramID=626064714&ParentNodeID=-99&assertID=5500260508&client_ip=106.13.250.83&SecurityKey=20250903090031&promotionId=&mvid=5100186409&mcid=500020&playurlVersion=WX-A1-8.8.1-RELEASE&userid=&jmhm=&videocodec=h264&bean=mgspad&tid=android&conFee=0&puData=3712225a575d903704881b6443f50a06&ddCalcu=6307va1a02x52af2354a4567b51d89804307&sv=10004&ct=android
+2026-04-23 19:03:15,689 [INFO] 频道: 无锡经济 | 错误: HTTP 403 | URL: https://stream.thmz.com/wxtv5/playlist.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 无锡都市资讯 | 错误: HTTP 403 | URL: http://stream.thmz.com/wxtv3/playlist.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 江苏教育 | 错误: HTTP 660 | URL: http://gslbmgsplive.miguvideo.com/wd_r2/jstv/jsjiaoyu/600/index.m3u8?msisdn=20250903090031d7e536b9e78c4a42b0841922e44a4a36&mdspid=&spid=699067&netType=0&sid=5500287493&pid=2028597139&timestamp=20250903090031&Channel_ID=0116_2600037000-99000-200300220100002&ProgramID=628008321&ParentNodeID=-99&assertID=5500287493&client_ip=106.13.250.83&SecurityKey=20250903090031&promotionId=&mvid=5101012819&mcid=500020&playurlVersion=WX-A1-8.8.1-RELEASE&userid=&jmhm=&videocodec=h264&bean=mgspad&tid=android&conFee=0&puData=d3e3bd992ebf554d360ba9b83b9b179d&ddCalcu=dd93v7ea13bbba9db93982be9bafb505643d&sv=10004&ct=android
+2026-04-23 19:03:15,689 [INFO] 频道: 沭阳综合 | 错误: HTTP 400 | URL: https://shuyang-tv-hls.cm.jstv.com:443/shuyang-tv/shuyangzh.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 河源公共 | 错误: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote | URL: http://tmpstream.hyrtv.cn/hygg/sd/live.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 河源综合 | 错误: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote | URL: http://tmpstream.hyrtv.cn/xwzh/sd/live.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 渑池新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11221-1.m3u8
+2026-04-23 19:03:15,689 [INFO] 频道: 温县综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10825-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 湖南国际频道 | 错误: HTTP 403 | URL: http://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZjZG5leF9pZD1xcV9waG9uZV9saXZlJmNocz0mZGVmPTEmcz04MTBlMTRkMzM4YTczYzFhN2U5NDZhNzZmNjg1OTRjZSZ1aWQ9JnV1aWQ9NDE2M2Y4ODk2YTk3NGI1YmQ0OWU3NTc3NTc0NzVmMWQtNmEwZTI2Mzcmdj0yJmFzPTAmZXM9MTc3MTgyMjUyOA,,/HNGJMPP360.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 湖南爱晚 | 错误: HTTP 403 | URL: http://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZjZG5leF9pZD1xcV9waG9uZV9saXZlJmNocz0mZGVmPTEmcz0yZTUwYmExZDdjNGY0MjU5NzdjMDVhYTc5OGVkZmNiYyZ1aWQ9JnV1aWQ9MmRjODU1MmQxYTEzZWQ0MzgxZjc0Yzc2ZTc0OWIxYzYtNmEwZTI2Mzcmdj0yJmFzPTAmZXM9MTc3MTgxOTIwNQ,,/HNGGMPP360.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 涟水电视台综合 | 错误: HTTP 400 | URL: https://lianshui-tv-hls.cm.jstv.com:443/lianshui-tv/lsxw.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 湖南电视剧 | 错误: HTTP 403 | URL: http://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZyYXV0aF9lbmFibGU9b2ZmJmNkbmV4X2lkPXFxX3Bob25lX2xpdmUmY2hzPSZkZWY9MSZzPTllNjJiYTJkYzZhNzYzZGQ4M2I2Y2Y3YTI3YTI4Y2ExJnVpZD0mdXVpZD1lZGViN2U3NWZjMmY3ZmM1NzdlMzM5NGI2ZmMwMThjNi02YTBlMjYzNyZ2PTImYXM9MCZlcz0xNzcxODIyODMw/HNDSJMPP360.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 滑县新闻 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10526-1.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]
+2026-04-23 19:03:15,690 [INFO] 频道: 长影频道 | 错误: Timeout | URL: http://tpc.x3322.net:9901/tsfile/live/1010_1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 潢川综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11526-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 灵宝新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11282-1.m3u8?zhend
+2026-04-23 19:03:15,690 [INFO] 频道: 湖南经视 | 错误: HTTP 403 | URL: http://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZjZG5leF9pZD1xcV9waG9uZV9saXZlJmNocz0mZGVmPTEmcz1kZWQ4NTViODk2NTA4MmMxODBjZjU2ZDM5M2E0MjVlMSZ1aWQ9JnV1aWQ9YzQ4YTljNzNkYTVjMDg1MGI3ZGJmNWEyNDgwYjQwYWMtNmEwZTI2Mzcmdj0yJmFzPTAmZXM9MTc3MTgyMjUxNQ,,/HNJSMPP360.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 湖南都市 | 错误: HTTP 403 | URL: http://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZjZG5leF9pZD1xcV9waG9uZV9saXZlJmNocz0mZGVmPTEmcz1kOGQyYTJhOTAxMzI2OGJjNjlkNDBhMTJjNzFjM2VjMSZ1aWQ9JnV1aWQ9ZWI1N2IyZDA2ZDM3MGZjYzdhN2I2M2ZkNzljZWI4NzctNmEwZTI2Mzcmdj0yJmFzPTAmZXM9MTc3MTg0NDE0NQ,,/HNDSMPP360.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 登封综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10185-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 禹州综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11081-1.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]
+2026-04-23 19:03:15,690 [INFO] 频道: 荥阳综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10182-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 西华综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11622-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 郏县综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/10425-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 郸城新闻综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11625-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 鄢陵综合 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11024-1.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 湖南经视 | 错误: HTTP 404 | URL: http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-2.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 金鹰卡通 | 错误: HTTP 403 | URL: http://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZjZG5leF9pZD1xcV9waG9uZV9saXZlJmNocz0mZGVmPTEmcz00YWQzM2E5MGUxMTRlMzRmYTRhNzQ2NjI5NWJlYTQzMiZ1aWQ9JnV1aWQ9ZTIxYmJhZjkyMDA0MjkyYWE2YjIzZTkwM2FkMmRjNWYtNmEwZTI2Mzcmdj0yJmFzPTAmZXM9MTc3MTgzNzI0OQ,,/JYKTMPP360.m3u8
+2026-04-23 19:03:15,690 [INFO] 频道: 兵团八师石河子新闻综合 | 错误: Timeout | URL: http://124.88.144.73:1935/live/xwzh/playlist.m3u8?zxinjd
+2026-04-23 19:03:15,690 [INFO] 频道: 什邡新闻 | 错误: Timeout | URL: http://live.sfrmt.com:85/live/zhpd.m3u8?zsicd
+2026-04-23 19:03:15,690 [INFO] 频道: 溧水新闻综合 | 错误: HTTP 404 | URL: https://mgtv.ottiptv.cc/migu/639737327.m3u8?migutoken=4c07b7afe94ad06d114a6bccae5747804d493ab7b1100069e485b78d3cb91c0fb0dbd92aa90a6157d7066e5b90780fabf5e150e17ebb9bc72b8bb18f43c5acddd1c0fd4d1904a99210aa962135
+2026-04-23 19:03:15,690 [INFO] 频道: 金鹰纪实频道 | 错误: HTTP 403 | URL: https://phoneqq.qing.mgtv.com/nn_live/nn_x64/dWlwPTEwNi4xNC4zOC41NSZ0ZXJtPTUmcWlkPSZjZG5leF9pZD1xcV9waG9uZV9saXZlJmNocz0mZGVmPTEmcz0zMzU5OWQ5MDFkNDAyMjRjZmZjMGRkODgzOWQyOTM1MyZ1aWQ9JnV1aWQ9MTg1ZGY4OWJlM2JjZmIxZDdlMTMyZDBlZGQ3YTNjZDMtNmEwZTI2Mzcmdj0yJmFzPTAmZXM9MTc3MTgxODk2OQ,,/JYJSMPP360.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: CCTV13 | 错误: Timeout | URL: http://nn.7x9d.cn/xzc2.php?ua=TW96aWxsYS81LjAgKFdpbmRvd3MgTlQgNi4xOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTA2LjAuMC4wIFNhZmFyaS81MzcuMzY=&hls=aHR0cDovLzIyMi44NS4xOTguOTI6ODAwMC9obHMvMTIvaW5kZXgubTN1OA==
+2026-04-23 19:03:15,691 [INFO] 频道: 项城新闻 | 错误: HTTP 403 | URL: http://tvpull.dxhmt.cn:9081/tv/11681-1.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 金鹰卡通 | 错误: HTTP 404 | URL: http://pili-live-snapshot.tv.hntvcloud.com/mg-tv/channel-5.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 奎屯哈萨克语 | 错误: Timeout | URL: http://218.84.12.186:8002/hls/main/playlist.m3u8?zxinjd
+2026-04-23 19:03:15,691 [INFO] 频道: 夹江新闻综合 | 错误: Timeout | URL: http://tvfile.jjrm.org.cn/nmip-media/channellive/channel106282/playlist.m3u8?zsicd
+2026-04-23 19:03:15,691 [INFO] 频道: 常熟民生 | 错误: Timeout | URL: http://3gvod.zjgonline.com.cn:1935/live/_definst_/shehuishenghuo_app/chunklist.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 宜兴紫砂 | 错误: Timeout | URL: http://3gvod.zjgonline.com.cn:1935/live/_definst_/xinwenzonghe_app/chunklist.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 泗洪新闻综合 | 错误: ConnectionError: HTTPConnectionPool(host='live1.habctv.com', port=8 | URL: http://live1.habctv.com/ggpdsl/sd/live.m3u8?zjiangsd#http://live1.habctv.com/ggpdsl/sd/live.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 泸县新闻综合 | 错误: ConnectionError: HTTPConnectionPool(host='lxfile.lxxcb.cn', port=80 | URL: http://lxfile.lxxcb.cn/nmip-media/channellive/channel103799/playlist.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 淮安影院娱乐 | 错误: ConnectionError: HTTPConnectionPool(host='live1.habctv.com', port=8 | URL: http://live1.habctv.com/ysylsl/sd/live.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 易门综合 | 错误: Timeout | URL: https://zb-live.ynurl.com/yimen/3b75a2f9-7941-46b7-992d-a9796fbca5fe.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 湖南卫视 | 错误: Timeout | URL: http://tvtj.jxwltx.com:8003/hunanws.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 璧山综合 | 错误: Timeout | URL: http://222.179.42.129:8181/hls1.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 甘孜综合 | 错误: Timeout | URL: http://tv.drs.ganzitv.com:8100/channellive/gztv.flv
+2026-04-23 19:03:15,691 [INFO] 频道: 长沙政法频道 | 错误: Timeout | URL: http://39.134.243.204:6610/180000001001/00000001000000000008000000047430/main.m3u8?IASHttpSessionId=RR986320251220094729586479&ispcode=20
+2026-04-23 19:03:15,691 [INFO] 频道: 长沙文旅 | 错误: ConnectionError: HTTPConnectionPool(host='tvgslb.hn.chinamobile.com | URL: http://tvgslb.hn.chinamobile.com:8089/180000001001/32024050609475789931438327485597/index.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 长沙新闻 | 错误: Timeout | URL: http://39.134.13.35:6610/180000001001/00000001000000000008000000047429/index.m3u8?
+2026-04-23 19:03:15,691 [INFO] 频道: 黑龙江文体 | 错误: ConnectionError: HTTPSConnectionPool(host='idclive.hljtv.com', port | URL: https://idclive.hljtv.com:4430/live/hljwy_hd.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 黑龙江都市 | 错误: ConnectionError: HTTPSConnectionPool(host='idclive.hljtv.com', port | URL: https://idclive.hljtv.com:4430/live/dushi_hd.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 烟台经济科技 | 错误: Timeout | URL: http://live.yantaitv.cn/live/27f84144e95a4652ae9e5c211b2a6b55/405f3e33ba384aa0a16014d0becd1261-1.m3u8
+2026-04-23 19:03:15,691 [INFO] 频道: 烟台公共 | 错误: Timeout | URL: http://live.yantaitv.cn/live/e50f104a4ffe4a41b2217cbda534146f/d86092e69df94668b33390278b061700-1.m3u8
+2026-04-23 19:03:15,692 [INFO] 频道: 烟台新闻综合 | 错误: Timeout | URL: http://live.yantaitv.cn/live/3e81a8879da44c5dadf3bd9c10468e1c/9b776d420ee4438199b7657c8eb88f07-1.m3u8
+2026-04-23 19:03:15,692 [INFO] --- 失效频道详情结束 ---
+2026-04-23 19:03:15,693 [INFO] 已写入 329 个频道到 index.m3u
+2026-04-23 19:03:15,694 [INFO] 已写入 125 个频道到 index_dead.m3u
+2026-04-23 19:03:15,694 [INFO] 结果汇总: 活跃 329，失效 125，净增 0
+2026-04-23 19:03:15,694 [INFO] 处理完成，总运行时长: 25.84s
+2026-04-23 19:03:15,694 [INFO] ============================================================
