@@ -2,7 +2,7 @@ name: Daily Update IPTV M3U and EPG
 
 on:
   schedule:
-    - cron: '0 18 * * *'
+    - cron: '0 18 * * *'   # UTC 18:00 = 北京时间次日 02:00
   workflow_dispatch:
 
 jobs:
@@ -31,7 +31,9 @@ jobs:
       - name: Run update for iptv-org (international)
         run: python scripts/update_iptv_org.py
 
-      - name: Generate report and update README
+      - name: Generate report, update README, JSON and send Feishu notification
+        env:
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
         run: python scripts/generate_report.py
 
       - name: Download EPG XML file
@@ -44,7 +46,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md epg/epg.xml logs/
+          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md report.json epg/epg.xml logs/
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
