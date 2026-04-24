@@ -1,10 +1,10 @@
 {
-  "update_time": "2026-04-24 22:11:17",
+  "update_time": "2026-04-25 02:43:54",
   "source1": {
     "name": "iptv4 (央视频道/卫视频道/地方频道)",
-    "remote_total": 635,
-    "remote_target": 433,
-    "active_before": 368,
+    "remote_total": 628,
+    "remote_target": 431,
+    "active_before": 371,
     "active_after": 336,
     "dead": 119,
     "new_added": 0,
