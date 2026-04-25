@@ -42,52 +42,14 @@ jobs:
           curl -L --retry 3 --retry-delay 5 --connect-timeout 10 --max-time 60 \
             -o epg/epg.xml https://epg.zsdc.eu.org/t.xml
 
-      # ---------- 截图相关步骤 ----------
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright/
-          key: ${{ runner.os }}-playwright
-
-      - name: Install shot-scraper and browser
-        run: |
-          pip install shot-scraper
-          shot-scraper install
-
-      - name: Install Chinese fonts
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
-
-      - name: Take screenshot of Feishu dashboard
-        run: |
-          mkdir -p img
-          shot-scraper shot https://my.feishu.cn/share/base/dashboard/shrcnuIzAL4nel5s1CFA8YYs56e \
-            -o img/dashboard.png \
-            --width 1400 \
-            --height 900 \
-            --wait 5000
-        continue-on-error: true
-
-      - name: Append screenshot to README.md
-        if: success()
-        run: |
-          echo "" >> README.md
-          echo "## 📸 仪表盘截图" >> README.md
-          echo "" >> README.md
-          echo "![IPTV 仪表盘](img/dashboard.png)" >> README.md
-          echo "" >> README.md
-          echo "*截图更新时间: $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')*" >> README.md
-
-      # ---------- 提交所有变更 ----------
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md report.json epg/epg.xml logs/ img/dashboard.png
+          git add index.m3u index_dead.m3u iptv-org.m3u iptv-org_dead.m3u README.md report.json epg/epg.xml logs/
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto update playlists, report, EPG, logs and screenshot [skip ci]"
+            git commit -m "Auto update playlists, report, EPG and logs [skip ci]"
             git push
           fi
