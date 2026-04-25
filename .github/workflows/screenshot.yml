@@ -1,0 +1,69 @@
+name: Daily Dashboard Screenshot
+
+on:
+  schedule:
+    - cron: '0 21 * * *'   # UTC 19:00 = 北京时间次日 05:00
+  workflow_dispatch:
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright/
+          key: ${{ runner.os }}-playwright
+
+      - name: Install shot-scraper and browser
+        run: |
+          pip install shot-scraper
+          shot-scraper install
+
+      - name: Install Chinese fonts
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+
+      - name: Take full-page screenshot of Feishu dashboard
+        run: |
+          mkdir -p img
+          shot-scraper shot https://my.feishu.cn/share/base/dashboard/shrcnuIzAL4nel5s1CFA8YYs56e \
+            -o img/dashboard.png \
+            --width 1400 \
+            --full-page \
+            --wait 5000
+        continue-on-error: true
+
+      - name: Append screenshot to README.md
+        if: success()
+        run: |
+          echo "" >> README.md
+          echo "## 📸 仪表盘截图" >> README.md
+          echo "" >> README.md
+          echo "![IPTV 仪表盘](img/dashboard.png)" >> README.md
+          echo "" >> README.md
+          echo "*截图更新时间: $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')*" >> README.md
+
+      - name: Commit and push screenshot
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add img/dashboard.png README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto update dashboard screenshot [skip ci]"
+            git push
+          fi
