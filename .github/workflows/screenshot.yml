@@ -42,12 +42,11 @@ jobs:
           shot-scraper shot https://my.feishu.cn/share/base/dashboard/shrcnuIzAL4nel5s1CFA8YYs56e \
             -o img/dashboard.png \
             --width 1400 \
-            --full-page \
+            --height 5000 \
             --wait 5000
         continue-on-error: true
 
-      # 只提交图片，不修改 README
-      - name: Commit and push screenshot
+      - name: Commit and push screenshot only
         if: success()
         run: |
           git config user.name "github-actions[bot]"
