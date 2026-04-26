@@ -2,7 +2,7 @@ name: Daily Dashboard Screenshot
 
 on:
   schedule:
-    - cron: '0 21 * * *'   # UTC 19:00 = 北京时间次日 05:00
+    - cron: '0 19 * * *'   # UTC 19:00 = 北京时间次日 03:00
   workflow_dispatch:
 
 jobs:
@@ -46,21 +46,13 @@ jobs:
             --wait 5000
         continue-on-error: true
 
-      - name: Append screenshot to README.md
-        if: success()
-        run: |
-          echo "" >> README.md
-          echo "## 📸 仪表盘截图" >> README.md
-          echo "" >> README.md
-          echo "![IPTV 仪表盘](img/dashboard.png)" >> README.md
-          echo "" >> README.md
-          echo "*截图更新时间: $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')*" >> README.md
-
+      # 只提交图片，不修改 README
       - name: Commit and push screenshot
+        if: success()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add img/dashboard.png README.md
+          git add img/dashboard.png
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
