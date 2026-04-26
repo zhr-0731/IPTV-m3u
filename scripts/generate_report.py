@@ -107,6 +107,9 @@ def generate_report():
 ## 📸 仪表盘截图
 
 ![IPTV 仪表盘](img/dashboard.png)
+## Star History
+
+[![Star History Chart](https://api.star-history.com/chart?repos=zhr-0731/IPTV-m3u&type=date&legend=top-left)](https://www.star-history.com/?repos=zhr-0731%2FIPTV-m3u&type=date&legend=top-left)
 """
     return report, update_time, stats1, stats2, count1, count2
 
