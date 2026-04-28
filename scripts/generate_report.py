@@ -49,6 +49,24 @@ def count_channels_in_m3u(filepath):
                 count += 1
     return count
 
+def read_error_stats(filepath):
+    """读取错误统计文件，返回字典 {error_type: count}"""
+    if not os.path.exists(filepath):
+        return {}
+    errors = {}
+    with open(filepath, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            if ':' in line:
+                error_type, count_str = line.rsplit(':', 1)
+                try:
+                    errors[error_type] = int(count_str)
+                except ValueError:
+                    pass
+    return errors
+
 def generate_report():
     tz = timezone(timedelta(hours=8))
     now = datetime.now(tz)
@@ -107,9 +125,6 @@ def generate_report():
 ## 📸 仪表盘截图
 
 ![IPTV 仪表盘](img/dashboard.png)
-## Star History
-
-[![Star History Chart](https://api.star-history.com/chart?repos=zhr-0731/IPTV-m3u&type=date&legend=top-left)](https://www.star-history.com/?repos=zhr-0731%2FIPTV-m3u&type=date&legend=top-left)
 """
     return report, update_time, stats1, stats2, count1, count2
 
@@ -153,8 +168,26 @@ def send_feishu_message(stats1, stats2, update_time, count1, count2):
     except Exception as e:
         print(f"[飞书] 请求异常: {e}")
 
-def generate_json(stats1, stats2, update_time, count1, count2):
-    data = {
+def generate_error_json():
+    """生成 error_stats.json 数据结构"""
+    err_iptv4 = read_error_stats(".stats_errors_iptv4.txt")
+    err_iptv_org = read_error_stats(".stats_errors_iptv_org.txt")
+    # 合并两个源的总计（可选，我们保留分开）
+    error_data = {
+        "source1_errors": err_iptv4,
+        "source2_errors": err_iptv_org,
+        "timestamp": datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
+    }
+    return error_data
+
+def main():
+    report, update_time, stats1, stats2, count1, count2 = generate_report()
+    with open("README.md", "w", encoding="utf-8") as f:
+        f.write(report)
+    print("[报告] README.md 已更新")
+    
+    # 常规 JSON
+    json_data = {
         "update_time": update_time,
         "source1": {
             "name": "iptv4 (央视频道/卫视频道/地方频道)",
@@ -176,22 +209,21 @@ def generate_json(stats1, stats2, update_time, count1, count2):
             "total": count2
         }
     }
-    return data
-
-def main():
-    report, update_time, stats1, stats2, count1, count2 = generate_report()
-    with open("README.md", "w", encoding="utf-8") as f:
-        f.write(report)
-    print("[报告] README.md 已更新")
-    
-    json_data = generate_json(stats1, stats2, update_time, count1, count2)
     with open("report.json", "w", encoding="utf-8") as f:
         json.dump(json_data, f, ensure_ascii=False, indent=2)
     print("[报告] report.json 已更新")
     
+    # 新增：错误统计 JSON
+    error_data = generate_error_json()
+    with open("error_stats.json", "w", encoding="utf-8") as f:
+        json.dump(error_data, f, ensure_ascii=False, indent=2)
+    print("[报告] error_stats.json 已更新")
+    
     send_feishu_message(stats1, stats2, update_time, count1, count2)
     
-    for f in [".stats_iptv4.txt", ".stats_iptv_org.txt"]:
+    # 清理临时文件
+    for f in [".stats_iptv4.txt", ".stats_iptv_org.txt",
+              ".stats_errors_iptv4.txt", ".stats_errors_iptv_org.txt"]:
         if os.path.exists(f):
             os.remove(f)
 
