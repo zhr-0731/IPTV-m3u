@@ -11,16 +11,14 @@ import hashlib
 import logging
 import platform
 from datetime import datetime
+from collections import Counter
 
-# ---------- 自然排序键函数 ----------
 def natural_key(text):
     return [int(part) if part.isdigit() else part.lower() for part in re.split(r'(\d+)', text)]
 
-# ---------- 日志设置 ----------
 def setup_logging():
     log_dir = "logs"
     os.makedirs(log_dir, exist_ok=True)
-    
     start_time = datetime.now()
     start_timestamp = int(start_time.timestamp())
     operator = os.environ.get("GITHUB_ACTOR", "local-user")
@@ -30,11 +28,9 @@ def setup_logging():
     time_str = start_time.strftime("%y%m%d-%H%M%S")
     hash_input = f"{start_timestamp}-{operator}-{start_timestamp}"
     hash_value = hashlib.sha256(hash_input.encode()).hexdigest()[:8]
-    
     log_filename = f"{time_str}-{operator}-{hash_value}.log"
     log_path = os.path.join(log_dir, log_filename)
     
-    # 配置日志格式
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s [%(levelname)s] %(message)s',
@@ -45,7 +41,6 @@ def setup_logging():
     )
     logger = logging.getLogger()
     
-    # 写入运行环境头部信息
     logger.info("=" * 60)
     logger.info(f"运行开始时间: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
     logger.info(f"操作者: {operator}")
@@ -53,7 +48,6 @@ def setup_logging():
     logger.info(f"Python 版本: {platform.python_version()}")
     logger.info(f"GitHub Run ID: {run_id}")
     logger.info(f"Git Commit SHA: {commit_sha}")
-    logger.info(f"日志文件哈希: {hash_value}")
     logger.info("=" * 60)
     
     return logger, start_time, log_path
@@ -64,18 +58,15 @@ try:
 except ImportError:
     TQDM_AVAILABLE = False
 
-M3U_URL = "https://live.zbds.top/tv/iptv4.m3u"
-INDEX_FILE = "index.m3u"
-DEAD_FILE = "index_dead.m3u"
+M3U_URL = "https://iptv-org.github.io/iptv/index.m3u"
+INDEX_FILE = "iptv-org.m3u"
+DEAD_FILE = "iptv-org_dead.m3u"
 TIMEOUT = 5
-MAX_WORKERS = 20
+MAX_WORKERS = 30
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-
-TARGET_GROUPS = {"央视频道", "卫视频道", "地方频道"}
 
 stats = {
     "remote_total": 0,
-    "remote_target": 0,
     "active_before": 0,
     "active_after": 0,
     "dead_after": 0,
@@ -105,24 +96,19 @@ def parse_m3u(content):
         line = lines[i].strip()
         if line.startswith("#EXTINF:"):
             extinf = line
-            group_match = re.search(r'group-title="([^"]*)"', extinf)
-            group = group_match.group(1).strip() if group_match else ""
-            
             name_match = re.search(r'tvg-name="([^"]+)"', extinf)
             if not name_match:
                 parts = extinf.split(',', 1)
                 name = parts[1].strip() if len(parts) > 1 else "未知频道"
             else:
                 name = name_match.group(1).strip()
-            
             if i + 1 < len(lines):
                 url = lines[i + 1].strip()
                 if url and not url.startswith('#'):
                     entries.append({
                         "extinf": extinf,
                         "name": name,
-                        "url": url,
-                        "group": group
+                        "url": url
                     })
             i += 2
         else:
@@ -143,10 +129,6 @@ def load_local_entries(filepath):
         return []
 
 def check_stream(url):
-    """
-    返回 (is_available, error_info)
-    error_info 为 None 表示成功，否则为错误描述字符串
-    """
     try:
         resp = requests.head(url, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT, allow_redirects=True)
         if resp.status_code < 400:
@@ -160,7 +142,6 @@ def check_stream(url):
     except Exception as e:
         return False, f"Unknown: {type(e).__name__}"
     
-    # 如果 HEAD 失败，尝试 GET
     try:
         resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=TIMEOUT, stream=True)
         if resp.status_code < 400:
@@ -188,10 +169,9 @@ def write_m3u_sorted(filepath, entries):
 
 def main():
     logger, start_time, log_path = setup_logging()
-    logger.info("开始处理 iptv4.m3u (分类筛选)")
-    logger.info("来源: iptv4")
+    logger.info("开始处理 iptv-org (国际频道)")
+    logger.info("来源: iptv-org")
     
-    # 1. 读取本地已有频道
     active_entries = load_local_entries(INDEX_FILE)
     dead_entries = load_local_entries(DEAD_FILE)
     all_local = active_entries + dead_entries
@@ -199,18 +179,15 @@ def main():
     stats["active_before"] = len(active_entries)
     logger.info(f"本地原有活跃频道: {stats['active_before']} 个，失效频道: {len(dead_entries)} 个")
     
-    # 2. 获取远程新频道
     content = fetch_m3u_content(M3U_URL)
     remote_entries = []
     if content:
         all_remote = parse_m3u(content)
         stats["remote_total"] = len(all_remote)
-        remote_target = [e for e in all_remote if e["group"] in TARGET_GROUPS]
-        stats["remote_target"] = len(remote_target)
-        for e in remote_target:
+        for e in all_remote:
             if e["name"] not in local_names:
                 remote_entries.append(e)
-        logger.info(f"远程总频道 {stats['remote_total']}，符合分类 {stats['remote_target']}，本地新频道 {len(remote_entries)}")
+        logger.info(f"远程总频道 {stats['remote_total']}，本地新频道 {len(remote_entries)}")
     else:
         logger.warning("获取远程列表失败，仅检测本地频道")
     
@@ -220,21 +197,19 @@ def main():
     
     if total_check == 0:
         logger.info("没有频道需要检测，退出。")
-        with open(".stats_iptv4.txt", "w", encoding="utf-8") as f:
-            f.write(f"{stats['remote_total']}\n{stats['remote_target']}\n")
-            f.write(f"{stats['active_before']}\n0\n0\n0")
+        with open(".stats_iptv_org.txt", "w", encoding="utf-8") as f:
+            f.write(f"{stats['remote_total']}\n{stats['active_before']}\n0\n0\n0")
+        with open(".stats_errors_iptv_org.txt", "w", encoding="utf-8") as f:
+            f.write("")
         return
     
     logger.info("正在并发检测流可用性...")
     active_checked = []
     dead_checked = []
-    
-    # 用于记录失效详情
     dead_details = []
     
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         future_to_entry = {executor.submit(check_stream, e["url"]): e for e in all_to_check}
-        
         if TQDM_AVAILABLE:
             with tqdm(total=total_check, desc="检测进度", unit="个") as pbar:
                 for future in concurrent.futures.as_completed(future_to_entry):
@@ -282,17 +257,24 @@ def main():
                         "error": f"Future exception: {e}"
                     })
                 completed += 1
-                if completed % 10 == 0 or completed == total_check:
+                if completed % 20 == 0 or completed == total_check:
                     logger.info(f"进度: {completed}/{total_check} (活跃: {len(active_checked)}, 失效: {len(dead_checked)})")
     
-    # 记录失效频道详情
     if dead_details:
         logger.info("--- 失效频道详情 ---")
         for d in dead_details:
             logger.info(f"频道: {d['name']} | 错误: {d['error']} | URL: {d['url']}")
         logger.info("--- 失效频道详情结束 ---")
     
-    # 5. 写入排序文件
+    # 统计错误类型
+    error_counter = Counter()
+    for d in dead_details:
+        error_counter[d["error"]] += 1
+    with open(".stats_errors_iptv_org.txt", "w", encoding="utf-8") as f:
+        for error_type, count in error_counter.most_common():
+            f.write(f"{error_type}:{count}\n")
+    logger.info(f"错误统计已保存: {dict(error_counter)}")
+    
     write_m3u_sorted(INDEX_FILE, active_checked)
     write_m3u_sorted(DEAD_FILE, dead_checked)
     
@@ -302,11 +284,9 @@ def main():
     
     logger.info(f"结果汇总: 活跃 {stats['active_after']}，失效 {stats['dead_after']}，净增 {stats['new_added']}")
     
-    with open(".stats_iptv4.txt", "w", encoding="utf-8") as f:
-        f.write(f"{stats['remote_total']}\n{stats['remote_target']}\n")
-        f.write(f"{stats['active_before']}\n{stats['active_after']}\n{stats['dead_after']}\n{stats['new_added']}")
+    with open(".stats_iptv_org.txt", "w", encoding="utf-8") as f:
+        f.write(f"{stats['remote_total']}\n{stats['active_before']}\n{stats['active_after']}\n{stats['dead_after']}\n{stats['new_added']}")
     
-    # 计算运行时长并重命名日志文件
     end_time = datetime.now()
     elapsed = (end_time - start_time).total_seconds()
     elapsed_str = f"{elapsed:.2f}s"
