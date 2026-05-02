@@ -1,22 +1,22 @@
 {
-  "update_time": "2026-05-02 03:13:07",
+  "update_time": "2026-05-03 03:00:03",
   "source1": {
     "name": "iptv4 (央视频道/卫视频道/地方频道)",
-    "remote_total": 541,
+    "remote_total": 557,
     "remote_target": 375,
-    "active_before": 336,
-    "active_after": 339,
-    "dead": 120,
-    "new_added": 3,
-    "total": 339
+    "active_before": 339,
+    "active_after": 340,
+    "dead": 119,
+    "new_added": 1,
+    "total": 340
   },
   "source2": {
     "name": "iptv-org (国际频道)",
-    "remote_total": 11749,
-    "active_before": 6156,
-    "active_after": 6161,
-    "dead": 5618,
-    "new_added": 5,
-    "total": 6161
+    "remote_total": 11752,
+    "active_before": 6161,
+    "active_after": 6168,
+    "dead": 5622,
+    "new_added": 7,
+    "total": 6168
   }
 }
