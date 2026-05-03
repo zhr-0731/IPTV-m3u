@@ -1,10 +1,8 @@
 #EXTM3U url-tvg="https://zhr-0731.github.io/IPTV-m3u/epg/epg.xml"
-#EXTINF:-1 tvg-name="CCTV1" tvg-id="52" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道", CCTV1
-http://play.kankanlive.com/live/1661761962676984.m3u8
 #EXTINF:-1 tvg-id="CCTV1.cn" tvg-logo="https://pic.baike.soso.com/ugc/baikepic2/4334/20220420231935-523951344_png_480_480_88031.jpg/300" group-title="央视",CCTV1
 http://tvlist.top/jd/index.php?id=cctv1&qt=118.212.78.251:8014
-#EXTINF:-1 tvg-name="CCTV4" tvg-id="CCTV-4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道", CCTV4
-http://74.91.26.218:82/live/cctv4hd.m3u8
+#EXTINF:-1 tvg-name="CCTV1" tvg-id="52" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道", CCTV1
+http://play.kankanlive.com/live/1661761962676984.m3u8
 #EXTINF:-1 tvg-id="CCTV10.cn" tvg-logo="https://www.5icctv.com/wp-content/uploads/2022/04/3-1.jpg" group-title="央视",CCTV10
 http://hlszymgsplive.miguvideo.com:8080/migu/kailu/cctv10hd265/54/20200407/index.m3u8?msisdn=faa141c962476b57c31730fcb750523f&mdspid=&spid=699004&netType=0&sid=5500212874&pid=2028597139&timestamp=20251227202413&Channel_ID=0116_2600037000-99000-200300220100002&ProgramID=624878405&ParentNodeID=-99&assertID=5500212874&client_ip=58.22.56.206&SecurityKey=20251227202413&promotionId=&mvid=5100001696&mcid=500020&playurlVersion=WX-A1-8.12.2-RELEASE&userid=1831293380&jmhm=faa141c962476b57c31730fcb750523f&videocodec=h265&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&encrypt=e24aeaf25a1bda69bdf6ed2c5b9c6801&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV13.cn" tvg-logo="https://ts1.tc.mm.bing.net/th/id/R-C.575f1359af699067b7fe7aded28529d0?rik=0M9URAGXQPncZQ&riu=http%3a%2f%2ftv.haoqu99.com%2fd%2ffile%2f2014%2f0111%2f20140111090148166.jpg&ehk=5IEJRAhE91XzaV0NgKvVSmTJHkAjx%2ft5nWQUTS5c5bQ%3d&risl=&pid=ImgRaw&r=0" group-title="央视",CCTV13
@@ -135,6 +133,8 @@ http://tmpstream.hyrtv.cn/hygg/sd/live.m3u8
 http://tmpstream.hyrtv.cn/xwzh/sd/live.m3u8
 #EXTINF:-1 tvg-name="泗洪新闻综合" tvg-id="泗洪新闻综合" tvg-logo="https://tb.zbds.top/logo/泗洪新闻综合.png" group-title="地方频道", 泗洪新闻综合
 http://live1.habctv.com/ggpdsl/sd/live.m3u8?zjiangsd#http://live1.habctv.com/ggpdsl/sd/live.m3u8
+#EXTINF:-1 tvg-name="泗阳综合" tvg-id="泗阳综合" tvg-logo="https://tb.zbds.top/logo/泗阳综合.png" group-title="地方频道", 泗阳综合
+http://3739115337.cloudvdn.com/a.m3u8?domain=siyang-tv-hls.cm.jstv.com&player=nwEAAKHdjSKP_58X&secondToken=secondToken%3A5FUijZmDyNMxtCDdne0YzSAwjuw&streamid=siyang-tv%3Asiyang-tv%2Fsiyangzh&v3=1
 #EXTINF:-1 tvg-name="泸县新闻综合" tvg-id="泸县新闻综合" tvg-logo="https://tb.zbds.top/logo/泸县新闻综合.png" group-title="地方频道", 泸县新闻综合
 http://lxfile.lxxcb.cn/nmip-media/channellive/channel103799/playlist.m3u8
 #EXTINF:-1 tvg-name="涟水电视台综合" tvg-id="涟水电视台综合" tvg-logo="https://tb.zbds.top/logo/涟水电视台综合.png" group-title="地方频道", 涟水电视台综合
@@ -183,6 +183,10 @@ http://live.yantaitv.cn/live/27f84144e95a4652ae9e5c211b2a6b55/405f3e33ba384aa0a1
 http://222.179.42.129:8181/hls1.m3u8
 #EXTINF:-1 tvg-name="甘孜综合" tvg-id="甘孜综合" tvg-logo="https://tb.zbds.top/logo/甘孜综合.png" group-title="地方频道", 甘孜综合
 http://tv.drs.ganzitv.com:8100/channellive/gztv.flv
+#EXTINF:-1 tvg-name="甘肃经济" tvg-id="甘肃经济" tvg-logo="https://tb.zbds.top/logo/甘肃经济.png" group-title="地方频道", 甘肃经济
+https://satellitepull.cnr.cn/live/wxgshhzs/playlist.m3u8
+#EXTINF:-1 tvg-name="甘肃都市" tvg-id="甘肃都市" tvg-logo="https://tb.zbds.top/logo/甘肃都市.png" group-title="地方频道", 甘肃都市
+https://satellitepull.cnr.cn/live/wxgsdstb/playlist.m3u8
 #EXTINF:-1 tvg-name="登封综合" tvg-id="登封综合" tvg-logo="https://tb.zbds.top/logo/登封综合.png" group-title="地方频道", 登封综合
 http://tvpull.dxhmt.cn:9081/tv/10185-1.m3u8
 #EXTINF:-1 tvg-name="白银综合" tvg-id="白银综合" tvg-logo="https://tb.zbds.top/logo/白银综合.png" group-title="地方频道", 白银综合
