@@ -3,8 +3,6 @@
 http://112.27.235.94:8000/hls/2/index.m3u8
 #EXTINF:-1 tvg-name="CCTV3" tvg-id="CCTV3" tvg-logo="https://tb.zbds.top/logo/CCTV3.png" group-title="央视频道", CCTV3
 http://39.152.103.17:8089/tsfile/live/1002_1.m3u8
-#EXTINF:-1 tvg-name="CCTV4" tvg-id="CCTV-4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道", CCTV4
-http://74.91.26.218:82/live/cctv4hd.m3u8
 #EXTINF:-1 tvg-name="CCTV4K" tvg-id="CCTV4K" tvg-logo="https://tb.zbds.top/logo/CCTV4K.png" group-title="央视频道", CCTV4K
 http://vip1.xinketongxun.fun:8082/tsfile/live/1026_1.m3u8
 #EXTINF:-1 tvg-name="CCTV5" tvg-id="89" tvg-logo="https://tb.zbds.top/logo/CCTV5.png" group-title="央视频道", CCTV5
@@ -173,8 +171,6 @@ https://wstvcpudali.v.myalicdn.com/wstvcpud/udrmbtv7_1/index.m3u8?adapt=0&BR=aud
 http://player.cntv.cn/standard/live_HLSDRM20180606.swf?ChannelID=btv3&P2PChannelID=pd://cctv_p2p_hdbtv3
 #EXTINF:-1 tvg-name="北京青年" tvg-id="北京青年" tvg-logo="https://tb.zbds.top/logo/北京青年.png" group-title="地方频道", 北京青年
 http://player.cntv.cn/standard/live_HLSDRM20180919.swf?v=180.171.5.8.9.6.3.9&ChannelID=btv8&videoTVChannel=btv8&P2PChannelID=pd://cctv_p2p_hdbtv8&tai=btv8&VideoName=btv8&channelID=btv8
-#EXTINF:-1 tvg-name="北海新闻综合" tvg-id="北海新闻综合" tvg-logo="https://tb.zbds.top/logo/北海新闻综合.png" group-title="地方频道", 北海新闻综合
-https://live.gxrb.com.cn/gx/beihai/index.m3u8
 #EXTINF:-1 tvg-name="南京教科" tvg-id="南京教科" tvg-logo="https://tb.zbds.top/logo/南京教科.png" group-title="地方频道", 南京教科
 http://nklive.nbs.cn/hls/75b3c462-b831-4de7-a34b-5d3221db2069/index.m3u8
 #EXTINF:-1 tvg-name="南京新闻综合" tvg-id="南京新闻综合" tvg-logo="https://tb.zbds.top/logo/南京新闻综合.png" group-title="地方频道", 南京新闻综合
@@ -345,8 +341,6 @@ https://m3u8channel.yunxya.com/nmip-media/channellive/channel100028/playlist.m3u
 http://channel.wcrmt.cn:80/nmip-media/channellive/channel105268/playlist.m3u8
 #EXTINF:-1 tvg-name="昌黎综合" tvg-id="昌黎综合" tvg-logo="https://tb.zbds.top/logo/昌黎综合.png" group-title="地方频道", 昌黎综合
 https://jwcdnqx.hebyun.com.cn/live/clzhpd/1500k/tzwj_video.m3u8
-#EXTINF:-1 tvg-name="易门综合" tvg-id="易门综合" tvg-logo="https://tb.zbds.top/logo/易门综合.png" group-title="地方频道", 易门综合
-https://zb-live.ynurl.com/yimen/3b75a2f9-7941-46b7-992d-a9796fbca5fe.m3u8
 #EXTINF:-1 tvg-name="普陀新闻综合" tvg-id="普陀新闻综合" tvg-logo="https://tb.zbds.top/logo/普陀新闻综合.png" group-title="地方频道", 普陀新闻综合
 http://l.cztvcloud.com/channels/lantian/SXputuo1/720p.m3u8
 #EXTINF:-1 tvg-name="普陀电视台" tvg-id="普陀电视台" tvg-logo="https://tb.zbds.top/logo/普陀电视台.png" group-title="地方频道", 普陀电视台
@@ -581,8 +575,6 @@ http://120.76.248.139/live/bfgd/4200000076.m3u8
 http://120.76.248.139/live/bfgd/4200000068.m3u8
 #EXTINF:-1 tvg-name="通化县综合" tvg-id="通化县综合" tvg-logo="https://tb.zbds.top/logo/通化县综合.png" group-title="地方频道", 通化县综合
 http://stream3.jlntv.cn:80/aac_thxgb/playlist.m3u8
-#EXTINF:-1 tvg-name="通海电视台" tvg-id="通海电视台" tvg-logo="https://tb.zbds.top/logo/通海电视台.png" group-title="地方频道", 通海电视台
-https://zb-live.ynurl.com/tonghai/3bfe3a9e-48e6-4c1e-8770-1df66447cc6c.m3u8
 #EXTINF:-1 tvg-name="遂昌综合" tvg-id="遂昌综合" tvg-logo="https://tb.zbds.top/logo/遂昌综合.png" group-title="地方频道", 遂昌综合
 http://l.cztvcloud.com/channels/lantian/SXsuichang1/720p.m3u8?zzhed
 #EXTINF:-1 tvg-name="邢台生活" tvg-id="邢台生活" tvg-logo="https://tb.zbds.top/logo/邢台生活.png" group-title="地方频道", 邢台生活

@@ -3,6 +3,8 @@
 http://tvlist.top/jd/index.php?id=cctv1&qt=118.212.78.251:8014
 #EXTINF:-1 tvg-name="CCTV1" tvg-id="52" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道", CCTV1
 http://play.kankanlive.com/live/1661761962676984.m3u8
+#EXTINF:-1 tvg-name="CCTV4" tvg-id="CCTV-4" tvg-logo="https://tb.zbds.top/logo/CCTV4.png" group-title="央视频道", CCTV4
+http://74.91.26.218:82/live/cctv4hd.m3u8
 #EXTINF:-1 tvg-id="CCTV10.cn" tvg-logo="https://www.5icctv.com/wp-content/uploads/2022/04/3-1.jpg" group-title="央视",CCTV10
 http://hlszymgsplive.miguvideo.com:8080/migu/kailu/cctv10hd265/54/20200407/index.m3u8?msisdn=faa141c962476b57c31730fcb750523f&mdspid=&spid=699004&netType=0&sid=5500212874&pid=2028597139&timestamp=20251227202413&Channel_ID=0116_2600037000-99000-200300220100002&ProgramID=624878405&ParentNodeID=-99&assertID=5500212874&client_ip=58.22.56.206&SecurityKey=20251227202413&promotionId=&mvid=5100001696&mcid=500020&playurlVersion=WX-A1-8.12.2-RELEASE&userid=1831293380&jmhm=faa141c962476b57c31730fcb750523f&videocodec=h265&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&encrypt=e24aeaf25a1bda69bdf6ed2c5b9c6801&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CCTV13.cn" tvg-logo="https://ts1.tc.mm.bing.net/th/id/R-C.575f1359af699067b7fe7aded28529d0?rik=0M9URAGXQPncZQ&riu=http%3a%2f%2ftv.haoqu99.com%2fd%2ffile%2f2014%2f0111%2f20140111090148166.jpg&ehk=5IEJRAhE91XzaV0NgKvVSmTJHkAjx%2ft5nWQUTS5c5bQ%3d&risl=&pid=ImgRaw&r=0" group-title="央视",CCTV13
@@ -35,6 +37,8 @@ http://124.88.144.73:1935/live/xwzh/playlist.m3u8?zxinjd
 http://tvpull.dxhmt.cn:9081/tv/11325-1.m3u8?%E5%85%B3%E6%B3%A8%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7[%E6%99%B4%E5%9B%AD]
 #EXTINF:-1 tvg-name="内黄综合" tvg-id="内黄综合" tvg-logo="https://tb.zbds.top/logo/内黄综合.png" group-title="地方频道", 内黄综合
 http://tvpull.dxhmt.cn:9081/tv/10527-1.m3u8
+#EXTINF:-1 tvg-name="北海新闻综合" tvg-id="北海新闻综合" tvg-logo="https://tb.zbds.top/logo/北海新闻综合.png" group-title="地方频道", 北海新闻综合
+https://live.gxrb.com.cn/gx/beihai/index.m3u8
 #EXTINF:-1 tvg-name="南京十八" tvg-id="南京十八" tvg-logo="https://tb.zbds.top/logo/南京十八.png" group-title="地方频道", 南京十八
 https://mgtv.ottiptv.cc/migu/838151753.m3u8?migutoken=e1c3c9e2e67541d90ea94c4c917f96ecf43c6c0ae7c616929d8676e7c14bc5587ba870ce22575333640bfff61b05d4d468f6564c6251023f1ad20957cfe3b2c12e71b4662f83dce5d920a86c29
 #EXTINF:-1 tvg-name="南宁公共" tvg-id="南宁公共" tvg-logo="https://tb.zbds.top/logo/南宁公共.png" group-title="地方频道", 南宁公共
@@ -109,6 +113,8 @@ https://stream.thmz.com/wxtv4/playlist.m3u8
 https://stream.thmz.com/wxtv5/playlist.m3u8
 #EXTINF:-1 tvg-name="无锡都市资讯" tvg-id="无锡都市资讯" tvg-logo="https://tb.zbds.top/logo/无锡都市资讯.png" group-title="地方频道", 无锡都市资讯
 http://stream.thmz.com/wxtv3/playlist.m3u8
+#EXTINF:-1 tvg-name="易门综合" tvg-id="易门综合" tvg-logo="https://tb.zbds.top/logo/易门综合.png" group-title="地方频道", 易门综合
+https://zb-live.ynurl.com/yimen/3b75a2f9-7941-46b7-992d-a9796fbca5fe.m3u8
 #EXTINF:-1 tvg-name="景泰综合" tvg-id="景泰综合" tvg-logo="https://tb.zbds.top/logo/景泰综合.png" group-title="地方频道", 景泰综合
 https://play.kankanlive.com/live/1624439143745981.m3u8?zgand
 #EXTINF:-1 tvg-name="武威新闻" tvg-id="武威新闻" tvg-logo="https://tb.zbds.top/logo/武威新闻.png" group-title="地方频道", 武威新闻
@@ -207,6 +213,8 @@ http://tvpull.dxhmt.cn:9081/tv/11622-1.m3u8
 https://play.kankanlive.com/live/1659926941626981.m3u8
 #EXTINF:-1 tvg-name="西峰综合" tvg-id="西峰综合" tvg-logo="https://tb.zbds.top/logo/西峰综合.png" group-title="地方频道", 西峰综合
 https://play.kankanlive.com/live/1683944827526991.m3u8
+#EXTINF:-1 tvg-name="通海电视台" tvg-id="通海电视台" tvg-logo="https://tb.zbds.top/logo/通海电视台.png" group-title="地方频道", 通海电视台
+https://zb-live.ynurl.com/tonghai/3bfe3a9e-48e6-4c1e-8770-1df66447cc6c.m3u8
 #EXTINF:-1 tvg-name="通渭综合" tvg-id="通渭综合" tvg-logo="https://tb.zbds.top/logo/通渭综合.png" group-title="地方频道", 通渭综合
 https://play.kankanlive.com/live/1725005047185027.m3u8
 #EXTINF:-1 tvg-name="郏县综合" tvg-id="郏县综合" tvg-logo="https://tb.zbds.top/logo/郏县综合.png" group-title="地方频道", 郏县综合
