@@ -1,12 +1,14 @@
 name: Update Radio M3U
 
 on:
-  workflow_dispatch:   # 仅允许手动触发
+  workflow_dispatch:   # 仅手动触发
+
+permissions:
+  contents: write      # 赋予写入权限
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -17,8 +19,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: |
-          pip install requests
+        run: pip install requests
 
       - name: Generate M3U
         run: python generate_m3u.py
@@ -28,7 +29,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add radio-2.m3u
-          git diff --staged --quiet || git commit -m "Manual update: radio-2.m3u"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git diff --staged --quiet || git commit -m "Manual update: radio-2.m3u" && git push
