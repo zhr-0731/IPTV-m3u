@@ -1,10 +1,12 @@
-name: Update Radio M3U
+name: Update Radio M3U Files
 
 on:
-  workflow_dispatch:   # 仅手动触发
+  schedule:
+    - cron: "0 0 */15 * *"   # 每15天的00:00 UTC
+  workflow_dispatch:          # 手动触发
 
 permissions:
-  contents: write      # 赋予写入权限
+  contents: write
 
 jobs:
   build:
@@ -21,12 +23,12 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: Generate M3U
+      - name: Generate M3U files
         run: python generate_m3u.py
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add radio-2.m3u
-          git diff --staged --quiet || git commit -m "Manual update: radio-2.m3u" && git push
+          git add radio-global.m3u radio-CN.m3u radio-US.m3u radio-UK.m3u
+          git diff --staged --quiet || git commit -m "Auto update radio M3U files [skip ci]" && git push
