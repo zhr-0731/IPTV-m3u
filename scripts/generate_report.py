@@ -125,6 +125,9 @@ def generate_report():
 ## 📸 仪表盘截图
 
 ![IPTV 仪表盘](img/dashboard.png)
+
+# 捐赠|Donate
+![捐赠二维码(微信)](img/IMG_10463.png)
 """
     return report, update_time, stats1, stats2, count1, count2
 
