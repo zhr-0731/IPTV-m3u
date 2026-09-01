@@ -269,7 +269,7 @@ https://lhttp.qtfm.cn/live/15318317/64k.mp3
 http://ngcdn002.cnr.cn/live/zgzs/index.m3u8
 #EXTINF:-1 tvg-name="CNR-1 中国之声" group-title="news" country="China" language="chinese" codec="UNKNOWN",CNR-1 中国之声 - China
 https://piccpndali.v.myalicdn.com/audio/cctv2_2.m3u8?
-#EXTINF:-1 tvg-name="CNR-1 中国之声" group-title="information" country="China" language="chinese" bitrate="215" codec="UNKNOWN",CNR-1 中国之声 - China - 215kbps
+#EXTINF:-1 tvg-name="CNR-1 中国之声" group-title="information" country="China" language="chinese" bitrate="226" codec="UNKNOWN",CNR-1 中国之声 - China - 226kbps
 http://zbbf2.ahbztv.com/live/4f3.m3u8
 #EXTINF:-1 tvg-logo="https://ytmedia.radio.cn/CCYT/202302/09/16/ooaRWbtET4tHDAMFR2023020916528.png" tvg-name="CNR-1 中国之声" group-title="information" country="China" language="chinese" codec="UNKNOWN",CNR-1 中国之声 - China
 https://satellitepull.cnr.cn/live/wxzgzs/playlist.m3u8?wsSession=28e11e3debee46427a9d53dc-174908087306150&wsIPSercert=f7b6cfa8467acd0836b62cf14aa786d3
@@ -439,7 +439,7 @@ https://satellitepull.cnr.cn/live/wxahjtgb/playlist.m3u8?wsSession=99789a08add4e
 http://live.dxhmt.cn:9081/tv/11526-1.m3u8
 #EXTINF:-1 tvg-name="Kaihwa TV" group-title="China" country="China" language="chinese" codec="UNKNOWN",Kaihwa TV - China
 http://l.cztvcloud.com/channels/lantian/SXkaihua1/720p.m3u8
-#EXTINF:-1 tvg-logo="https://media2.fishtank.my/stations/astro-kbs-world/updated/square_md.png" tvg-name="KBS韩国国际广播电台" group-title="international" country="China" language="chinese" bitrate="129" codec="AAC",KBS韩国国际广播电台 - China - 129kbps
+#EXTINF:-1 tvg-logo="https://media2.fishtank.my/stations/astro-kbs-world/updated/square_md.png" tvg-name="KBS韩国国际广播电台" group-title="international" country="China" language="chinese" bitrate="127" codec="AAC",KBS韩国国际广播电台 - China - 127kbps
 https://api.xmgspace.me/api/kbs-stream/
 #EXTINF:-1 tvg-name="Kiangsi Financial Radio" group-title="China" country="China" language="chinese" codec="MP3",Kiangsi Financial Radio - China
 http://lhttp.qingting.fm/live/5021665/64k.mp3
@@ -557,7 +557,7 @@ https://stream.zeno.fm/afh4crom56mvv
 https://lhttp.qingting.fm/live/267/64k.mp3?listening-from-radio-garden=1696445196
 #EXTINF:-1 tvg-name="Shandong RGD Life Channel" group-title="mandopop" country="China" language="chinese" bitrate="176" codec="UNKNOWN",Shandong RGD Life Channel - China - 176kbps
 https://audiolive302.iqilu.com/sdradioShenghuo/sdradio04/playlist.m3u8
-#EXTINF:-1 tvg-name="Shandong RGD Life Channel" group-title="mandopop" country="China" language="chinese" bitrate="162" codec="UNKNOWN",Shandong RGD Life Channel - China - 162kbps
+#EXTINF:-1 tvg-name="Shandong RGD Life Channel" group-title="mandopop" country="China" language="chinese" bitrate="227" codec="UNKNOWN",Shandong RGD Life Channel - China - 227kbps
 https://audiolive302.iqilu.com/sdradioShenghuo/sdradio04/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://thumbnails.odycdn.com/optimize/s:300:0/quality:95/plain/https://thumbs.odycdn.com/0d1b7857e184a813b5c5adf14ee00aba.webp" tvg-name="Shanghai Beat Radio" group-title="China" country="China" codec="OGG",Shanghai Beat Radio - China
 http://89.144.8.245:8000/SHBR.ogg
@@ -785,7 +785,7 @@ http://stream3.jlntv.cn/dfgb/playlist.m3u8
 https://lhttp-hw.qtfm.cn/live/20211653/64k.mp3
 #EXTINF:-1 tvg-logo="https://www.smg.cn/favicon.ico" tvg-name="东方卫视伴音" group-title="China" country="China" language="chinese" codec="UNKNOWN",东方卫视伴音 - China
 https://piccpndali.v.myalicdn.com/audio/dongfang_2.m3u8
-#EXTINF:-1 tvg-name="东方购物" group-title="China" country="China" language="chinese" bitrate="1096" codec="UNKNOWN",东方购物 - China - 1096kbps
+#EXTINF:-1 tvg-name="东方购物" group-title="China" country="China" language="chinese" bitrate="1196" codec="UNKNOWN",东方购物 - China - 1196kbps
 http://ocj2.kksmg.com/ocj2/ocj2.m3u8
 #EXTINF:-1 tvg-logo="https://thmr.yunmoan.cn/././icons/icon-512.png" tvg-name="东方音乐电台 THMR" group-title="japanese" country="China" codec="MP3",东方音乐电台 THMR - China
 https://radio.yunmoan.cn/radio/touhou/320k
@@ -995,7 +995,7 @@ https://lhttp.qtfm.cn/live/20207772/64k.mp3
 https://lhttp-hw.qtfm.cn/live/5022520/64k.mp3
 #EXTINF:-1 tvg-logo="https://pic.qtfm.cn/sso/198/1631607929123_cINLQNmLy.jpeg" tvg-name="京津冀之声" group-title="100.6" country="China" language="chinese" codec="MP3",京津冀之声 - China
 https://lhttp.qtfm.cn/live/5022463/64k.mp3
-#EXTINF:-1 tvg-name="亳州交通音乐广播" group-title="music" country="China" language="chinese" bitrate="131" codec="UNKNOWN",亳州交通音乐广播 - China - 131kbps
+#EXTINF:-1 tvg-name="亳州交通音乐广播" group-title="music" country="China" language="chinese" bitrate="132" codec="UNKNOWN",亳州交通音乐广播 - China - 132kbps
 http://zbbf2.ahbztv.com/live/41c.m3u8
 #EXTINF:-1 tvg-name="亳州综合广播" group-title="news" country="China" language="chinese" bitrate="132" codec="UNKNOWN",亳州综合广播 - China - 132kbps
 http://zbbf2.ahbztv.com/live/41a.m3u8
@@ -1819,9 +1819,9 @@ https://lhttp-hw.qtfm.cn/live/5021862/64k.mp3
 http://lhttp.qingting.fm/live/5021861/64k.mp3
 #EXTINF:-1 tvg-logo="https://pic.qtfm.cn/2020/0311/20200311053004.png" tvg-name="安徽交通广播" group-title="traffic" country="China" language="chinese" codec="MP3",安徽交通广播 - China
 https://lhttp.qtfm.cn/live/1949/64k.mp3
-#EXTINF:-1 tvg-logo="https://pic.qtfm.cn/2020/0311/20200311053004.png" tvg-name="安徽交通广播" group-title="traffic" country="China" language="chinese" bitrate="223" codec="UNKNOWN",安徽交通广播 - China - 223kbps
+#EXTINF:-1 tvg-logo="https://pic.qtfm.cn/2020/0311/20200311053004.png" tvg-name="安徽交通广播" group-title="traffic" country="China" language="chinese" bitrate="226" codec="UNKNOWN",安徽交通广播 - China - 226kbps
 https://satellitepull.cnr.cn/live/wxahjtgb/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://pic.qtfm.cn/2020/0311/20200311053004.png" tvg-name="安徽交通广播" group-title="China" country="China" language="chinese" bitrate="223" codec="UNKNOWN",安徽交通广播 - China - 223kbps
+#EXTINF:-1 tvg-logo="https://pic.qtfm.cn/2020/0311/20200311053004.png" tvg-name="安徽交通广播" group-title="China" country="China" language="chinese" bitrate="230" codec="UNKNOWN",安徽交通广播 - China - 230kbps
 http://satellitepull.cnr.cn/live/wxahjtgb/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://pic.qtfm.cn/2020/0311/20200311053004.png" tvg-name="安徽交通广播 高清" group-title="traffic information" country="China" language="chinese" codec="UNKNOWN",安徽交通广播 高清 - China
 http://satellitepull.cnr.cn/live/wxahjtgb/playlist.m3u8?wsSession=d966c1f28016a758d88ba0c2-174830326162340&wsIPSercert=cd39a342afce39d82188ebae3a31d1b8
@@ -1939,9 +1939,9 @@ https://lhttp-hw.qtfm.cn/live/20211663/64k.mp3
 https://lhttp-hw.qtfm.cn/live/15318332/64k.mp3
 #EXTINF:-1 tvg-logo="http://pic.qtfm.cn/sso/48/1758784890208_OHBd7firT.png" tvg-name="尤溪综合广播" group-title="entertainment" country="China" language="chinese" codec="MP3",尤溪综合广播 - China
 https://lhttp-hw.qtfm.cn/live/5022498/64k.mp3
-#EXTINF:-1 tvg-logo="http://news.iqilu.com/favicon.ico" tvg-name="山东乡村广播" group-title="agriculture" country="China" language="chinese" bitrate="171" codec="UNKNOWN",山东乡村广播 - China - 171kbps
+#EXTINF:-1 tvg-logo="http://news.iqilu.com/favicon.ico" tvg-name="山东乡村广播" group-title="agriculture" country="China" language="chinese" bitrate="170" codec="UNKNOWN",山东乡村广播 - China - 170kbps
 http://audiolive302.iqilu.com/sdradioXiangcun/sdradio06/playlist.m3u8
-#EXTINF:-1 tvg-logo="http://v.iqilu.com/favicon.ico" tvg-name="山东交通广播" group-title="traffic" country="China" language="chinese" bitrate="167" codec="UNKNOWN",山东交通广播 - China - 167kbps
+#EXTINF:-1 tvg-logo="http://v.iqilu.com/favicon.ico" tvg-name="山东交通广播" group-title="traffic" country="China" language="chinese" bitrate="161" codec="UNKNOWN",山东交通广播 - China - 161kbps
 http://audiolive302.iqilu.com/sdradioJiaotong/sdradio05/playlist.m3u8
 #EXTINF:-1 tvg-logo="http://news.iqilu.com/favicon.ico" tvg-name="山东体育休闲广播（2）" group-title="sports" country="China" language="chinese" bitrate="174" codec="UNKNOWN",山东体育休闲广播（2） - China - 174kbps
 http://audiolive302.iqilu.com/sdradioTiyu/sdradio08/playlist.m3u8
@@ -1949,7 +1949,7 @@ http://audiolive302.iqilu.com/sdradioTiyu/sdradio08/playlist.m3u8
 https://piccpndali.v.myalicdn.com/audio/shandong_2.m3u8
 #EXTINF:-1 tvg-logo="http://pic.qingting.fm/2021/0817/20210817030731.jpeg" tvg-name="山东文艺广播" group-title="entertainment" country="China" language="chinese" codec="MP3",山东文艺广播 - China
 https://lhttp.qtfm.cn/live/20238/64k.mp3
-#EXTINF:-1 tvg-logo="http://www.iqilu.com/favicon.ico" tvg-name="山东经典音乐广播" group-title="music" country="China" language="chinese" bitrate="174" codec="UNKNOWN",山东经典音乐广播 - China - 174kbps
+#EXTINF:-1 tvg-logo="http://www.iqilu.com/favicon.ico" tvg-name="山东经典音乐广播" group-title="music" country="China" language="chinese" bitrate="224" codec="UNKNOWN",山东经典音乐广播 - China - 224kbps
 http://audiolive302.iqilu.com/sdradioShenghuo/sdradio04/playlist.m3u8
 #EXTINF:-1 tvg-logo="http://pic.qingting.fm/2017/0113/20170113053011.jpeg" tvg-name="山东经济广播" group-title="economics" country="China" language="chinese" codec="MP3",山东经济广播 - China
 https://lhttp.qtfm.cn/live/20236/64k.mp3
@@ -1957,7 +1957,7 @@ https://lhttp.qtfm.cn/live/20236/64k.mp3
 https://lhttp-hw.qtfm.cn/live/20211680/64k.mp3
 #EXTINF:-1 tvg-logo="http://pic.qtfm.cn/2015/1104/20151104112112387.jpg!200" tvg-name="山东综合广播" group-title="full service" country="China" language="chinese" codec="MP3",山东综合广播 - China
 https://lhttp.qtfm.cn/live/20234/64k.mp3
-#EXTINF:-1 tvg-logo="http://v.iqilu.com/favicon.ico" tvg-name="山东音乐广播" group-title="music" country="China" language="chinese" bitrate="161" codec="UNKNOWN",山东音乐广播 - China - 161kbps
+#EXTINF:-1 tvg-logo="http://v.iqilu.com/favicon.ico" tvg-name="山东音乐广播" group-title="music" country="China" language="chinese" bitrate="151" codec="UNKNOWN",山东音乐广播 - China - 151kbps
 http://audiolive302.iqilu.com/sdradioYinyue/sdradio07/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://pic.qtfm.cn/sso/48/1725527980478_BKXMPW2oW.png" tvg-name="山亭声动970" group-title="entertainment" country="China" language="chinese" codec="MP3",山亭声动970 - China
 https://lhttp-hw.qtfm.cn/live/20500047/64k.mp3
@@ -2937,11 +2937,11 @@ https://stream.hndt.com/live/sijiache/playlist.m3u8
 http://lhttp.qingting.fm/live/20210755/64k.mp3
 #EXTINF:-1 tvg-logo="https://cmsres.dianzhenkeji.com/files/images/2017/06/23/1498188242717818.png" tvg-name="河南经济广播" group-title="music" country="China" language="chinese" bitrate="64" codec="AAC",河南经济广播 - China - 64kbps
 https://stream.hndt.com/live/jingji/playlist.m3u8
-#EXTINF:-1 tvg-logo="https://cmsres.dianzhenkeji.com/files/images/2019/03/28/1553753220447543.jpg" tvg-name="河南网络动感音乐台" group-title="music" country="China" language="chinese" bitrate="320" codec="MP3",河南网络动感音乐台 - China - 320kbps
+#EXTINF:-1 tvg-logo="https://cmsres.dianzhenkeji.com/files/images/2019/03/28/1553753220447543.jpg" tvg-name="河南网络动感音乐台" group-title="music" country="China" language="chinese" bitrate="128" codec="MP3",河南网络动感音乐台 - China - 128kbps
 http://stream3.hndt.com/now/ufjjbZxV/playlist.m3u8
 #EXTINF:-1 tvg-name="河南网络广播·天籁古典" group-title="classical" country="China" language="chinese" codec="MP3",河南网络广播·天籁古典 - China
 http://lhttp.qingting.fm/live/20210756/64k.mp3
-#EXTINF:-1 tvg-name="河南网络广播·安全百科网络台" group-title="music" country="China" language="chinese" bitrate="128" codec="MP3",河南网络广播·安全百科网络台 - China - 128kbps
+#EXTINF:-1 tvg-name="河南网络广播·安全百科网络台" group-title="music" country="China" language="chinese" bitrate="320" codec="MP3",河南网络广播·安全百科网络台 - China - 320kbps
 http://stream3.hndt.com/now/4pcovD2L/playlist.m3u8
 #EXTINF:-1 tvg-name="河南网络广播·摇滚天空台" group-title="music" country="China" language="chinese" bitrate="128" codec="MP3",河南网络广播·摇滚天空台 - China - 128kbps
 http://stream3.hndt.com/now/SXJtR4M4/playlist.m3u8
@@ -2957,7 +2957,7 @@ http://lhttp.qingting.fm/live/20207760/64k.mp3
 http://stream.hndt.com/live/1061/playlist.m3u8
 #EXTINF:-1 tvg-logo="https://cmsres.dianzhenkeji.com/files/images/2019/03/28/1553753143222941.jpg" tvg-name="河南网络格莱美音乐台 Grammy Radio" group-title="music" country="China" language="chinese" bitrate="128" codec="MP3",河南网络格莱美音乐台 Grammy Radio - China - 128kbps
 http://stream3.hndt.com/now/yorSd1X2/playlist.m3u8
-#EXTINF:-1 tvg-logo="http://cmsres.dianzhenkeji.com/files/images/2017/12/14/1513241941253315.png" tvg-name="河南网络经典FM" group-title="oldies" country="China" language="chinese" bitrate="320" codec="MP3",河南网络经典FM - China - 320kbps
+#EXTINF:-1 tvg-logo="http://cmsres.dianzhenkeji.com/files/images/2017/12/14/1513241941253315.png" tvg-name="河南网络经典FM" group-title="oldies" country="China" language="chinese" bitrate="128" codec="MP3",河南网络经典FM - China - 128kbps
 http://stream3.hndt.com/now/C5NvUpwy/playlist.m3u8
 #EXTINF:-1 tvg-name="河南警广之声" group-title="lifestyle" country="China" language="chinese" bitrate="128" codec="MP3",河南警广之声 - China - 128kbps
 http://stream3.hndt.com/now/prIgXGFo/playlist.m3u8
@@ -3027,7 +3027,7 @@ https://s1-fmt2.liveatc.net/rjtt_atis?nocache=2022041008015119728
 https://js1.amtb.cn/liveedge/_definst_/smil:livetv.smil/playlist.m3u8
 #EXTINF:-1 tvg-name="测试17" group-title="China" country="China" language="chinese" codec="UNKNOWN",测试17 - China
 http://cdn71.liveonlineservices.com/hls/stv.m3u8
-#EXTINF:-1 tvg-name="测试22" group-title="China" country="China" language="english" bitrate="1872" codec="AAC",测试22 - China - 1872kbps
+#EXTINF:-1 tvg-name="测试22" group-title="China" country="China" language="english" bitrate="1452" codec="AAC",测试22 - China - 1452kbps
 http://178.33.224.197:1935/euroindiemusic/euroindiemusic/playlist.m3u8
 #EXTINF:-1 tvg-name="测试23" group-title="China" country="China" language="chinese" bitrate="16" codec="MP3",测试23 - China - 16kbps
 http://d.liveatc.net/rcss2
@@ -3669,7 +3669,7 @@ http://live.shaoxing.com.cn/audio/s10001-xw1/index.m3u8
 http://lhttp.qingting.fm/live/5052/64k.mp3
 #EXTINF:-1 tvg-logo="http://img.shaoxing.com.cn/a/thumb/10001/201907/8bce752c2c560ddf9537fed0bd371476.jpg!w800_h600.jpg" tvg-name="绍兴综合广播" group-title="93.6" country="China" language="chinese" codec="UNKNOWN",绍兴综合广播 - China
 http://live.shaoxing.com.cn/audio/s10001-xw1/index.m3u8
-#EXTINF:-1 tvg-logo="http://v.iqilu.com/favicon.ico" tvg-name="经典105·山东经典音乐广播" group-title="golden music" country="China" language="chinese" bitrate="159" codec="UNKNOWN",经典105·山东经典音乐广播 - China - 159kbps
+#EXTINF:-1 tvg-logo="http://v.iqilu.com/favicon.ico" tvg-name="经典105·山东经典音乐广播" group-title="golden music" country="China" language="chinese" bitrate="161" codec="UNKNOWN",经典105·山东经典音乐广播 - China - 161kbps
 http://audiolive302.iqilu.com/sdradioShenghuo/sdradio04/playlist.m3u8
 #EXTINF:-1 tvg-name="经济之声" group-title="China" country="China" codec="UNKNOWN",经济之声 - China
 https://ngcdn002.cnr.cn/live/jjzs/index.m3u8
